@@ -2,8 +2,6 @@
 
 source ~/dotfiles/zsh/zshrc.default
 
-# export LC_ALL=en_US.UTF-8
-
 # added by Miniconda3 4.7.10 installer
 # >>> conda init >>>
 # !! Contents within this block are managed by 'conda init' !!

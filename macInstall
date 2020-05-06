@@ -1,0 +1,17 @@
+# install file for mac
+
+# create directories
+mkdir ~/.cache
+mkdir ~/.cache/vim
+mkdir ~/.cache/zsh
+
+
+# Install zPlug
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+# Install fuzzy file search
+brew install fzf the-silver-searcher
+
+# turn off conda prompt
+conda config --set changeps1 False
+
