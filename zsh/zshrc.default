@@ -1,6 +1,5 @@
 # My .zshrc default settings for all
 
-
 ####################
 # Helper functions #
 ####################
@@ -26,6 +25,8 @@ _append_to_path() {
 ###############
 # zSh general #
 ###############
+export TERM="xterm-256color"    # colors in tmux
+export EDITOR="vim"             # what else?
 export LC_ALL=en_US.UTF-8       # Locale setting
 autoload -U colors && colors    # enable colors
 
@@ -33,8 +34,6 @@ autoload -U colors && colors    # enable colors
 HISTSIZE=1000                   # increase history
 SAVEHIST=1000                   # increase saved history
 HISTFILE=~/.cache/zsh/history   # file to save history
-# Enable searching through history
-bindkey '^R' history-incremental-pattern-search-backward
 
 # Auto complete
 autoload -U compinit
@@ -49,16 +48,29 @@ _comp_options+=(globdots)		# Include hidden files.
 #########
 # zPlug #
 #########
-source ~/.zplug/init.zsh
+source $HOME/.zplug/init.zsh
 
 # plugins
+
+# solarized dir colors
+DIRCOLORS_SOLARIZED_ZSH_THEME="256dark"
+zplug "pinelibg/dircolors-solarized-zsh"
+
+# The coolest prompt
 zplug "denysdovhan/spaceship-prompt", \
     use:spaceship.zsh, \
     from:github, \
     as:theme
 
+# syntax highlighting while you type: green okay / red error
 zplug "zsh-users/zsh-syntax-highlighting", \
     defer:2
+
+# suggest which alias you should use
+zplug "MichaelAquilina/zsh-you-should-use"
+
+# auto suggestions while you time
+zplug "zsh-users/zsh-autosuggestions"
 
 # Source plugins and add commands to $PATH
 zplug load # --verbose
@@ -72,7 +84,7 @@ SPACESHIP_CONDA_PREFIX=" "
 SPACESHIP_GIT_SUFFIX=""
 SPACESHIP_GIT_BRANCH_SUFFIX=""
 SPACESHIP_PROMPT_ADD_NEWLINE=false
-SPACESHIP_PROMPT_SEPARATE_LINE=false
+SPACESHIP_PROMPT_SEPARATE_LINE=true
 # SPACESHIP_CHAR_SYMBOL=❯
 # SPACESHIP_CHAR_SUFFIX=" "
 SPACESHIP_HG_SHOW=false
@@ -104,19 +116,8 @@ SPACESHIP_JOBS_SHOW=false
 #######
 # fzf #
 #######
-
-# fzf via Homebrew (macbook)
-if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
-  source /usr/local/opt/fzf/shell/key-bindings.zsh
-  source /usr/local/opt/fzf/shell/completion.zsh
-fi
-
-## fzf via local installation (ecare)
-#if [ -e ~/.fzf ]; then
-#  _append_to_path ~/.fzf/bin
-#  source ~/.fzf/shell/key-bindings.zsh
-#  source ~/.fzf/shell/completion.zsh
-#fi
+source $HOME/dotfiles/fzf/key-bindings.zsh
+source $HOME/dotfiles/fzf/completion.zsh
 
 # fzf + ag configuration
 if _has fzf && _has ag; then
@@ -128,4 +129,9 @@ if _has fzf && _has ag; then
   --color info:108,prompt:109,spinner:108,pointer:168,marker:168
   '
 fi
+
+###########
+# aliases #
+###########
+source $HOME/dotfiles/zsh/aliases.zsh
 

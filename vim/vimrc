@@ -35,7 +35,7 @@ set showcmd 	           " show the last command in bottom
 "filetype indent on         " load filetype-specific indent files
 set lazyredraw             " only redraw screen when needed
 set showmatch              " highlight matching brackets/parethesis/curlies
-set clipboard=unnamed      " combine default clipboard with system clipboard
+set clipboard=unnamedplus  " combine default clipboard with system clipboard
 set mouse=a                " use mouse as well
 let mapleader=","          " leader is comma
 set laststatus=2           " always display the statusbar
@@ -50,7 +50,11 @@ set cursorcolumn	       " highlight current column of cursor
 " visual autocomplete in command menu
 set wildmenu
 set wildmode=longest:full,list
-set scrolloff=8 " Keep 3 lines below and above the cursor
+set scrolloff=8            " Keep 3 lines below and above the cursor
+" turn off auto commenting for ever. annoying as fuck
+autocmd BufNewFile,BufRead,FileType,OptionSet * set formatoptions-=cro
+autocmd BufNewFile,BufRead,FileType,OptionSet * setlocal formatoptions-=cro
+
 """""""""
 "" Search
 """""""""
