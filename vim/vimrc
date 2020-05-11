@@ -32,10 +32,10 @@ set softtabstop=4          " number of spaces per tab press
 set expandtab	           " convert tabs to spaces (tabs are bad okay?)
 set number	               " enable line numbering
 set showcmd 	           " show the last command in bottom
-"filetype indent on         " load filetype-specific indent files
+filetype indent on         " load filetype-specific indent files
 set lazyredraw             " only redraw screen when needed
 set showmatch              " highlight matching brackets/parethesis/curlies
-set clipboard=unnamedplus  " combine default clipboard with system clipboard
+set clipboard=unnamed      " combine default clipboard with system clipboard
 set mouse=a                " use mouse as well
 let mapleader=","          " leader is comma
 set laststatus=2           " always display the statusbar
@@ -54,6 +54,7 @@ set scrolloff=8            " Keep 3 lines below and above the cursor
 " turn off auto commenting for ever. annoying as fuck
 autocmd BufNewFile,BufRead,FileType,OptionSet * set formatoptions-=cro
 autocmd BufNewFile,BufRead,FileType,OptionSet * setlocal formatoptions-=cro
+set backspace=indent,eol,start " backspace works like regular backspace
 
 """""""""
 "" Search

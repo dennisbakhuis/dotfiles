@@ -3,7 +3,11 @@
 ###########
 # General #
 ###########
-alias ls='ls --color=auto'
+if [[ $OSTYPE == 'gnu-linux'* ]]; then
+  alias ls='ls --color=auto'
+else
+  alias ls='ls -G'
+fi
 
 #######
 # Vim #
@@ -27,6 +31,7 @@ alias gr='git reset'
 # Conda #
 #########
 alias ca='conda activate'
+alias cel='conda env list'
 
 
 

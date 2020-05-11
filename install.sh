@@ -80,6 +80,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
     echo "MacOs detected..."
 
+
+    # Mac ssh settings git
+    mkdir -p ~/.ssh
+    rm -f ~/.ssh/config
+    ln -s ~/dotfiles/ssh/config ~/.ssh/config
+
 else
     echo "Error: unknown OS"
     exit 1
