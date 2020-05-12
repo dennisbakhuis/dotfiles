@@ -31,8 +31,8 @@ export LC_ALL=en_US.UTF-8       # Locale setting
 autoload -U colors && colors    # enable colors
 
 # history
-HISTSIZE=1000                   # increase history
-SAVEHIST=1000                   # increase saved history
+HISTSIZE=10000                  # increase history
+SAVEHIST=10000                  # increase saved history
 HISTFILE=~/.cache/zsh/history   # file to save history
 
 # Auto complete
@@ -46,35 +46,31 @@ _comp_options+=(globdots)		# Include hidden files.
 
 
 #########
-# zPlug #
+# Zinit #
 #########
-source $HOME/.zplug/init.zsh
 
-# plugins
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
 
-# solarized dir colors
-DIRCOLORS_SOLARIZED_ZSH_THEME="256dark"
-zplug "pinelibg/dircolors-solarized-zsh"
-
-# The coolest prompt
-zplug "denysdovhan/spaceship-prompt", \
-    use:spaceship.zsh, \
-    from:github, \
-    as:theme
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
 
 # syntax highlighting while you type: green okay / red error
-zplug "zsh-users/zsh-syntax-highlighting", \
-    defer:2
+zinit light "zsh-users/zsh-syntax-highlighting"
 
-# suggest which alias you should use
-zplug "MichaelAquilina/zsh-you-should-use"
+# The coolest prompt
+zinit light "denysdovhan/spaceship-prompt"
 
-# auto suggestions while you time
-zplug "zsh-users/zsh-autosuggestions"
-
-# Source plugins and add commands to $PATH
-zplug load # --verbose
-
+# Auto jump
+zinit light "wting/autojump"
 
 #######################
 # Space-ship Settings #
@@ -135,3 +131,4 @@ fi
 ###########
 source $HOME/dotfiles/zsh/aliases.zsh
 
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh

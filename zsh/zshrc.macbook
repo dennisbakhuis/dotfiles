@@ -22,3 +22,4 @@ unset __conda_setup
 # flutter settings
 export PATH=$PATH:/Users/dennis/Documents/flutterbin/bin
 
+
