@@ -32,7 +32,7 @@ set softtabstop=4          " number of spaces per tab press
 set expandtab	           " convert tabs to spaces (tabs are bad okay?)
 set number	               " enable line numbering
 set showcmd 	           " show the last command in bottom
-filetype indent on         " load filetype-specific indent files
+filetype plugin indent on         " load filetype-specific indent files
 set lazyredraw             " only redraw screen when needed
 set showmatch              " highlight matching brackets/parethesis/curlies
 set clipboard=unnamed      " combine default clipboard with system clipboard
