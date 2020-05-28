@@ -5,9 +5,12 @@
 ###########
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias ls='ls --color=auto'
+  alias sum='inxi -Fxxxza --no-host'
 else
   alias ls='ls -G'
 fi
+alias sudo='sudo '
+alias gpu='nvidia-smi'
 
 #######
 # Vim #
@@ -32,6 +35,9 @@ alias gr='git reset'
 #########
 alias ca='conda activate'
 alias cel='conda env list'
+
+
+
 
 
 

@@ -33,6 +33,7 @@ autoload -U colors && colors    # enable colors
 # history
 HISTSIZE=10000                  # increase history
 SAVEHIST=10000                  # increase saved history
+mkdir -p ~/.cache/zsh           # create cache directory if not exists
 HISTFILE=~/.cache/zsh/history   # file to save history
 
 # Auto complete
@@ -126,17 +127,20 @@ if _has fzf && _has ag; then
   '
 fi
 
-###########
-# aliases #
-###########
+#####################
+# aliases & secrets #
+#####################
 source $HOME/dotfiles/zsh/aliases.zsh
+[[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
 
 ############
 # autojump #
 ############
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  source /usr/share/autojump/autojump.sh
+  source /usr/share/autojump/autojump.zsh
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 fi
+
+
 
