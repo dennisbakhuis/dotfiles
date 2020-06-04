@@ -19,7 +19,6 @@ alias v='vim'
 alias ez='vim ~/dotfiles/zsh/zshrc.default'
 alias ea='vim ~/dotfiles/zsh/aliases.zsh'
 
-
 #######
 # Git #
 #######
@@ -30,11 +29,14 @@ alias gc='git commit -v'
 alias gs='git status'
 alias gr='git reset'
 
-#########
-# Conda #
-#########
+#################
+# Conda Jupyter #
+#################
 alias ca='conda activate'
 alias cel='conda env list'
+alias crm='conda env remove --name'
+alias cce='conda create --name'
+alias jl='jupyter lab'
 
 
 

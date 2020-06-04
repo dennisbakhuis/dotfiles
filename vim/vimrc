@@ -11,8 +11,9 @@ Plug 'w0rp/ale'             " linting engine
 
 " Colorschemes
 " Plug 'morhetz/gruvbox'
-Plug 'sjl/badwolf'          " currently my favorite colorscheme now
-
+" Plug 'sjl/badwolf'          " currently my favorite colorscheme now
+" Plug 'chriskempson/base16-vim' " base16 colorscheme
+Plug 'NLKNguyen/papercolor-theme' " Papercolor
 call plug#end()
 
 """""""""""""""""
@@ -20,7 +21,11 @@ call plug#end()
 """""""""""""""""
 " colorscheme gruvbox
 " let g:gruvbox_italic=1
-colorscheme badwolf " I prefer badwolf for now
+" colorscheme badwolf " I prefer badwolf for now
+" colorscheme base16-default-dark
+" colorscheme base16-default-dark
+set background=dark
+colorscheme PaperColor
 
 """"""""""
 "" General
