@@ -87,21 +87,28 @@ window:
   #multiplier: 3
 
 # Font configuration (changes require restart)
-# font:
+font:
   # The normal (roman) font face to use.
-  # normal:
-  #   family: Hack NF
-  #   # Style can be specified to pick a specific face.
-  #   style: Regular
+  normal:
+    family: Hack NF
+    # Style can be specified to pick a specific face.
+    style: Regular
 
-  # # The bold font face
-  # bold:
-  #   family: Hack NF
-  #   # Style can be specified to pick a specific face.
-  #   style: Bold
+  # The bold font face
+  bold:
+    family: Hack NF
+    # Style can be specified to pick a specific face.
+    style: Bold
 
-  # # The italic font face
-  # italic:
-  #   family: Hack NF
-  #   # Style can be specified to pick a specific face.
-  #   style: Italic
+  # The italic font face
+  italic:
+    family: Hack NF
+    # Style can be specified to pick a specific face.
+    style: Italic
+key_bindings:
+  - { key: F11, action: ToggleFullscreen }
+  - { key: Add,    mods: Shift|Control,            action: IncreaseFontSize }
+  - { key: Minus,  mods: Shift|Control,            action: DecreaseFontSize }
+  - { key: W,      mods: Shift|Control,            action: Quit             }
+  - { key: N,      mods: Shift|Control,            action: SpawnNewInstance }
+
