@@ -38,8 +38,8 @@ alias crm='conda env remove --name'
 alias cce='conda create --name'
 alias jl='jupyter lab'
 
-
-
-
-
+##########
+# Docker #
+##########
+alias dps='python3 ~/dotfiles/python/docker-pretty-print/docker-pretty-print.py'
 
