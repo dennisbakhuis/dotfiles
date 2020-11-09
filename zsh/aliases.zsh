@@ -20,6 +20,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias ez='nvim ~/dotfiles/zsh/zshrc.default'
 alias ea='nvim ~/dotfiles/zsh/aliases.zsh'
+export EDITOR=nvim
 
 #######
 # Git #
@@ -40,8 +41,8 @@ alias crm='conda env remove --name'
 alias cce='conda create --name'
 alias jl='jupyter lab'
 
-
-
-
-
+##########
+# Docker #
+##########
+alias dps='python3 ~/dotfiles/python/docker-pretty-print/docker-pretty-print.py'
 
