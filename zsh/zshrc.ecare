@@ -2,8 +2,6 @@
 
 source ~/dotfiles/zsh/zshrc.default
 
-# export LC_ALL=en_US.UTF-8
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/dennis/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

@@ -27,7 +27,6 @@ _append_to_path() {
 ###############
 export TERM="xterm-256color"    # colors in tmux
 export EDITOR="vim"             # what else?
-export LC_ALL=en_US.UTF-8       # Locale setting
 autoload -U colors && colors    # enable colors
 
 # history
