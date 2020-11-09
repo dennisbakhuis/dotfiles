@@ -95,6 +95,10 @@ fi
 # cp ~/.vimrc $(_nextfilename ~/vimrc.old) # probably do not need backup
 rm -f ~/.vimrc
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
+# create nvim symlinks
+rm -f ~/.config/nvim/init.vim
+mkdir -p ~/.config/nvim
+ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
 
 # turn off conda prompt
 conda config --set changeps1 False
