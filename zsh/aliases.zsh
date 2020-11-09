@@ -15,9 +15,11 @@ alias gpu='nvidia-smi'
 #######
 # Vim #
 #######
-alias v='vim'
-alias ez='vim ~/dotfiles/zsh/zshrc.default'
-alias ea='vim ~/dotfiles/zsh/aliases.zsh'
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+alias ez='nvim ~/dotfiles/zsh/zshrc.default'
+alias ea='nvim ~/dotfiles/zsh/aliases.zsh'
 
 #######
 # Git #
