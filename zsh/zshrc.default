@@ -25,8 +25,8 @@ _append_to_path() {
 ###############
 # zSh general #
 ###############
-export TERM="xterm-256color"    # colors in tmux
-export EDITOR="vim"             # what else?
+export TERM="screen-256color"    # colors in tmux
+export EDITOR="nvim"             # what else?
 export LC_ALL=en_US.UTF-8       # Locale setting
 autoload -U colors && colors    # enable colors
 
