@@ -19,10 +19,13 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
+" Plug 'shime/vim-livedown'
+Plug 'sirver/ultisnips'     " Ultisnips snippet engine
+Plug 'honza/vim-snippets'   " Collection of default snippets
 
 " Colorschemes
-Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+Plug 'edkolev/tmuxline.vim'
 
 call plug#end()
 
@@ -30,14 +33,8 @@ call plug#end()
 """""""""""""""""
 "" Color settings
 """""""""""""""""
-colorscheme gruvbox
-let g:gruvbox_italic=1
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-" let g:gruvbox_contrast_dark = 'hard'
+set termguicolors     " enable true colors support
+colorscheme base16-default-dark
 
 
 """"""""""
@@ -69,7 +66,7 @@ set backupdir=~/.cache/vim " directory to store backups
 " remove trailing white space before save
 autocmd BufWritePre * %s/\s\+$//e
 set cursorline	           " highlight current line of cursor
-set cursorcolumn	       " highlight current column of cursor
+" set cursorcolumn	         " highlight current column of cursor
 " visual autocomplete in command menu
 set wildmenu
 set wildmode=longest:full,list
@@ -319,7 +316,8 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "" Airline
 let g:airline_powerline_fonts = 1
 " let g:airline_theme='bubblegum'
-let g:airline_theme='gruvbox'
+" let g:airline_theme='gruvbox'
+let g:airline_theme='base16'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#coc#enabled = 0
 " let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -345,3 +343,15 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 " let g:airline#extensions#wordcount#enabled = 1
 " let g:airline#extensions#wordcount#formatter#default#fmt = '%dw'
 " let g:airline#extensions#wordcount#filetypes = ''
+
+
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<c-cr>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+

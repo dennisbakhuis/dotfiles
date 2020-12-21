@@ -71,8 +71,14 @@ zinit light "zsh-users/zsh-syntax-highlighting"
 # The coolest prompt
 zinit light "denysdovhan/spaceship-prompt"
 
-# Auto jump
-zinit light "wting/autojump"
+# Autojump alternative
+zinit light skywind3000/z.lua
+
+# Suggestions
+zinit load zsh-users/zsh-autosuggestions
+
+# insulter when making mistakes
+zinit light hkbakke/bash-insulter
 
 #######################
 # Space-ship Settings #
@@ -134,13 +140,14 @@ fi
 source $HOME/dotfiles/zsh/aliases.zsh
 [[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
 
-############
-# autojump #
-############
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  source /usr/share/autojump/autojump.zsh
-elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-fi
+####################
+# autojump / z.lua #
+####################
+# if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+#   # source /usr/share/autojump/autojump.zsh
+#   # eval "$(lua /path/to/z.lua --init zsh)"
+# elif [[ "$OSTYPE" == "darwin"* ]] ; then
+#   [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+# fi
 
 

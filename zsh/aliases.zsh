@@ -46,3 +46,8 @@ alias jl='jupyter lab'
 ##########
 alias dps='python3 ~/dotfiles/python/docker-pretty-print/docker-pretty-print.py'
 
+#######################
+# Manjaro maintenance #
+#######################
+alias purge-cache='find ~/.cache/ -type f -atime +100 -delete'
+

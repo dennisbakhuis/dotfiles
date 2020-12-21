@@ -1,30 +1,54 @@
-# Font configuration (changes require restart)
+# Alacritty config
+# Dennis Bakhuis
+# Last change: 16th December 2020
+
+window:
+  dimensions:
+    columns: 170
+    lines: 50
+  padding:
+    x: 2
+    y: 2
+
 font:
   size: 14.0
-  # The normal (roman) font face to use.
   normal:
     family: Droid Sans Mono Slashed for Powerline
-    # Style can be specified to pick a specific face.
     style: Regular
-
-  # The bold font face
   bold:
     family: Droid Sans Mono Slashed for Powerline
-    # Style can be specified to pick a specific face.
-    # style: Bold
-
-  # The italic font face
   italic:
     family: Droid Sans Mono Slashed for Powerline
-    # Style can be specified to pick a specific face.
-    # style: Italic
 
 key_binding:
-  #- { key: Paste,                                action: Paste          }
-  #- { key: Copy,                                 action: Copy           }
-  - { key: Add,    mods: Command,            action: IncreaseFontSize }
-  - { key: Minus,  mods: Command,            action: DecreaseFontSize }
-  - { key: W,      mods: Command,            action: Quit             }
-  - { key: N,      mods: Command,            action: SpawnNewInstance }
-  - { key: F11, action: ToggleFullscreen }
+  - { key: F11,                   action: ToggleFullscreen }
+  - { key: Plus,   mods: Command, action: IncreaseFontSize }
+  - { key: Minus,  mods: Command, action: DecreaseFontSize }
+  - { key: W,      mods: Command, action: Quit             }
+  - { key: N,      mods: Command, action: SpawnNewInstance }
+
+# Aju dark color-scheme
+# https://github.com/alacritty/alacritty/wiki/Color-schemes
+colors:
+  primary:
+    background: '#0A0E14'
+    foreground: '#B3B1AD'
+  normal:
+    black: '#01060E'
+    red: '#EA6C73'
+    green: '#91B362'
+    yellow: '#F9AF4F'
+    blue: '#53BDFA'
+    magenta: '#FAE994'
+    cyan: '#90E1C6'
+    white: '#C7C7C7'
+  bright:
+    black: '#686868'
+    red: '#F07178'
+    green: '#C2D94C'
+    yellow: '#FFB454'
+    blue: '#59C2FF'
+    magenta: '#FFEE99'
+    cyan: '#95E6CB'
+    white: '#FFFFFF'
 

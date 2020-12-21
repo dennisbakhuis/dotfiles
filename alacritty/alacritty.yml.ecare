@@ -1,114 +1,64 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
-
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty itself.
-#env:
-  # TERM variable
-  #
-  # This value is used to set the `$TERM` environment variable for
-  # each instance of Alacritty. If it is not present, alacritty will
-  # check the local terminfo database and use `alacritty` if it is
-  # available, otherwise `xterm-256color` is used.
-  #TERM: alacritty
+# Alacritty config
+# Dennis Bakhuis
+# Last change: 16th December 2020
 
 window:
-  # Window dimensions (changes require restart)
-  #
-  # Specified in number of columns/lines, not pixels.
-  # If both are `0`, this setting is ignored.
   dimensions:
     columns: 170
     lines: 50
-
-  # Window position (changes require restart)
-  #
-  # Specified in number of pixels.
-  # If the position is not set, the window manager will handle the placement.
-  #position:
-  #  x: 0
-  #  y: 0
-
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is scaled
-  # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 2
     y: 2
 
-  # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
-
-  # Window decorations
-  #
-  # Values for `decorations`:
-  #     - full: Borders and title bar
-  #     - none: Neither borders nor title bar
-  #
-  # Values for `decorations` (macOS only):
-  #     - transparent: Title bar, transparent background and title bar buttons
-  #     - buttonless: Title bar, transparent background, but no title bar buttons
-  #decorations: full
-
-  # Startup Mode (changes require restart)
-  #
-  # Values for `startup_mode`:
-  #   - Windowed
-  #   - Maximized
-  #   - Fullscreen
-  #
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-  #startup_mode: Windowed
-
-  # Window title
-  #title: Alacritty
-
-  # Window class (Linux/BSD only):
-  #class:
-    # Application instance name
-    #instance: Alacritty
-    # General application class
-    #general: Alacritty
-
-  # GTK theme variant (Linux/BSD only)
-  #
-  # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
-  # Set this to `None` to use the default theme variant.
-  #gtk_theme_variant: None
-
-#scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
-  #history: 10000
-
-  # Scrolling distance multiplier.
-  #multiplier: 3
-
-# Font configuration (changes require restart)
 font:
-  # The normal (roman) font face to use.
   normal:
     family: Hack NF
-    # Style can be specified to pick a specific face.
     style: Regular
-
-  # The bold font face
   bold:
     family: Hack NF
-    # Style can be specified to pick a specific face.
     style: Bold
-
-  # The italic font face
   italic:
     family: Hack NF
-    # Style can be specified to pick a specific face.
     style: Italic
+
 key_bindings:
-  - { key: F11, action: ToggleFullscreen }
-  - { key: Add,    mods: Shift|Control,            action: IncreaseFontSize }
-  - { key: Minus,  mods: Shift|Control,            action: DecreaseFontSize }
-  - { key: W,      mods: Shift|Control,            action: Quit             }
-  - { key: N,      mods: Shift|Control,            action: SpawnNewInstance }
+  - { key: F11,                         action: ToggleFullscreen }
+  - { key: Plus,  mods: Control,        action: IncreaseFontSize }
+  - { key: Minus, mods: Control,        action: DecreaseFontSize }
+  - { key: W,     mods: Shift|Control,  action: Quit             }
+  - { key: N,     mods: Shift|Control,  action: SpawnNewInstance }
+
+# Aju dark color-scheme
+# https://github.com/alacritty/alacritty/wiki/Color-schemes
+colors:
+  primary:
+    background: '#0A0E14'
+    foreground: '#B3B1AD'
+  normal:
+    black: '#01060E'
+    red: '#EA6C73'
+    green: '#91B362'
+    yellow: '#F9AF4F'
+    blue: '#53BDFA'
+    magenta: '#FAE994'
+    cyan: '#90E1C6'
+    white: '#C7C7C7'
+  bright:
+    black: '#686868'
+    red: '#F07178'
+    green: '#C2D94C'
+    yellow: '#FFB454'
+    blue: '#59C2FF'
+    magenta: '#FFEE99'
+    cyan: '#95E6CB'
+    white: '#FFFFFF'
+
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    # - "tmux attach || tmux"
+    - "tmux"
 
