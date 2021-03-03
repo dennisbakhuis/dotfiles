@@ -72,13 +72,13 @@ zinit light "zsh-users/zsh-syntax-highlighting"
 zinit light "denysdovhan/spaceship-prompt"
 
 # Autojump alternative
-zinit light skywind3000/z.lua
+zinit light "skywind3000/z.lua"
 
 # Suggestions
-zinit load zsh-users/zsh-autosuggestions
+zinit load "zsh-users/zsh-autosuggestions"
 
 # insulter when making mistakes
-zinit light hkbakke/bash-insulter
+zinit light "hkbakke/bash-insulter"
 
 #######################
 # Space-ship Settings #
@@ -133,6 +133,7 @@ if _has fzf && _has ag; then
   --color info:108,prompt:109,spinner:108,pointer:168,marker:168
   '
 fi
+
 
 #####################
 # aliases & secrets #

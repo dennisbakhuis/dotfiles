@@ -19,6 +19,9 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
+
 " Plug 'shime/vim-livedown'
 Plug 'sirver/ultisnips'     " Ultisnips snippet engine
 Plug 'honza/vim-snippets'   " Collection of default snippets
@@ -26,6 +29,10 @@ Plug 'honza/vim-snippets'   " Collection of default snippets
 " Colorschemes
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
+
+Plug 'lervag/vimtex'
+
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -58,6 +65,7 @@ else
 endif
 set mouse=a                " use mouse as well
 let mapleader=","          " leader is comma
+let maplocalleader = "\\"  " another leader
 set laststatus=2           " always display the statusbar
 set hidden                 " hide files in bg instead of closing them
 set history=1000           " increase undo history to 1000
