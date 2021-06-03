@@ -107,3 +107,5 @@ conda config --set changeps1 False
 # source ~/.zshrc
 # zplug install
 
+ln -s ~/dotfiles/task/taskrc ~/.taskrc
+

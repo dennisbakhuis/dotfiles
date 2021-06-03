@@ -17,3 +17,5 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 conda config --set changeps1 False # stop (env) part from showing
+
+export CHROME_EXECUTABLE=/usr/bin/chromium

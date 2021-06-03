@@ -27,9 +27,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 #########
 conda config --set changeps1 False # stop (env) part from showing
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/dennis/google-cloud-sdk/path.zsh.inc' ]; then . '/home/dennis/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/dennis/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/dennis/google-cloud-sdk/completion.zsh.inc'; fi
+## Azure functions
+export PATH=/home/dennis/Images/azure_functions_core_tools:$PATH
+## Azure azcopy
+export PATH=/home/dennis/Images/azcopy_linux_amd64_10.10.0:$PATH
