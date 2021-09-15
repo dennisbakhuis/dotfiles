@@ -11,6 +11,8 @@ else
 fi
 alias sudo='sudo '
 alias gpu='nvidia-smi'
+alias rr='ranger'
+alias ll='ls -l'
 
 #######
 # Vim #
