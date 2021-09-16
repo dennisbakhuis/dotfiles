@@ -12,13 +12,13 @@ window:
 
 font:
   normal:
-    family: Hack NF
+    family: Source Code Pro
     style: Regular
   bold:
-    family: Hack NF
+    family: Source Code Pro
     style: Bold
   italic:
-    family: Hack NF
+    family: Source Code Pro
     style: Italic
 
 key_bindings:
