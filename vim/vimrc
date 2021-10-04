@@ -19,8 +19,8 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'thosakwe/vim-flutter'
+" Plug 'dart-lang/dart-vim-plugin'
+" Plug 'thosakwe/vim-flutter'
 
 " Plug 'shime/vim-livedown'
 Plug 'sirver/ultisnips'     " Ultisnips snippet engine
@@ -28,7 +28,7 @@ Plug 'honza/vim-snippets'   " Collection of default snippets
 
 " Colorschemes
 Plug 'chriskempson/base16-vim'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim'
 
 Plug 'lervag/vimtex'
 
