@@ -13,6 +13,7 @@ alias sudo='sudo '
 alias gpu='nvidia-smi'
 alias rr='ranger'
 alias ll='ls -l'
+alias gotop='gotop --nvidia'
 
 #######
 # Vim #
@@ -52,4 +53,9 @@ alias dps='python3 ~/dotfiles/python/docker-pretty-print/docker-pretty-print.py'
 # Manjaro maintenance #
 #######################
 alias purge-cache='find ~/.cache/ -type f -atime +100 -delete'
+
+#########
+# i3 WM #
+#########
+alias ei3='nvim ~/.config/i3/config'
 
