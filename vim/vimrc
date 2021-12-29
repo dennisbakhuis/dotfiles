@@ -6,8 +6,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary' " comment stuff with gc / gcc commands. love it!
 Plug 'sjl/gundo.vim'        " visual tree undo addon
 
-Plug 'mileszs/ack.vim'      " use ag (silver searcher) in vim
-
 Plug 'junegunn/fzf.vim'     " fuzzy file search
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -19,20 +17,20 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Plug 'dart-lang/dart-vim-plugin'
-" Plug 'thosakwe/vim-flutter'
-
-" Plug 'shime/vim-livedown'
-Plug 'sirver/ultisnips'     " Ultisnips snippet engine
-Plug 'honza/vim-snippets'   " Collection of default snippets
+Plug 'scrooloose/nerdtree'
 
 " Colorschemes
 Plug 'chriskempson/base16-vim'
 " Plug 'edkolev/tmuxline.vim'
 
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'mattn/emmet-vim'
+
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+Plug 'psf/black'
 
 call plug#end()
 
@@ -86,6 +84,7 @@ set backspace=indent,eol,start " backspace works like regular backspace
 set nowrap                 " turn off word wrap
 set timeoutlen=1000 ttimeoutlen=0  " turn off delay on escape
 
+" There should be a miniconda3 in your home dir with a 'vim' env
 let g:python3_host_prog='/home/dennis/miniconda3/envs/vim/bin/python'
 
 """"""""""""""""""
@@ -108,10 +107,6 @@ set hlsearch                  " highlight matches
 " stop highlighting your searched stuff using <leader> space
 nnoremap <space> :nohlsearch<CR>
 
-" open Ack search
-nnoremap <leader>a :Ack<space>
-let g:ackprg = 'ag --vimgrep' " use ag (silver-searcher) with ack plugin
-
 " Fuzzy file shortcuts in buffers / files / tags
 set rtp+=/usr/local/opt/fzf
 nmap ; :Buffers<CR>
@@ -126,7 +121,7 @@ set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 set foldmethod=indent   " fold based on indent level
 " space open/closes folds
-nnoremap <leader><space> za
+" nnoremap <leader><space> za
 
 """""""""""
 "" Movement
@@ -141,13 +136,17 @@ nnoremap k gk
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
 let g:gundo_prefer_python3 = 1 " gundo should use python3
+
 " edit vimrc/zshrc and load vimrc bindings
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>ez :vsp ~/dotfiles/zsh/zshrc.default<CR>
+
 " Automatically source vimrc on save.
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+
 " save session
 nnoremap <leader>S :mksession<CR>
+
 " spell check
 " map <leader>s :setlocal spell! spelllang=en_us<CR>
 
@@ -161,6 +160,8 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 set splitbelow          " open new horizontal splits below
 set splitright          " open new vertical splits to the right
+" show help as vert split
+cabbrev h vert h
 
 """"""""""
 "" vim-coc
@@ -177,19 +178,19 @@ set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=100
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" if has("patch-8.1.1564")
+"   " Recently vim can merge signcolumn and number column into one
+set signcolumn=number
+" else
+" set signcolumn=no
+" endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -356,10 +357,28 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<c-cr>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<c-cr>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
+""""""""""""
+" NERDtree "
+""""""""""""
+nnoremap <leader>t :NERDTreeToggle<CR>
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+let NERDTreeWinPos='right'
+
+"""""""
+" Git "
+"""""""
+nnoremap <leader>g :GitGutterToggle<CR>
+nmap <Leader>gn <Plug>GitGutterNextHunk
+nmap <Leader>gp <Plug>GitGutterPrevHunk
 

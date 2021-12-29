@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# start alacritty to have decorations in Wayland/Gnome
+WAYLAND_DISPLAY= alacritty
