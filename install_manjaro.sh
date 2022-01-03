@@ -37,7 +37,7 @@ rm -Rf $HOME/.zplug
 
 # required packages
 sudo pacman -S \
-  zsh curl gawk fzf the_silver_searcher \
+  zsh tmux curl gawk fzf the_silver_searcher \
   adobe-source-code-pro-fonts alacritty
 
 # install zplug
