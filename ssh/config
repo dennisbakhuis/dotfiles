@@ -1,2 +1,8 @@
 Host *
-  UseKeychain yes
+  HostkeyAlgorithms +ssh-rsa
+  PubkeyAcceptedKeyTypes +ssh-rsa
+  AddKeysToAgent  yes
+
+Host aur.archlinux.org
+  IdentityFile ~/.ssh/aur
+  User aur

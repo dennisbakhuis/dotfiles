@@ -28,10 +28,11 @@ _nextfilename() {
 ########
 
 # create directories if not exist
-mkdir -p $HOME/.cache/vim
-mkdir -p $HOME/.cache/zsh
-mkdir -p $HOME/.config/alacritty
-mkdir -p $HOME/.config/nvim
+mkdir -pv $HOME/.cache/vim
+mkdir -pv $HOME/.cache/zsh
+mkdir -pv $HOME/.config/alacritty
+mkdir -pv $HOME/.config/nvim
+mkdir -pv $HOME/.ssh
 
 rm -Rf $HOME/.zplug
 
@@ -60,6 +61,9 @@ ln -s $HOME/dotfiles/alacritty/alacritty.yml.ecare $HOME/.alacritty.yml
 
 rm -f $HOME/.tmux.conf
 ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+
+rm -f $HOME/.ssh/config
+ln -s ~/dotfiles/ssh/config ~/.ssh/config
 
 if _has conda; then
   conda config --set changeps1 False
