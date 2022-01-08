@@ -149,5 +149,4 @@ fi
 source $HOME/dotfiles/zsh/aliases.zsh
 [[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-
+[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
