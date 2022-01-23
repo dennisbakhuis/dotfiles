@@ -32,6 +32,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'psf/black'
 
+Plug 'jabirali/vim-tmux-yank'
+
 call plug#end()
 
 
