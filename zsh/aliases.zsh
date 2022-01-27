@@ -41,7 +41,6 @@ alias gr='git reset'
 alias ca='conda activate'
 alias cel='conda env list'
 alias crm='conda env remove --name'
-alias cce='conda create --name'
 alias jl='jupyter lab --ip=0.0.0.0'
 
 ##########

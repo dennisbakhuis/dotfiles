@@ -33,6 +33,7 @@ mkdir -pv $HOME/.cache/zsh
 mkdir -pv $HOME/.config/alacritty
 mkdir -pv $HOME/.config/nvim
 mkdir -pv $HOME/.ssh
+mkdir -pv $HOME/.duplicacy
 
 rm -Rf $HOME/.zplug
 
@@ -64,6 +65,8 @@ ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 
 rm -f $HOME/.ssh/config
 ln -s ~/dotfiles/ssh/config ~/.ssh/config
+
+ln -s ~/dotfiles/duplicacy/filters ~/.duplicacy/filters
 
 if _has conda; then
   conda config --set changeps1 False

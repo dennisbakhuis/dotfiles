@@ -1,0 +1,14 @@
++Desktop/
++Documents/
++repos/
++.config/
++.secrets.zsh
+-*
+
+# exclude any ".cache" folders
+e:(?i)/\.cache/.*
+
+# exclude version control
+e:(?i)/\.git/
+e:(?i)/\.dvc/
+
