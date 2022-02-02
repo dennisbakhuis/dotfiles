@@ -31,7 +31,6 @@ e:(?i)/__pycache__/
 # Home folders
 -.azure/
 -.azureml/
-+Desktop/
 -.IdentityService/
 -.SynologyDrive/
 -.cache/
@@ -47,20 +46,16 @@ e:(?i)/__pycache__/
 -.mozilla/
 -.nv/
 -.pki/
-+.ssh/
 -.syno_ns_app/
 -.vim/
 -.zoom/
 -.zplug/
-+Documents/
 -Downloads/
 -Drive/
 -Music/
-+Pictures/
 -Public/
 -Templates/
 -Videos/
 -dotfiles/
 -miniconda3/
-+repos/
 
