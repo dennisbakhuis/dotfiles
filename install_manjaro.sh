@@ -40,7 +40,7 @@ rm -Rf $HOME/.zplug
 # required packages
 sudo pacman -S \
   zsh tmux neovim curl gawk fzf the_silver_searcher \
-  adobe-source-code-pro-fonts alacritty nodejs
+  adobe-source-code-pro-fonts alacritty nodejs git meld
 
 # install zplug
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -71,4 +71,8 @@ ln -s ~/dotfiles/duplicacy/filters ~/.duplicacy/filters
 if _has conda; then
   conda config --set changeps1 False
 fi
+
+# Setup git
+git config --global diff.tool meld
+
 

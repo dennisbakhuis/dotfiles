@@ -37,6 +37,7 @@ e:(?i)/__pycache__/
 -.conda/
 -.config/
 -.docker/
+-.flair/
 -.gnupg/
 -.icons/
 -.ipython/
@@ -58,4 +59,5 @@ e:(?i)/__pycache__/
 -Videos/
 -dotfiles/
 -miniconda3/
+-repos/CSS\ Course\ -\ WebDevSimplified/
 
