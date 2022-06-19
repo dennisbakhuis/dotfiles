@@ -28,6 +28,7 @@ _append_to_path() {
 export TERM="screen-256color"    # colors in tmux
 export EDITOR="nvim"             # what else?
 export TERMINAL="alacritty"      # prefered terminal emulator / used by i3
+export CHROME_EXECUTABLE="chromium" # needed for flutter
 # export LC_ALL=en_US.UTF-8       # Locale setting
 # export TERM="xterm-256color"    # colors in tmux
 autoload -U colors && colors    # enable colors
@@ -150,3 +151,7 @@ source $HOME/dotfiles/zsh/aliases.zsh
 [[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
 
 # [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
+
+source $HOME/dotfiles/zsh/lscolors.sh
+
+

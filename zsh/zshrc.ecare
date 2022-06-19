@@ -31,5 +31,7 @@ conda config --set changeps1 False # stop (env) part from showing
 # export PATH=$HOME/Android/Sdk/tools/bin:$PATH
 export PATH=/snap/bin:$PATH
 
+export PATH=/home/dennis/flutter/bin:$PATH
+
 ### Added by Zinit's installer
 
