@@ -22,7 +22,7 @@ mkdir -pv $HOME/.config/nvim
 sudo apt install -y zsh zplug tmux neovim curl gawk fzf silversearcher-ag nodejs meld
 
 # make zsh shell
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh) $(whoami)
 
 # symlink all config files
 rm -f $HOME/.zshrc

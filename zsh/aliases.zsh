@@ -60,5 +60,6 @@ alias delete-orphaned='pacman -Qtdq | pacman -Rns -'
 #########
 # Azure #
 #########
-# alias az='~/miniconda3/envs/azure-cli/bin/az'
+alias comp1='ssh -i ~/.ssh/tennet-idc-aml-compute-ssh-key-dennis.pem azureuser@40.114.189.227 -p50000'
+alias comp2='ssh -i ~/.ssh/tennet-idc-aml-compute-ssh-key-dennis.pem azureuser@40.114.189.227 -p50000'
 
