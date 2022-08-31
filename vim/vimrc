@@ -87,7 +87,11 @@ set nowrap                 " turn off word wrap
 set timeoutlen=1000 ttimeoutlen=0  " turn off delay on escape
 
 " There should be a miniconda3 in your home dir with a 'vim' env
-let g:python3_host_prog='/home/dennis/miniconda3/envs/vim/bin/python'
+if $USER == "azureuser"
+  let g:python3_host_prog='/anaconda/envs/vim/bin/python'
+else
+  let g:python3_host_prog='/home/dennis/miniconda3/envs/vim/bin/python'
+endif
 
 """"""""""""""""""
 "" Python settings
@@ -197,16 +201,16 @@ set signcolumn=number
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
