@@ -14,6 +14,8 @@ alias gpu='nvidia-smi'
 alias rr='ranger'
 alias ll='ls -l'
 alias top='gotop --nvidia'
+alias history='history -i'
+alias hist='history'
 
 #######
 # Vim #
@@ -47,6 +49,7 @@ alias jl='jupyter lab --ip=0.0.0.0'
 # Docker #
 ##########
 alias dps='python3 ~/dotfiles/python/docker-pretty-print/docker-pretty-print.py'
+alias dprune='docker system prune -a'
 
 #######################
 # Manjaro maintenance #
