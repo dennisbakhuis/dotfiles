@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary' " comment stuff with gc / gcc commands. love it!
 Plug 'sjl/gundo.vim'        " visual tree undo addon
 
+Plug 'junegunn/fzf'         " fuzzy file search
 Plug 'junegunn/fzf.vim'     " fuzzy file search
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

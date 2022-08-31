@@ -34,6 +34,7 @@ mkdir -pv $HOME/.config/alacritty
 mkdir -pv $HOME/.config/nvim
 mkdir -pv $HOME/.ssh
 mkdir -pv $HOME/.duplicacy
+mkdir -pv $HOME/.zfunc
 
 rm -Rf $HOME/.zplug
 

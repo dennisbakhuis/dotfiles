@@ -19,6 +19,7 @@ sudo apt-get update && sudo apt-get -y upgrade
 # create directories if not exist
 mkdir -pv $HOME/.cache/zsh
 mkdir -pv $HOME/.config/nvim
+mkdir -pv $HOME/.zfunc
 
 # install additional packages
 sudo apt install -y zsh zplug tmux neovim curl gawk fzf silversearcher-ag nodejs meld lua5.3
@@ -56,4 +57,6 @@ git config --global diff.tool meld
 
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
+path+=('/home/azureuser/.local/bin')
+poetry completions zsh > ~/.zfunc/_poetry
 
