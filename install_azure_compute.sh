@@ -45,7 +45,7 @@ git config --global diff.tool meld
 
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
-path+=('/home/azureuser/.local/bin')
+PATH=$PATH:~/.local/bin
 poetry completions zsh > ~/.zfunc/_poetry
 
 # Add TenneT private pypi repo
