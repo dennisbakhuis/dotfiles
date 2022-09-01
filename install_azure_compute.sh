@@ -48,9 +48,12 @@ curl -sSL https://install.python-poetry.org | python3 -
 path+=('/home/azureuser/.local/bin')
 poetry completions zsh > ~/.zfunc/_poetry
 
-# Add TenneT private repo
+# Add TenneT private pypi repo
 export PAT=$(ipython -c "from azureml.core import Workspace;ws=Workspace.from_config();kv=ws.get_default_keyvault();print(kv.get_secret('private-pypi-repo-pat-token-dennis'))")
 echo "[backend]\ndefault-keyring=keyring.backends.fail.Keyring\n" > $HOME/.config/python_keyring/keyringrc.cfg
 poetry config http-basic.tennet build "$PAT"
 
+# Add rsa_id
+ipython $HOME/dotfiles/azure_scripts/download_rsa_id.py
+chmod 400 $HOME/.ssh/id_rsa
 
