@@ -9,7 +9,7 @@ secret_name_rsaid_public = 'tennet-compute-rsaid-public-key-dennis'
 
 private_key_path = Path('/home/azureuser/.ssh/id_rsa')
 if not private_key_path.exists():
-    with open(private_key_path) as f:
+    with open(private_key_path, 'w') as f:
         private_key = kv.get_secret(
             secret_name_rsaid_private,
         )
@@ -17,7 +17,7 @@ if not private_key_path.exists():
 
 public_key_path = Path('/home/azureuser/.ssh/id_rsa.pub')
 if not public_key_path.exists():
-    with open(public_key_path) as f:
+    with open(public_key_path, 'w') as f:
         public_key = kv.get_secret(
             secret_name_rsaid_public,
         )
