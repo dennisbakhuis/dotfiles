@@ -16,7 +16,10 @@ mkdir -pv $HOME/.zfunc
 mkdir -pv $HOME/.config/python_keyring
 
 # install additional packages
-sudo apt install -y zsh zplug tmux neovim curl gawk fzf silversearcher-ag nodejs meld lua5.3
+sudo apt install -y zsh zplug tmux curl gawk fzf silversearcher-ag nodejs meld lua5.3
+
+# install neovim form snap (much more recent version)
+sudo snap install nvim --classic
 
 # make zsh shell
 sudo chsh -s $(which zsh) $(whoami)
@@ -50,7 +53,7 @@ poetry completions zsh > ~/.zfunc/_poetry
 
 # Add TenneT private pypi repo
 export PAT=$(ipython -c "from azureml.core import Workspace;ws=Workspace.from_config();kv=ws.get_default_keyvault();print(kv.get_secret('private-pypi-repo-pat-token-dennis'))")
-echo "[backend]\ndefault-keyring=keyring.backends.fail.Keyring\n" > $HOME/.config/python_keyring/keyringrc.cfg
+echo -e "[backend]\ndefault-keyring=keyring.backends.fail.Keyring\n" > $HOME/.config/python_keyring/keyringrc.cfg
 poetry config http-basic.tennet build "$PAT"
 
 # Add rsa_id
