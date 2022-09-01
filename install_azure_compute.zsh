@@ -42,11 +42,13 @@ rm -f $HOME/.tmux.conf
 ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 
 # install vim environment for vim Python plugins
-conda create -n vim python=3.10 neovim black
+conda create --name vim --channel conda-forge --force --yes python=3.10
+conda activate vim
+pip install neovim black
+conda deactivate
 
 # do a vimplug install
-nvim +'PlugInstall --sync' +qa
-nvim +'UpdateRemotePlugins --sync' +qa
+nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa
 
 # remove env prompt in conda
 if _has conda; then
