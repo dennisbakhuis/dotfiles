@@ -1,0 +1,1 @@
+]52;c;c3VkbyBzeXN0ZW1jdGwgc3RvcCBjbGFtYXYtZnJlc2hjbGFtLnNlcnZpY2UK server running on /tmp/tmux-1001/default

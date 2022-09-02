@@ -6,6 +6,9 @@
 # Date: 2022-09-01            #
 ###############################
 
+# Update TensorFlow serving GPG key as it is expired.
+echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | sudo tee /etc/apt/sources.list.d/tensorflow-serving.list && curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
+
 # Update current system
 sudo apt-get update && sudo apt-get -y upgrade
 
@@ -20,6 +23,9 @@ sudo apt install -y zsh zplug tmux curl gawk fzf silversearcher-ag nodejs meld l
 
 # install neovim form snap (much more recent version)
 sudo snap install nvim --classic
+
+# install kubectl from snap (not in defautl repos)
+sudo snap install kubectl --classic
 
 # make zsh shell
 sudo chsh -s $(which zsh) $(whoami)
@@ -45,6 +51,12 @@ nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa
 
 # Use meld as diff tool in git
 git config --global diff.tool meld
+
+# turn off virus scanner
+sudo systemctl stop clamav-daemon.service
+sudo systemctl disable clamav-daemon.service
+sudo systemctl stop clamav-freshclam.service
+sudo systemctl disable clamav-freshclam.service
 
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -

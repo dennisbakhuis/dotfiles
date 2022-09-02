@@ -25,7 +25,7 @@ _append_to_path() {
 ###############
 # zSh general #
 ###############
-export TERM="screen-256color"    # colors in tmux
+export TERM="alacritty"    # colors in tmux
 export EDITOR="nvim"             # what else?
 export TERMINAL="alacritty"      # prefered terminal emulator / used by i3
 export CHROME_EXECUTABLE="chromium" # needed for flutter
