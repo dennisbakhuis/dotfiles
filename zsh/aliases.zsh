@@ -57,9 +57,3 @@ alias dprune='docker system prune -a'
 alias purge-cache='find ~/.cache/ -type f -atime +100 -delete'
 alias delete-orphaned='pacman -Qtdq | pacman -Rns -'
 
-#########
-# Azure #
-#########
-alias comp1='ssh -i ~/.ssh/tennet-idc-aml-compute-ssh-key-dennis.pem azureuser@40.114.189.227 -p50000'
-alias comp2='ssh -i ~/.ssh/tennet-idc-aml-compute-ssh-key-dennis.pem azureuser@40.114.189.227 -p50000'
-
