@@ -1,1 +1,1 @@
-]52;c;c3VkbyBzeXN0ZW1jdGwgc3RvcCBjbGFtYXYtZnJlc2hjbGFtLnNlcnZpY2UK server running on /tmp/tmux-1001/default
+]52;c;ZWNobyAtZSAiW2JhY2tlbmRdXG5kZWZhdWx0LWtleXJpbmc9a2V5cmluZy5iYWNrZW5kcy5mYWlsLktleXJpbmdcbiIgPiAkSE9NRS8uY29uZmlnL3B5dGhvbl9rZXlyaW5nL2tleXJpbmdyYy5jZmcK server running on /tmp/tmux-1001/default
