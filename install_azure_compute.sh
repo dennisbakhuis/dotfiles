@@ -25,7 +25,8 @@ sudo apt install -y zsh zplug tmux curl gawk fzf silversearcher-ag nodejs meld l
 sudo snap install nvim --classic
 
 # install kubectl from snap (not in defautl repos)
-sudo snap install kubectl --classic
+# sudo snap install kubectl --classic
+az aks install-cli
 
 # make zsh shell
 sudo chsh -s $(which zsh) $(whoami)
