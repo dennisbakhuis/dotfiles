@@ -3,7 +3,7 @@
 # AzureML Compute prep script #
 ###############################
 # Author: Dennis Bakhuis      #
-# Date: 2022-09-01            #
+# Date: 2023-01-05            #
 ###############################
 
 # Update TensorFlow serving GPG key as it is expired.
@@ -49,14 +49,12 @@ conda create --name vim --channel conda-forge --force --yes python=3.9 neovim bl
 # do a vimplug install
 nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa
 
-# Use meld as diff tool in git
-git config --global diff.tool meld
-
-# turn off virus scanner
+# turn off virus scanner (constantly scanning / 20% resources)
 sudo systemctl stop clamav-daemon.service
 sudo systemctl disable clamav-daemon.service
 sudo systemctl stop clamav-freshclam.service
 sudo systemctl disable clamav-freshclam.service
+sudo apt remove clamav
 
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
@@ -64,7 +62,7 @@ PATH=$PATH:~/.local/bin
 poetry completions zsh > ~/.zfunc/_poetry
 
 # Add TenneT private pypi repo
-export PAT=$(ipython -c "from azureml.core import Workspace;ws=Workspace.from_config();kv=ws.get_default_keyvault();print(kv.get_secret('private-pypi-repo-pat-token-dennis'))")
+export PAT=$(ipython -c "from azureml.core import Workspace;ws=Workspace.from_config();kv=ws.get_default_keyvault();print(kv.get_secret('private-pypi-repo-pat-token-dennis2'))")
 echo -e "[backend]\ndefault-keyring=keyring.backends.fail.Keyring\n" > $HOME/.config/python_keyring/keyringrc.cfg
 poetry config http-basic.tennet build "$PAT"
 
