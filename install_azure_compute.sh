@@ -20,13 +20,14 @@ mkdir -pv $HOME/.config/python_keyring
 
 # install additional packages
 sudo apt install -y zsh zplug tmux curl gawk fzf silversearcher-ag nodejs meld lua5.3
+sudo apt autoremove -y
 
 # install neovim form snap (much more recent version)
 sudo snap install nvim --classic
 
 # install kubectl from snap (not in defautl repos)
 # sudo snap install kubectl --classic
-az aks install-cli
+# az aks install-cli
 
 # make zsh shell
 sudo chsh -s $(which zsh) $(whoami)
@@ -55,7 +56,7 @@ sudo systemctl stop clamav-daemon.service
 sudo systemctl disable clamav-daemon.service
 sudo systemctl stop clamav-freshclam.service
 sudo systemctl disable clamav-freshclam.service
-sudo apt remove clamav
+sudo apt remove -y clamav
 
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
