@@ -3,6 +3,6 @@ Host *
   PubkeyAcceptedKeyTypes +ssh-rsa
   AddKeysToAgent  yes
 
-Host aur.archlinux.org
-  IdentityFile ~/.ssh/aur
-  User aur
+Host *.github.com
+  AddKeysToAgent yes
+

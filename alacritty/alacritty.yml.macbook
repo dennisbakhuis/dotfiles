@@ -1,6 +1,6 @@
 # Alacritty config
 # Dennis Bakhuis
-# Last change: 16th December 2020
+# Last change: 1st Febrauari 2023
 
 window:
   dimensions:
@@ -13,12 +13,12 @@ window:
 font:
   size: 14.0
   normal:
-    family: Droid Sans Mono Slashed for Powerline
+    family: source code pro
     style: Regular
   bold:
-    family: Droid Sans Mono Slashed for Powerline
+    family: source code pro
   italic:
-    family: Droid Sans Mono Slashed for Powerline
+    family: source code pro
 
 key_binding:
   - { key: F11,                   action: ToggleFullscreen }
@@ -51,4 +51,11 @@ colors:
     magenta: '#FFEE99'
     cyan: '#95E6CB'
     white: '#FFFFFF'
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux"
 
