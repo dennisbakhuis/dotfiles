@@ -4,7 +4,7 @@
 
 window:
   dimensions:
-    columns: 170
+    columns: 130
     lines: 50
   padding:
     x: 2
@@ -13,12 +13,12 @@ window:
 font:
   size: 14.0
   normal:
-    family: source code pro
+    family: FiraCode Nerd Font Mono
     style: Regular
   bold:
-    family: source code pro
+    family: FiraCode Nerd Font Mono
   italic:
-    family: source code pro
+    family: FiraCode Nerd Font Mono
 
 key_binding:
   - { key: F11,                   action: ToggleFullscreen }

@@ -33,7 +33,6 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'psf/black'
 
-Plug 'jabirali/vim-tmux-yank'
 
 call plug#end()
 
@@ -91,7 +90,7 @@ set timeoutlen=1000 ttimeoutlen=0  " turn off delay on escape
 if $USER == "azureuser"
   let g:python3_host_prog='/anaconda/envs/vim/bin/python'
 else
-  let g:python3_host_prog='/home/dennis/miniconda3/envs/vim/bin/python'
+  let g:python3_host_prog='/Users/dennis/miniconda3/envs/vim/bin/python'
 endif
 
 """""""""""""""""

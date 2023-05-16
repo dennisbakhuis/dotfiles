@@ -6,6 +6,7 @@ source ~/dotfiles/zsh/zshrc.default
 # conda #
 #########
 export PATH=$PATH:$HOME/miniconda3/bin:$HOME/flutter/bin:$HOME/flutter/.pub-cache/bin:$HOME/.npm-global/bin:$HOME/.pub-cache/bin
+export PATH=/Users/dennis/.local/bin:$PATH
 
 conda config --set changeps1 False # stop (env) part from showing
 

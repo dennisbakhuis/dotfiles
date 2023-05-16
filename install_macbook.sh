@@ -39,7 +39,7 @@ rm -Rf $HOME/.zplug
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # brew stuff
-brew install tmux neovim curl gawk fzf the_silver_searcher nodejs
+brew install tmux neovim curl gawk fzf the_silver_searcher nodejs exa
 
 # enstall brew casks
 brew tap homebrew/cask-fonts
@@ -75,3 +75,4 @@ if _has conda; then
   conda config --set changeps1 False
 fi
 
+git config --global core.excludesfile ~/.gitignore
