@@ -25,12 +25,8 @@ _append_to_path() {
 ###############
 # zSh general #
 ###############
-export TERM="alacritty"    # colors in tmux
 export EDITOR="nvim"             # what else?
-export TERMINAL="alacritty"      # prefered terminal emulator / used by i3
 export CHROME_EXECUTABLE="chromium" # needed for flutter
-# export LC_ALL=en_US.UTF-8       # Locale setting
-# export TERM="xterm-256color"    # colors in tmux
 autoload -U colors && colors    # enable colors
 
 # history
@@ -42,6 +38,7 @@ HISTFILE=~/.cache/zsh/history   # file to save history
 # Auto complete
 autoload -U compinit
 zstyle ':completion:*' menu select
+
 # Auto complete with case insenstivity
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zmodload zsh/complist
@@ -77,51 +74,8 @@ zinit light-mode for \
 # syntax highlighting while you type: green okay / red error
 zinit light "zsh-users/zsh-syntax-highlighting"
 
-# The coolest prompt
-zinit light "spaceship-prompt/spaceship-prompt"
-
 # Autojump alternative
 zinit light "skywind3000/z.lua"
-
-#######################
-# Space-ship Settings #
-#######################
-SPACESHIP_USER_SHOW=needed
-SPACESHIP_CONDA_PREFIX=" "
-SPACESHIP_GIT_SUFFIX=" "
-SPACESHIP_GIT_BRANCH_SUFFIX=""
-SPACESHIP_PROMPT_ADD_NEWLINE=false
-SPACESHIP_PROMPT_SEPARATE_LINE=true
-SPACESHIP_PROMPT_PREFIXES_SHOW=false
-# SPACESHIP_CHAR_SYMBOL=❯
-# SPACESHIP_CHAR_SUFFIX=" "
-SPACESHIP_HG_SHOW=false
-SPACESHIP_PACKAGE_SHOW=false
-SPACESHIP_NODE_SHOW=false
-SPACESHIP_RUBY_SHOW=false
-SPACESHIP_ELM_SHOW=false
-SPACESHIP_ELIXIR_SHOW=false
-SPACESHIP_XCODE_SHOW_LOCAL=false
-SPACESHIP_SWIFT_SHOW_LOCAL=false
-SPACESHIP_GOLANG_SHOW=false
-SPACESHIP_PHP_SHOW=false
-SPACESHIP_RUST_SHOW=false
-SPACESHIP_JULIA_SHOW=false
-SPACESHIP_DOCKER_SHOW=true
-SPACESHIP_DOCKER_CONTEXT_SHOW=false
-SPACESHIP_AWS_SHOW=false
-SPACESHIP_CONDA_SHOW=true
-SPACESHIP_VENV_SHOW=false
-SPACESHIP_PYENV_SHOW=false
-SPACESHIP_DOTNET_SHOW=false
-SPACESHIP_EMBER_SHOW=false
-SPACESHIP_KUBECONTEXT_SHOW=false
-SPACESHIP_KUBECTL_SHOW=false
-SPACESHIP_TERRAFORM_SHOW=false
-SPACESHIP_TERRAFORM_SHOW=false
-SPACESHIP_VI_MODE_SHOW=false
-SPACESHIP_JOBS_SHOW=false
-SPACESHIP_AZURE_SHOW=false
 
 #######
 # fzf #
@@ -140,6 +94,22 @@ if _has fzf && _has ag; then
   '
 fi
 
+############
+# Starship #
+############
+if _has starship; then
+  eval "$(starship init zsh)"
+else
+    # Check if mac or linux
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux (Arch)
+        pacman -S starship
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        # Macbook
+        brew install starship
+    fi
+    eval "$(starship init zsh)"
+fi
 
 #####################
 # aliases & secrets #
@@ -147,8 +117,6 @@ fi
 source $HOME/dotfiles/zsh/aliases.zsh
 [[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
 
-# [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
-
-# source $HOME/dotfiles/zsh/lscolors.sh
-
+# Path to miniconda env with pynvim + debugpy
+export NEOVIM_PYTHON_ENV="/Users/dennis/miniconda3/envs/vim/bin/python"
 
