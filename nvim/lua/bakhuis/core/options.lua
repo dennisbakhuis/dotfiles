@@ -8,6 +8,7 @@ vim.api.nvim_exec("language en_US.utf-8", false)
 
 vim.opt.termguicolors = true    -- enable true colors support
 vim.opt.guicursor = ""          -- disable cursor blinking
+vim.opt.autoread = true         -- auto read when file changes
 
 vim.opt.nu = true               -- show line numbers
 vim.opt.relativenumber = true   -- show relative line numbers
@@ -42,7 +43,7 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
--- disable new comment line on enter
+-- disable start new comment on next line after enter
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" }

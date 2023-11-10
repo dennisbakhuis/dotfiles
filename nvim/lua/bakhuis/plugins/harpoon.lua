@@ -3,33 +3,10 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    config = function()
-	local mark = require("harpoon.mark")
-	local ui = require("harpoon.ui")
-
-	vim.keymap.set(
-		"n",
-		"<leader>hm",
- 		mark.add_file,
-		{ desc = "Mark file with harpoon" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>hu",
-		ui.toggle_quick_menu,
-		{ desc = "Toggle Harpoon quick menu" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>hn",
-		ui.nav_next,
-		{ desc = "Go to next harpoon mark" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>hp",
-		ui.nav_prev,
-		{ desc = "Go to previous harpoon mark" }
-	)
-    end,
+    keys = {
+        { "<leader>hm", function() require("harpoon.mark").add_file() end, desc = "Mark file with Harpoon" },
+        { "<leader>hu", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Toggle Harpoon quick menu" },
+        { "<leader>hn", function() require("harpoon.ui").nav_next() end, desc = "Next Harpoon mark" },
+        { "<leader>hp", function() require("harpoon.ui").nav_prev() end, desc = "Previous Harpoon mark" },
+    },
 }

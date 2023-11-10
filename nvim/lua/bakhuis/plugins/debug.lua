@@ -1,6 +1,7 @@
 return {
     {
         "mfussenegger/nvim-dap",
+        lazy = false,
         keys = {
             { "<leader>dc", function() require("dap").continue() end, desc = "Debug continue" },
             { "<leader>dso", function() require("dap").step_over() end, desc = "Debug step over" },
@@ -24,6 +25,7 @@ return {
             { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
             { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
         },
+        lazy = false,
         opts = {},
         config = function(_, opts)
             local dap = require("dap")
