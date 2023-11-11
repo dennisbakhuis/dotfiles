@@ -11,4 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("bakhuis.plugins")
+require("lazy").setup(
+    "bakhuis.plugins",
+    {
+      change_detection = {
+        enabled = true,
+        notify = false,
+      },
+    }
+)

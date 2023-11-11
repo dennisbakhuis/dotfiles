@@ -35,6 +35,13 @@ return {
 			ensure_installed = {
 				"pyright",
 				"lua_ls",
+                "bashls",
+                "taplo",
+                "yamlls",
+                "dockerls",
+                "jsonls",
+                "vimls",
+                "marksman",
 			},
 			handlers = {
 				lsp_zero.default_setup,
@@ -62,5 +69,17 @@ return {
 				['<C-Space>'] = cmp.mapping.complete(),
 			}),
 		})
+
+        -- make zsh files recognized as sh for bash-ls & treesitter
+        vim.filetype.add {
+            extension = {
+                zsh = "sh",
+                sh = "sh", -- force sh-files with zsh-shebang to still get sh as filetype
+            },
+            filename = {
+                [".zshrc"] = "sh",
+                [".zshenv"] = "sh",
+            },
+        }
 	end,
 }

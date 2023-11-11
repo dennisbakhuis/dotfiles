@@ -97,6 +97,7 @@ fi
 ############
 # Starship #
 ############
+# Check if starship is installed else install it
 if _has starship; then
   eval "$(starship init zsh)"
 else
@@ -119,4 +120,12 @@ source $HOME/dotfiles/zsh/aliases.zsh
 
 # Path to miniconda env with pynvim + debugpy
 export NEOVIM_PYTHON_ENV="/Users/dennis/miniconda3/envs/vim/bin/python"
+
+#######################################
+# Do neofetch or zeitfetch on startup #
+if _has neofetch; then
+  neofetch
+elif _has zeitfetch; then
+  zeitfetch
+fi
 

@@ -6,7 +6,9 @@ return {
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-        }
+        },
+        "nvim-telescope/telescope-file-browser.nvim",
+        "nvim-web-devicons",
     },
     config = function()
         -- Setup up telescope key-bindings
@@ -22,14 +24,16 @@ return {
 
         -- Setup up telescope general including extensions
         local actions = require('telescope.actions')
-        require('telescope').setup {
-            extensions = {
-                fzf = {
-                    fuzzy = true,
-                    override_generic_sorter = true,
-                    override_file_sorter = true,
-                    case_mode = "smart_case",
-                }
+        local telescope = require('telescope')
+
+        telescope.setup {
+            pickers = {
+                find_files = {
+                    hidden = true,
+                    follow = true,
+                    no_ignore = false,
+                    find_command = { 'fd', '--hidden', '--type', 'f' },
+                },
             },
             defaults = {
                 path_display = { "truncate " },
@@ -40,8 +44,27 @@ return {
                         ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     },
                 },
+                prompt_prefix = '🔍 ',
+                color_devicons = true,
             },
         }
-        require('telescope').load_extension('fzf')
+        telescope.load_extension('fzf')
+        telescope.load_extension("file_browser")
+
+        -- keymap for open file_browser
+        vim.api.nvim_set_keymap(
+            "n",
+            "<space>ee",
+            ":Telescope file_browser<CR>",
+            { noremap = true }
+        )
+
+        -- keymap for open file_browser with current file path
+        vim.api.nvim_set_keymap(
+            "n",
+            "<space>ec",
+            ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+            { noremap = true }
+        )
     end,
 }

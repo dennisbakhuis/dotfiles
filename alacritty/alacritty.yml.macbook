@@ -1,6 +1,6 @@
 # Alacritty config
 # Dennis Bakhuis
-# Last change: 2023-11-10
+# Last change: 1st Febrauari 2023
 
 window:
   dimensions:
@@ -21,7 +21,7 @@ font:
     family: FiraCode Nerd Font Mono
 
 key_binding:
-  - { key: F,      mods: Command, action: ToggleSimpleFullscreen }
+  - { key: F11,                   action: ToggleFullscreen }
   - { key: Plus,   mods: Command, action: IncreaseFontSize }
   - { key: Minus,  mods: Command, action: DecreaseFontSize }
   - { key: W,      mods: Command, action: Quit             }
@@ -54,8 +54,8 @@ colors:
 
 # shell:
 #   program: /bin/zsh
-  # args:
-  #   - -l
-  #   - -c
-  #   - "tmux"
+#   args:
+#     - -l
+#     - -c
+#     - "tmux"
 
