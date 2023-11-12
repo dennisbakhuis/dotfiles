@@ -5,7 +5,11 @@
 # Author: Dennis Bakhuis                #
 # Date: 2023-11-12                      #
 #########################################
-set -e  # Exit script immediately on first error.
+
+# set -e if not set to stop script on error
+if [ -z "$-echo" ]; then
+    set -e
+fi
 
 
 ############

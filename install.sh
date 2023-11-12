@@ -1,7 +1,17 @@
 #!/bin/zsh
+#########################################
+# Main install script                   #
+#                                       #
+# Author: Dennis Bakhuis                #
+# Date: 2023-11-12                      #
+#########################################
+set -e  # Exit script immediately on first error.
+
+
 ####################
 # Helper functions #
 ####################
+
 # Returns whether the given command is executable or aliased.
 _has() {
   return $( whence $1 >/dev/null )
@@ -15,7 +25,6 @@ export HOSTNAME=$(hostname -s)  # get hostname
 
 # create directories if not exist
 mkdir -pv $HOME/.cache/zsh
-mkdir -pv $HOME/.config/alacritty
 mkdir -pv $HOME/.config/wezterm
 mkdir -pv $HOME/.ssh
 mkdir -pv $HOME/.zfunc
