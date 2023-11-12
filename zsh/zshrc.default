@@ -22,6 +22,13 @@ _append_to_path() {
 }
 
 
+###########
+# General #
+###########
+export ZSH_CONFIGS=$HOME/dotfiles/zsh
+export HOSTNAME=$(hostname -s)  # get hostname
+
+
 ###############
 # zSh general #
 ###############
@@ -118,11 +125,22 @@ fi
 source $HOME/dotfiles/zsh/aliases.zsh
 [[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
 
+
+################
+# Init scripts #
+################
+source $ZSH_CONFIGS/init_scripts/miniconda_or_micromamba.zsh  # init miniconda or micromamba
+
+
+##########
+# Neovim #
+##########
 # Path to miniconda env with pynvim + debugpy
 export NEOVIM_PYTHON_ENV="/Users/dennis/miniconda3/envs/vim/bin/python"
 
 #######################################
 # Do neofetch or zeitfetch on startup #
+#######################################
 if _has neofetch; then
   neofetch
 elif _has zeitfetch; then

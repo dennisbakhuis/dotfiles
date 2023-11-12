@@ -1,7 +1,4 @@
 #!/bin/zsh
-# General install file of my setup
-# Expects zsh to be installed
-
 ####################
 # Helper functions #
 ####################
@@ -10,9 +7,12 @@ _has() {
   return $( whence $1 >/dev/null )
 }
 
-########
-# Main #
-########
+
+###########
+# General #
+###########
+export HOSTNAME=$(hostname -s)  # get hostname
+
 # create directories if not exist
 mkdir -pv $HOME/.cache/zsh
 mkdir -pv $HOME/.config/alacritty
@@ -62,23 +62,23 @@ else
     echo "Unknown OS"
 fi
 
-# install miniconda
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
-else
-    echo "Unknown OS"
-fi
-
 # install zplug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# symlinks
-rm -f $HOME/.zshrc
-ln -s $HOME/dotfiles/zsh/zshrc.ecare $HOME/.zshrc
+############
+# symlinks #
+############
 
+# zshrc
+rm -f $HOME/.zshrc
+ZSH_CONFIG_NAME="zshrc.$HOSTNAME"
+if ! [[ -f $HOME/dotfiles/zsh/$ZSH_CONFIG_NAME ]]; then
+    cp $HOME/dotfiles/zsh/zshrc.base $HOME/dotfiles/zsh/$ZSH_CONFIG_NAME
+fi
+ln -s $HOME/dotfiles/zsh/$ZSH_CONFIG_NAME $HOME/.zshrc
+
+# nvim
 rm -rf $HOME/.config/nvim
 ln -s $HOME/dotfiles/nvim $HOME/.config/nvim
 
