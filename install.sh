@@ -26,11 +26,13 @@ export HOSTNAME=$(hostname -s)  # get hostname
 # create directories if not exist
 mkdir -pv $HOME/.cache/zsh
 mkdir -pv $HOME/.config/wezterm
+mkdir -pv $HOME/.config/zsh
 mkdir -pv $HOME/.ssh
 mkdir -pv $HOME/.zfunc
 
 # remove old stuff
 rm -Rf $HOME/.zplug
+
 
 # install software check linux or mac
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -106,9 +108,6 @@ rm -f $HOME/.ignore
 rm -f $HOME/.gitconfig
 ln -s ~/dotfiles/git/ignore ~/.ignore
 ln -s ~/dotfiles/git/gitconfig ~/.gitconfig
-
-eval "$($HOME/miniconda/bin/conda shell.zsh hook)"
-conda config --set changeps1 False
 
 git config --global core.excludesfile ~/.gitignore
 

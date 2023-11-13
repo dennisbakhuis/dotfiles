@@ -1,32 +1,16 @@
-# My .zshrc default settings for all
-
-####################
-# Helper functions #
-####################
-
-# Returns whether the given command is executable or aliased.
-_has() {
-  return $( whence $1 >/dev/null )
-}
-
-_prepend_to_path() {
-  if [ -d $1 -a -z ${path[(r)$1]} ]; then
-    path=($1 $path);
-  fi
-}
-
-_append_to_path() {
-  if [ -d $1 -a -z ${path[(r)$1]} ]; then
-    path=($1 $path);
-  fi
-}
-
+#!/bin/zsh
+#########################################
+# My .zshrc default settings for all    #
+#                                       #
+# Author: Dennis Bakhuis                #
+# Date: 2023-11-12                      #
+#########################################
 
 ###########
 # General #
 ###########
-export ZSH_CONFIGS=$HOME/dotfiles/zsh
-export HOSTNAME=$(hostname -s)  # get hostname
+export ZDOTDIR=$HOME/dotfiles/zsh    # set zsh config directory
+export HOSTNAME=$(hostname -s)       # get hostname
 
 
 ###############
@@ -54,96 +38,26 @@ compinit
 _comp_options+=(globdots)		# Include hidden files.
 KEYTIMEOUT=1                    # less key time out (10ms)
 
-#########
-# Zinit #
-#########
-
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit's installer chunk
-
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-# syntax highlighting while you type: green okay / red error
-zinit light "zsh-users/zsh-syntax-highlighting"
-
-# Autojump alternative
-zinit light "skywind3000/z.lua"
-
-#######
-# fzf #
-#######
-source $HOME/dotfiles/fzf/key-bindings.zsh
-source $HOME/dotfiles/fzf/completion.zsh
-
-# fzf + ag configuration
-if _has fzf && _has ag; then
-  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_DEFAULT_OPTS='
-  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
-  '
-fi
-
-############
-# Starship #
-############
-# Check if starship is installed else install it
-if _has starship; then
-  eval "$(starship init zsh)"
-else
-    # Check if mac or linux
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        # Linux (Arch)
-        pacman -S starship
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        # Macbook
-        brew install starship
-    fi
-    eval "$(starship init zsh)"
-fi
-
-#####################
-# aliases & secrets #
-#####################
-source $HOME/dotfiles/zsh/aliases.zsh
-[[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh
-
 
 ################
 # Init scripts #
 ################
-source $ZSH_CONFIGS/init_scripts/miniconda_or_micromamba.zsh  # init miniconda or micromamba
+source $ZDOTDIR/init_scripts/antidote.zsh                   # init antidote (zsh plugin manager)
+source $ZDOTDIR/init_scripts/miniconda_or_micromamba.zsh    # init miniconda or micromamba
+source $ZDOTDIR/init_scripts/poetry.zsh                     # init poetry
+source $ZDOTDIR/init_scripts/starship.zsh                   # init starship
+source $ZDOTDIR/init_scripts/fzf.zsh                        # init fzf
+source $ZDOTDIR/init_scripts/fetch.zsh                      # init neofetch or zeitfetch
 
+#####################
+# aliases & secrets #
+#####################
+source $ZDOTDIR/aliases.zsh                                 # load general aliases
+[[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh    # load secrets if exists
 
 ##########
 # Neovim #
 ##########
 # Path to miniconda env with pynvim + debugpy
 export NEOVIM_PYTHON_ENV="/Users/dennis/miniconda3/envs/vim/bin/python"
-
-#######################################
-# Do neofetch or zeitfetch on startup #
-#######################################
-if _has neofetch; then
-  neofetch
-elif _has zeitfetch; then
-  zeitfetch
-fi
 

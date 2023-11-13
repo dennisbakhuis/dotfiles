@@ -1,13 +1,13 @@
 #!/bin/zsh
-
-# set -e if not set to stop script on error
-if [ -z "$-echo" ]; then
-    set -e
-fi
-
 ###########################
 # Miniconda or Micromamba #
 ###########################
+
+# Check if command exists
+_has() {
+    type "$1" > /dev/null 2>&1
+}
+
 
 if _has micromamba; then
     # Micromamba
@@ -18,19 +18,19 @@ if _has micromamba; then
     alias conda=micromamba
 else
     # Miniconda
-    export MINICONDA_INSTALL_PATH=$HOME/miniconda3
+    export CONDA_ROOT_PREFIX=$HOME/miniconda3
 
     # check if miniconda is installed
-    if [ ! -d "$MINICONDA_INSTALL_PATH" ]; then
+    if [ ! -d "$CONDA_ROOT_PREFIX" ]; then
     
-        __conda_setup="$($MINICONDA_INSTALL_PATH/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
+        __conda_setup="$($CONDA_ROOT_PREFIX/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
         if [ $? -eq 0 ]; then
             eval "$__conda_setup"
         else
-            if [ -f "$MINICONDA_INSTALL_PATH/etc/profile.d/conda.sh" ]; then
-                . "$MINICONDA_INSTALL_PATH/etc/profile.d/conda.sh"
+            if [ -f "$CONDA_ROOT_PREFIX/etc/profile.d/conda.sh" ]; then
+                . "$CONDA_ROOT_PREFIX/etc/profile.d/conda.sh"
             else
-                export PATH="$MINICONDA_INSTALL_PATH/bin:$PATH"
+                export PATH="$CONDA_ROOT_PREFIX/bin:$PATH"
             fi
         fi
         unset __conda_setup
@@ -44,7 +44,7 @@ else
         # When mamba is installed, alias it to conda and set conda to conda_original
         if _has mamba; then
             alias conda=mamba
-            alias conda_original=$MINICONDA_INSTALL_PATH/bin/conda
+            alias conda_original=$CONDA_ROOT_PREFIX/bin/conda
         fi
     fi
 fi

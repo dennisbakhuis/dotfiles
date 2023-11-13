@@ -1,0 +1,6 @@
+# Syntax highlighting
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# Autosuggestions & completion
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-completions

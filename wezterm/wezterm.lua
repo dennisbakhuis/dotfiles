@@ -29,8 +29,8 @@ config.native_macos_fullscreen_mode = true
 config.font = wezterm.font "FiraCode Nerd Font Mono"
 config.font_size = 14.0
 
-config.initial_rows = 50
-config.initial_cols = 120
+config.initial_rows = 40
+config.initial_cols = 100
 config.window_padding = {
   left = '4px',
   right = '2px',
