@@ -40,6 +40,7 @@ KEYTIMEOUT=1                    # less key time out (10ms)
 ################
 # Init scripts #
 ################
+source $ZSH_CONFIG_ROOT/init_scripts/homebrew.zsh       # init homebrew (needs to be first)
 source $ZSH_CONFIG_ROOT/init_scripts/antidote.zsh       # init antidote (zsh plugin manager)
 source $ZSH_CONFIG_ROOT/init_scripts/micromamba.zsh     # init micromamba
 source $ZSH_CONFIG_ROOT/init_scripts/poetry.zsh         # init poetry
@@ -48,7 +49,8 @@ source $ZSH_CONFIG_ROOT/init_scripts/fzf.zsh            # init fzf
 source $ZSH_CONFIG_ROOT/init_scripts/neovim.zsh         # init neovim
 source $ZSH_CONFIG_ROOT/init_scripts/git.zsh            # init git
 source $ZSH_CONFIG_ROOT/init_scripts/exa.zsh            # init exa
-source $ZSH_CONFIG_ROOT/init_scripts/fetch.zsh          # init neofetch or zeitfetch
+source $ZSH_CONFIG_ROOT/init_scripts/orbstack.zsh       # init orbstack
+source $ZSH_CONFIG_ROOT/init_scripts/fetch.zsh          # init neofetch or zeitfetch (preferably last)
 
 
 #####################
