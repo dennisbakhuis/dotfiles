@@ -9,8 +9,8 @@
 ###########
 # General #
 ###########
-export ZSH_CONFIG_ROOT=$HOME/dotfiles/zsh    # set zsh config directory
-export HOSTNAME=$(hostname -s)       # get hostname
+export ZSH_CONFIG_ROOT=$HOME/dotfiles/zsh   # set zsh config directory
+export HOSTNAME=$(hostname -s)              # get hostname
 
 
 ###############
