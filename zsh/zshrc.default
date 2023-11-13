@@ -9,15 +9,13 @@
 ###########
 # General #
 ###########
-export ZDOTDIR=$HOME/dotfiles/zsh    # set zsh config directory
+export ZSH_CONFIG_ROOT=$HOME/dotfiles/zsh    # set zsh config directory
 export HOSTNAME=$(hostname -s)       # get hostname
 
 
 ###############
-# zSh general #
+# ZSh general #
 ###############
-export EDITOR="nvim"             # what else?
-export CHROME_EXECUTABLE="chromium" # needed for flutter
 autoload -U colors && colors    # enable colors
 
 # history
@@ -42,22 +40,20 @@ KEYTIMEOUT=1                    # less key time out (10ms)
 ################
 # Init scripts #
 ################
-source $ZDOTDIR/init_scripts/antidote.zsh                   # init antidote (zsh plugin manager)
-source $ZDOTDIR/init_scripts/miniconda_or_micromamba.zsh    # init miniconda or micromamba
-source $ZDOTDIR/init_scripts/poetry.zsh                     # init poetry
-source $ZDOTDIR/init_scripts/starship.zsh                   # init starship
-source $ZDOTDIR/init_scripts/fzf.zsh                        # init fzf
-source $ZDOTDIR/init_scripts/fetch.zsh                      # init neofetch or zeitfetch
+source $ZSH_CONFIG_ROOT/init_scripts/antidote.zsh       # init antidote (zsh plugin manager)
+source $ZSH_CONFIG_ROOT/init_scripts/micromamba.zsh     # init micromamba
+source $ZSH_CONFIG_ROOT/init_scripts/poetry.zsh         # init poetry
+source $ZSH_CONFIG_ROOT/init_scripts/starship.zsh       # init starship
+source $ZSH_CONFIG_ROOT/init_scripts/fzf.zsh            # init fzf
+source $ZSH_CONFIG_ROOT/init_scripts/neovim.zsh         # init neovim
+source $ZSH_CONFIG_ROOT/init_scripts/git.zsh            # init git
+source $ZSH_CONFIG_ROOT/init_scripts/exa.zsh            # init exa
+source $ZSH_CONFIG_ROOT/init_scripts/fetch.zsh          # init neofetch or zeitfetch
+
 
 #####################
 # aliases & secrets #
 #####################
-source $ZDOTDIR/aliases.zsh                                 # load general aliases
+source $ZSH_CONFIG_ROOT/aliases.zsh                         # load general aliases
 [[ -a $HOME/.secrets.zsh ]] && source $HOME/.secrets.zsh    # load secrets if exists
-
-##########
-# Neovim #
-##########
-# Path to miniconda env with pynvim + debugpy
-export NEOVIM_PYTHON_ENV="/Users/dennis/miniconda3/envs/vim/bin/python"
 

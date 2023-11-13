@@ -18,6 +18,7 @@ fi
 
 # Check if poetry is installed in env
 POETRY_EXECUTABLE="$PYTHON_ROOT_PREFIX/envs/$POETRY_ENV_NAME/bin/poetry"
+
 if [ -f "$POETRY_EXECUTABLE" ]; then
     alias poetry="$POETRY_EXECUTABLE"
 fi
