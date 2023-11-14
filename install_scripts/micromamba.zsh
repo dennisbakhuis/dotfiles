@@ -54,7 +54,11 @@ if [ "$MICROMAMBA_INSTALL" = true ]; then
         mkdir -p $HOME/.local/bin
         curl -Ls https://micro.mamba.pm/api/micromamba/osx-arm64/latest | tar -xvj $HOME/.local/bin/micromamba
     fi
+
     export MAMBA_ROOT_PREFIX=$HOME/micromamba
     eval "$(micromamba shell hook --shell zsh)"
+
+    # Create a symlink to condarc file to disable prompt change
+    ln -s $HOME/dotfiles/conda/condarc $HOME/.condarc
 fi
 

@@ -36,8 +36,12 @@ vim.opt.colorcolumn = "80"      -- set color column at 80 characters
 
 vim.opt.splitright = true       -- open new split to the right
 
--- set Python provider with pynvim installed
-vim.g.python3_host_prog = "/Users/dennis/miniconda3/envs/vim/bin/python"
+-- Check in environment variable NEOVIM_PYTHON_ENV exists and set python provider
+if os.getenv("NEOVIM_PYTHON_ENV") ~= nil then
+    vim.g.python3_host_prog = os.getenv("NEOVIM_PYTHON_ENV")
+else
+    vim.g.loaded_python3_provider = 0
+end
 
 -- disable some providers
 vim.g.loaded_ruby_provider = 0
