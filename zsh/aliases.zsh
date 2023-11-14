@@ -1,17 +1,21 @@
-#!/bin/zsh
 #########################################
 # My general aliases for zsh            #
 #                                       #
 # Author: Dennis Bakhuis                #
 # Date: 2023-11-12                      #
 #########################################
-# Specific aliases are in their own init files
 
 ###########
 # General #
 ###########
 alias history='history -i'
 alias hist='history'
+
+
+##########
+# Python #
+##########
+alias jl='jupyter lab --ip=0.0.0.0'  # Jupyter Lab (keep as general alias as it could be available in multiple environments (or not))
 
 
 ###########

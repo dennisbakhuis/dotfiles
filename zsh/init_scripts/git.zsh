@@ -1,14 +1,17 @@
-#!/bin/zsh
 #######
 # Git #
 #######
+# Git aliases and functions. This script will check if Git is installed
+# and if it is, it will create aliases and functions.
+
 
 # Settings
-GIT_ENABLED=${NEOVIM_ENABLED:-"true"}
+ZSH_INIT_GIT=${ZSH_INIT_GIT:-"true"}
+PRIORITY=200
 
 
 # Init Git
-if [ "$GIT_ENABLED" = "true" ]; then
+if [ "$ZSH_INIT_GIT" = "true" ]; then
     if command -v git &> /dev/null; then
 
         # Aliases

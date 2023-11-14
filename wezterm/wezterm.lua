@@ -21,6 +21,8 @@ local tokyonight = wezterm.color.get_builtin_schemes()['tokyonight_moon']
 tokyonight.background = '#001728'
 config.colors = tokyonight
 
+config.audible_bell = 'Disabled'
+
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
 config.window_background_opacity = 1.0
@@ -31,6 +33,8 @@ config.font_size = 14.0
 
 config.initial_rows = 40
 config.initial_cols = 100
+config.display_pixel_geometry = "BGR"
+
 config.window_padding = {
   left = '4px',
   right = '2px',
@@ -44,7 +48,6 @@ config.window_frame = {
   border_top_height = 0,
 }
 config.enable_scroll_bar = false
-config.use_resize_increments = true
 config.adjust_window_size_when_changing_font_size = false
 
 -- Default full screen is set to option + enter

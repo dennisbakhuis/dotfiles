@@ -1,14 +1,20 @@
-#!/bin/zsh
 ##############
 # Micromamba #
 ##############
+# Micromamba is a package manager for Python. This script will check
+# if Micromamba is installed and if it is, it will enable it. 
+# This script will also set some aliases for micromamba to make it
+# a drop-in replacement for conda.
+
 
 # Settings
-MICROMAMBA_ENABLED=${MICROMAMBA_ENABLED:-"true"}
-MICROMAMBA_PATH_NAME=${MICROMAMBA_PATH_NAME:-"micromamba"}
+ZSH_INIT_MICROMAMBA=${ZSH_INIT_MICROMAMBA:-"true"}          # enable micromamba
+MICROMAMBA_PATH_NAME=${MICROMAMBA_PATH_NAME:-"micromamba"}  # micromamba path name
+PRIORITY=100                                                # priority of this script
+
 
 # Init Micromamba
-if [ "$MICROMAMBA_ENABLED" = "true" ]; then
+if [ "$ZSH_INIT_MICROMAMBA" = "true" ]; then
     if command -v micromamba &> /dev/null; then
         # Micromamba
         export MAMBA_ROOT_PREFIX="$HOME/$MICROMAMBA_PATH_NAME"
@@ -23,7 +29,5 @@ if [ "$MICROMAMBA_ENABLED" = "true" ]; then
         alias cl='conda env list'
         alias crm='conda env remove --name'
 
-        # Jupyter Lab (keep as general alias as it could be available in multiple environments (or not))
-        alias jl='jupyter lab --ip=0.0.0.0'
     fi
 fi

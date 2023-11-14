@@ -1,14 +1,17 @@
-#!/bin/zsh
 ############################
 # Exa (replacement for ls) #
 ############################
+# Exa is a replacement for ls. This script will check if Exa is installed
+# and if it is, it will create aliases.
+
 
 # Settings
-EXA_ENABLED=${EXA_ENABLED:-"true"}
+ZSH_INIT_EXA=${ZSH_INIT_EXA:-"true"}   # enable exa
+PRIORITY=200                           # priority of this script
 
 
 # Init Exa
-if [ "$EXA_ENABLED" = "true" ]; then
+if [ "$ZSH_INIT_EXA" = "true" ]; then
     if command -v exa &> /dev/null; then
 
         # Aliases
