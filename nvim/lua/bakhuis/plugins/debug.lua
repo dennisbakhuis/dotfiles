@@ -18,7 +18,7 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
-        requires = {
+        dependencies = {
             "mfussenegger/nvim-dap",
         },
         keys = {
