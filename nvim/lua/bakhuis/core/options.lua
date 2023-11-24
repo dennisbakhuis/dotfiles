@@ -58,7 +58,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Open help in vertical split with max width of 80 characters
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'help',
-    group = vim.api.nvim_create_augroup('black_on_save', { clear = true }),
     callback = function()
         vim.bo.bufhidden = 'unload'
         vim.cmd('wincmd L')

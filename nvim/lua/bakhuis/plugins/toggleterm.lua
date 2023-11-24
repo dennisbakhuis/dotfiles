@@ -10,7 +10,7 @@ return   {
                     return vim.o.columns * 0.4
                 end
             end,
-            open_mapping = [[<leader>tt]],
+            -- open_mapping = [[<leader>tt]],
             start_in_insert = true,
             insert_mappings = false,
             persist_size = true,
@@ -20,6 +20,9 @@ return   {
         -------------------------
         -- additional keybindings
         -------------------------
+        -- toggle terminal
+        vim.keymap.set('n', '<C-Enter>', [[<Cmd>ToggleTerm<CR>]], {})
+        vim.keymap.set('t', '<C-Enter>', [[<Cmd>ToggleTerm<CR>]], {})
 
         -- open a vertical terminal if new
         vim.keymap.set('n', '<leader>tv', [[<Cmd>ToggleTerm direction=vertical<CR>]], {})

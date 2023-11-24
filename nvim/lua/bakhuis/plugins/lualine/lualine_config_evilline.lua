@@ -1,11 +1,7 @@
 local function lualine_config()
-    -- Eviline config for lualine
-    -- Author: shadmansaleh
-    -- Credit: glepnir
-    local lualine = require('lualine')
+    -- Based on `eviline` from `shadmansaleh` and `glepnir`
 
     -- Color table for highlights
-    -- stylua: ignore
     local colors = {
         bg       = '#202328',
         fg       = '#bbc2cf',
@@ -18,6 +14,7 @@ local function lualine_config()
         magenta  = '#c678dd',
         blue     = '#51afef',
         red      = '#ec5f67',
+        white    = '#ffffff',
     }
 
     local conditions = {
@@ -26,6 +23,9 @@ local function lualine_config()
         end,
         hide_in_width = function()
             return vim.fn.winwidth(0) > 80
+        end,
+        hide_width_small = function()
+            return vim.fn.winwidth(0) > 160
         end,
         check_git_workspace = function()
             local filepath = vim.fn.expand('%:p:h')
@@ -38,6 +38,7 @@ local function lualine_config()
     local config = {
         options = {
             -- Disable sections and component separators
+            icons_enabled = true,
             component_separators = '',
             section_separators = '',
             theme = {
@@ -79,19 +80,36 @@ local function lualine_config()
         table.insert(config.sections.lualine_x, component)
     end
 
-    ins_left {
-        function()
-            return '▊'
-        end,
-        color = { fg = colors.blue }, -- Sets highlighting of component
-        padding = { left = 0, right = 1 }, -- We don't need space before this
-    }
+    -- current lsp function
+    local function current_lsp()
+        local msg = ''
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_active_clients()
+        if next(clients) == nil then
+            return msg
+        end
+        for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                return client.name
+            end
+        end
+        return msg
+    end
 
     ins_left {
         -- mode component
         function()
-            return ''
+            -- Arch/Apple symbol from NerdFonts
+            local os
+            if vim.fn.has('mac') == 1 then
+                os = ''
+            elseif vim.fn.has('unix') == 1 then
+                os = ''
+            end
+            return os
         end,
+
         color = function()
             -- auto change color according to neovims mode
             local mode_color = {
@@ -118,7 +136,7 @@ local function lualine_config()
             }
             return { fg = mode_color[vim.fn.mode()] }
         end,
-        padding = { right = 1 },
+        padding = { left = 1 },
     }
 
     ins_left {
@@ -156,40 +174,26 @@ local function lualine_config()
         end,
     }
 
-    ins_left {
+    ins_right {
         -- Lsp server name .
         function()
-            local msg = 'No Active Lsp'
-            local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-            local clients = vim.lsp.get_active_clients()
-            if next(clients) == nil then
-                return msg
-            end
-            for _, client in ipairs(clients) do
-                local filetypes = client.config.filetypes
-                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                    return client.name
-                end
+            local msg = current_lsp()
+            if msg == '' then
+                msg = 'no lsp'
             end
             return msg
         end,
-        icon = ' LSP:',
-        color = { fg = '#ffffff', gui = 'bold' },
-    }
-
-    -- Add components to right sections
-    ins_right {
-        'o:encoding', -- option component same as &encoding in viml
-        fmt = string.upper, -- I'm not sure why it's upper case either ;)
-        cond = conditions.hide_in_width,
-        color = { fg = colors.green, gui = 'bold' },
-    }
-
-    ins_right {
-        'fileformat',
-        fmt = string.upper,
-        icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-        color = { fg = colors.green, gui = 'bold' },
+        icon = '',
+        color = function()
+            local msg = current_lsp()
+            local color
+            if msg == '' then
+                color = colors.red
+            else
+                color = colors.white
+            end
+            return { fg = color }
+        end,
     }
 
     ins_right {
@@ -211,11 +215,10 @@ local function lualine_config()
     }
 
     ins_right {
-        function()
-            return '▊'
-        end,
-        color = { fg = colors.blue },
-        padding = { left = 1 },
+        'datetime',
+        cond = conditions.hide_width_small,
+        style = "🕒 %H:%M",
+        padding = { right = 1 },
     }
 
     return config

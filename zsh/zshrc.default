@@ -31,6 +31,7 @@ source $ZSH_CONFIG_ROOT/init_scripts/neovim.zsh         # init neovim
 source $ZSH_CONFIG_ROOT/init_scripts/git.zsh            # init git
 source $ZSH_CONFIG_ROOT/init_scripts/exa.zsh            # init exa
 source $ZSH_CONFIG_ROOT/init_scripts/orbstack.zsh       # init orbstack
+source $ZSH_CONFIG_ROOT/init_scripts/navi.zsh           # init navi
 source $ZSH_CONFIG_ROOT/init_scripts/fetch.zsh          # init neofetch or zeitfetch (preferably last)
 
 

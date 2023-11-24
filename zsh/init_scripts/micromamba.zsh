@@ -26,8 +26,8 @@ if [ "$ZSH_INIT_MICROMAMBA" = "true" ]; then
 
         # Aliases
         alias ca='conda activate'
+        alias cod='conda deactivate'
         alias cl='conda env list'
         alias crm='conda env remove --name'
-
     fi
 fi

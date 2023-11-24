@@ -2,3 +2,4 @@
 
 source ~/dotfiles/zsh/zshrc.default
 
+. "$HOME/.cargo/env"
