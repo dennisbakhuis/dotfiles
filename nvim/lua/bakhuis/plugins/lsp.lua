@@ -14,6 +14,7 @@ return {
         "zbirenbaum/copilot-cmp",
         "zbirenbaum/copilot.lua",
         "onsails/lspkind.nvim",
+        "simrat39/rust-tools.nvim",
     },
 	config = function()
 		local lsp_zero = require('lsp-zero')

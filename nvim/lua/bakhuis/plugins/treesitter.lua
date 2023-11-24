@@ -22,6 +22,7 @@ return {
                 "dockerfile",
                 "gitignore",
                 "python",
+                "html",
             },
         })
     end,
