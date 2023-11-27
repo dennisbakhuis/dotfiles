@@ -40,6 +40,7 @@ docker run \
     -v $DOTFILES_ROOT:/dotfiles \
     -e BASE_ARCH_USER=$BASE_ARCH_USER \
     -e BASE_ARCH_PASSWORD=$BASE_ARCH_PASSWORD \
+    -e REMOVE_ZSHRC_HOSTNAME=true \
     bakhuis/dotfiles:stage0 \
     /bin/bash -c "/dotfiles/install_scripts/tests/tests_on_arch.sh"
 

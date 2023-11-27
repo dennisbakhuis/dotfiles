@@ -79,7 +79,7 @@ if [ "$ZSH_INSTALL" = true ]; then
     mkdir -pv $HOME/.zfunc
 
     # Link or create zshrc config
-    ZSH_CONFIG_NAME="zshrc.$HOSTNAME"
+    export ZSH_CONFIG_NAME="zshrc.$HOSTNAME"
     if ! [[ -f $DOTFILES_ROOT/zsh/$ZSH_CONFIG_NAME ]]; then
         cp $DOTFILES_ROOT/zsh/zshrc.base $DOTFILES_ROOT/zsh/$ZSH_CONFIG_NAME
         echo "export DOTFILES_ROOT=$DOTFILES_ROOT" >> "$DOTFILES_ROOT/zsh/$ZSH_CONFIG_NAME"
@@ -90,6 +90,9 @@ if [ "$ZSH_INSTALL" = true ]; then
         echo "# After this line added by other porgrams" >> "$DOTFILES_ROOT/zsh/$ZSH_CONFIG_NAME"
     fi
     ln -s $DOTFILES_ROOT/zsh/$ZSH_CONFIG_NAME $HOME/.zshrc
+
+    # Link antidote plugins file
+    ln -s $DOTFILES_ROOT/zsh/zsh_plugins.txt $HOME/.zsh_plugins.txt
 
     # Set default shell to zsh
     printf " *** Setting default shell to zsh...\n"
