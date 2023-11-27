@@ -2,6 +2,9 @@
 ######################################
 # Script to install Homebrew         #
 #                                    #
+# Also install packages:             #
+#  - gsed                            #
+#                                    #
 # Author: Dennis Bakhuis             #
 # Date: 2023-11-12                   #
 ######################################
@@ -37,8 +40,19 @@ if [ "$(uname)" == "Darwin" ]; then
 
             echo "Installing Homebrew..."
             NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+            # install gsed (MacOs uses BSD sed by default instead of GNU sed)
+            echo " *** Installing gsed..."
+            brew install gnu-sed
+
         else
             echo " *** Homebrew is already installed..."
+
+            # check if gsed is installed else install it
+            if [ ! -x "$(command -v gsed)" ]; then
+                echo " *** Installing gsed..."
+                brew install gnu-sed
+            fi
         fi
     fi
 fi

@@ -22,8 +22,8 @@ fi
 # Settings #
 ############
 BASE_ARCH_INSTALL=${BASE_ARCH_INSTALL:-true}        # Install base arch tools (default: true)
-BASE_ARCH_USER_NAME=${BASE_ARCH_USER_NAME:-dennis}  # Add user with username
-BASE_ARCH_PASSWORD=${BASE_ARCH_PASSWORD}            # Password must be set in environment
+BASE_USER=${BASE_USER:-dennis}  # Add user with username
+BASE_PASSWORD=${BASE_PASSWORD}            # Password must be set in environment
 
 
 ########
@@ -106,30 +106,30 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
             ############
  
             # Create new user if not exists and add to wheel
-            if id -u $BASE_ARCH_USER_NAME > /2>&1; then
-                printf " *** User $BASE_ARCH_USER_NAME already exists...\n"
+            if id -u $BASE_USER > /2>&1; then
+                printf " *** User $BASE_USER already exists...\n"
  
                 # check if user is in wheel group
-                if groups $BASE_ARCH_USER_NAME | grep -q wheel; then
-                    printf " *** User $BASE_ARCH_USER_NAME is already in wheel group...\n"
+                if groups $BASE_USER | grep -q wheel; then
+                    printf " *** User $BASE_USER is already in wheel group...\n"
                 else
-                    printf " *** Adding user $BASE_ARCH_USER_NAME to wheel group...\n"
-                    usermod -aG wheel $BASE_ARCH_USER_NAME
+                    printf " *** Adding user $BASE_USER to wheel group...\n"
+                    usermod -aG wheel $BASE_USER
                 fi
             else
-                printf " *** Creating new user $BASE_ARCH_USER_NAME...\n"
+                printf " *** Creating new user $BASE_USER...\n"
  
                 # Check if password is set
-                if [ -z "$BASE_ARCH_PASSWORD" ]; then
-                    printf "BASE_ARCH_PASSWORD is required to create user, exiting...\n"
+                if [ -z "$BASE_PASSWORD" ]; then
+                    printf "BASE_PASSWORD is required to create user, exiting...\n"
                     exit 1
                 fi
  
-                useradd -rm -G wheel -s /bin/bash -u 1001 $BASE_ARCH_USER_NAME
+                useradd -rm -G wheel -s /bin/bash -u 1001 $BASE_USER
  
-                printf " *** Setting password for new user $BASE_ARCH_USER_NAME...\n"
-                printf " -----> \`$BASE_ARCH_USER_NAME\`:\`$BASE_ARCH_PASSWORD\`\n"
-                echo "$BASE_ARCH_USER_NAME:$BASE_ARCH_PASSWORD" | chpasswd
+                printf " *** Setting password for new user $BASE_USER...\n"
+                printf " -----> \`$BASE_USER\`:\`$BASE_PASSWORD\`\n"
+                echo "$BASE_USER:$BASE_PASSWORD" | chpasswd
             fi
  
  

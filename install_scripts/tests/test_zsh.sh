@@ -44,7 +44,7 @@ fi
 
 # check if current user hase zsh as login shell
 if [ "$(uname)" == "Darwin" ]; then
-    CURRENT_SHELL=$(dscl . -read ~/ UserShell | sed 's/UserShell: //')
+    CURRENT_SHELL=$(dscl . -read ~/ UserShell | gsed 's/UserShell: //')
 else
     CURRENT_SHELL=$(grep ^$(id -un): /etc/passwd | cut -d : -f 7-)
 fi

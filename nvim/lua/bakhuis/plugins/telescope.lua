@@ -17,10 +17,7 @@ return {
         vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
         vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-        vim.keymap.set("n", "<leader>fc", builtin.grep_string)
-        vim.keymap.set('n', '<leader>fg', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
-        end)
+        vim.keymap.set("n", "<leader>fg", builtin.live_grep)
 
         -- Setup up telescope general including extensions
         local actions = require('telescope.actions')
@@ -36,7 +33,7 @@ return {
                 },
             },
             defaults = {
-                path_display = { "truncate " },
+                path_display = { "truncate" },
                 mappings = {
                     i = {
                         ["<C-p>"] = actions.move_selection_previous, -- move to prev result

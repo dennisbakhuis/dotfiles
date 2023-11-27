@@ -18,14 +18,24 @@ set -e                      # Exit script immediately on first error.
 #########################################
 # General settings and helper functions #
 #########################################
-export BASE_ARCH_USER=${BASE_ARCH_USER:-dennis}     # User to be created in Arch with sudo rights
+export BASE_USER=${BASE_USER:-dennis}     # User to be created in Arch with sudo rights
 export DOTFILES_ROOT=$(pwd)                                     # Location of the dotfiles
 
-# if BASE_ARCH_PASSWORD is not set, ask for it
-if [ -z "$BASE_ARCH_PASSWORD" ]; then
-    printf " *** Enter password for user \`$BASE_ARCH_USER\`: "
-    read -s BASE_ARCH_PASSWORD
+# if BASE_PASSWORD is not set, ask for it
+if [ -z "$BASE_PASSWORD" ]; then
+    printf " *** Enter password for user \`$BASE_USER\`: "
+    read -s BASE_PASSWORD
     printf "\n"
+fi
+
+# if hostname is not set, ask for it, show current set hostname and keep if empty
+if [ -z "$HOSTNAME" ]; then
+    printf " *** Enter hostname (current: '$(hostname)', press enter to keep): "
+    read HOSTNAME
+    if [ -z "$HOSTNAME" ]; then
+        printf " *** Keeping current hostname\n"
+        HOSTNAME=$(hostname)
+    fi
 fi
 
 
@@ -43,22 +53,19 @@ MAIN_INSTALL_SCRIPTS=$DOTFILES_ROOT/install_scripts
 if [ "$(id -u)" -eq 0 ]; then
     printf "Stage 0\n-------\n"
     source $MAIN_INSTALL_SCRIPTS/arch_base.sh
-    printf "\n\n *** To continue, run this script as \`$BASE_ARCH_USER\`\n"
+    printf "\n\n *** To continue, run this script as \`$BASE_USER\`\n"
     exit 0
-elif [ "$(whoami)" != "$BASE_ARCH_USER" ]; then
-    # Script is run as non-root user that is not $BASE_ARCH_USER
-    printf " *** ERROR: This script should be run as \`$BASE_ARCH_USER\`\n"
+elif [ "$(whoami)" != "$BASE_USER" ]; then
+    # Script is run as non-root user that is not $BASE_USER
+    printf " *** ERROR: This script should be run as \`$BASE_USER\`\n"
     exit 1
 fi
-
-# Set variables
-export HOSTNAME=${HOSTNAME:-$(hostname)}            # Hostname of the machine
 
 
 ###################################################################
 # Stage 1                                                         #
 ###################################################################
-# The main stage runs as $BASE_ARCH_USER and installs components. #
+# The main stage runs as $BASE_USER and installs components. #
 # Components do their own checks if they are already installed.   #
 # The order of the components is important!                       #
 ###################################################################
@@ -82,7 +89,7 @@ fi
 
 
 # pre-type sudo password
-echo $BASE_ARCH_PASSWORD | sudo -S echo "Sudo password set"
+echo $BASE_PASSWORD | sudo -S echo "Sudo password set"
 
 # 1-MAC: Homebrew (package manager)
 source $MAIN_INSTALL_SCRIPTS/homebrew.sh

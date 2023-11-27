@@ -25,8 +25,8 @@ if [ "$(uname)" == "Linux" ]; then
     fi
     
     # test if user exists
-    if ! id -u $BASE_ARCH_USER > /dev/null; then
-        echo "ERROR($TESTS_FOR): user $BASE_ARCH_USER does not exist"
+    if ! id -u $BASE_USER > /dev/null; then
+        echo "ERROR($TESTS_FOR): user $BASE_USER does not exist"
         NUM_ERRORS=$((NUM_ERRORS+1))
     fi
 
@@ -34,9 +34,9 @@ if [ "$(uname)" == "Linux" ]; then
     # does not work yet as I do not know how to hash using yescrypt
     # SALT=$(grep $USERNAME /etc/shadow | awk -F: '{print substr($2,4,8)}')
     # if [ "$SALT" != "" ]; then
-    #     NEWPASS=$(echo $BASE_ARCH_PASSWORD | openssl passwd -stdin -1 -salt $SALT | sed -r 's/^\$.\$//')
-    #     # NEWPASS=$(echo $BASE_ARCH_PASSWORD | openssl passwd -stdin -1 -salt $SALT | sed -r 's/^\$.\$//')
-    #     grep $BASE_ARCH_USER  /etc/shadow | grep -q  $NEWPASS && echo "Success" || echo "Failure"
+    #     NEWPASS=$(echo $BASE_PASSWORD | openssl passwd -stdin -1 -salt $SALT | sed -r 's/^\$.\$//')
+    #     # NEWPASS=$(echo $BASE_PASSWORD | openssl passwd -stdin -1 -salt $SALT | sed -r 's/^\$.\$//')
+    #     grep $BASE_USER  /etc/shadow | grep -q  $NEWPASS && echo "Success" || echo "Failure"
     # fi
     
     # test if sudo is installed
@@ -52,8 +52,8 @@ if [ "$(uname)" == "Linux" ]; then
     fi
     
     # test if user is in wheel group
-    if ! groups $BASE_ARCH_USER | grep -q wheel; then
-        echo "ERROR($TESTS_FOR): user $BASE_ARCH_USER is not in wheel group"
+    if ! groups $BASE_USER | grep -q wheel; then
+        echo "ERROR($TESTS_FOR): user $BASE_USER is not in wheel group"
         NUM_ERRORS=$((NUM_ERRORS+1))
     fi
     
