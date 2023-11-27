@@ -53,6 +53,12 @@ if [ "$CURRENT_SHELL" != "/bin/zsh" ] && [ "$CURRENT_SHELL" != "/usr/bin/zsh" ];
     NUM_ERRORS=$((NUM_ERRORS+1))
 fi
 
+# check if exa is installed
+if ! command -v exa > /dev/null; then
+    printf "ERROR($TESTS_FOR): exa is not installed.\n"
+    NUM_ERRORS=$((NUM_ERRORS+1))
+fi
+
 ###############
 
 if [ $NUM_ERRORS -eq 0 ]; then

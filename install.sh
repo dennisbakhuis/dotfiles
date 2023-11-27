@@ -70,11 +70,6 @@ fi
 # The order of the components is important!                       #
 ###################################################################
 
-# Returns whether the given command is executable or aliased.
-_has() {
-  return $( whence $1 >/dev/null )
-}
-
 # Check if on Mac or Arch
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     printf " *** Detected: Arch Linux\n"
@@ -87,7 +82,6 @@ else
     exit 1
 fi
 
-
 # pre-type sudo password
 echo $BASE_PASSWORD | sudo -S echo "Sudo password set"
 
@@ -99,6 +93,12 @@ source $MAIN_INSTALL_SCRIPTS/git.sh
 
 # 3-BOTH: Zsh (shell)
 source $MAIN_INSTALL_SCRIPTS/zsh.sh
+
+# 4-BOTH: Fzf (fuzzy finder and friends)
+source $MAIN_INSTALL_SCRIPTS/fzf.sh
+
+# 5-BOTH: Neovim (text editor)
+source $MAIN_INSTALL_SCRIPTS/neovim.sh
 
 #
 # # create directories if not exist
@@ -116,7 +116,7 @@ source $MAIN_INSTALL_SCRIPTS/zsh.sh
 #     fi
 #     
 #     # install packages
-#     sudo pacman -S tmux neovim curl gawk fzf nodejs exa starship ripgrep fd neofetch
+#     sudo pacman -S tmux nodejs neofetch
 #     
 #     # install GUI packages
 #     if [[ "$INSTALL_GUI_APPS" == 1 ]]; then
@@ -132,7 +132,7 @@ source $MAIN_INSTALL_SCRIPTS/zsh.sh
 #     echo "Mac OSX"
 #     # install homebrew
 #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#     brew install tmux neovim curl gawk fzf nodejs exa starship fd
+#     brew install tmux nodejs 
 #     brew tap homebrew/cask-fonts
 #     brew install --cask font-source-code-pro wezterm font-fira-mono-nerd-font
 #     brew tap nidnogg/zeitfetch
@@ -148,10 +148,6 @@ source $MAIN_INSTALL_SCRIPTS/zsh.sh
 # ############
 # # symlinks #
 # ############
-#
-# # nvim
-# rm -rf $HOME/.config/nvim
-# ln -s $HOME/dotfiles/nvim $HOME/.config/nvim
 #
 # rm -f $HOME/.alacritty.yml $HOME/.config/alacritty/alacritty.yml
 # ln -s $HOME/dotfiles/alacritty/alacritty.yml.macbook $HOME/.config/alacritty/alacritty.yml

@@ -3,7 +3,7 @@
 --
 -- Author: Dennis Bakhuis 
 -- ------------------------------------
-vim.api.nvim_exec("language en_US.utf-8", false)
+-- vim.api.nvim_exec("language en_US.utf-8", false)
 
 vim.opt.termguicolors = true    -- enable true colors support
 vim.opt.guicursor = ""          -- disable cursor blinking

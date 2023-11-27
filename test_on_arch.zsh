@@ -27,7 +27,7 @@ if [ "$REBUILD_STAGE0" = true ]; then
         --progress plain \
         --build-arg BASE_USER=$BASE_USER \
         --build-arg BASE_PASSWORD=$BASE_PASSWORD \
-        --build-args HOSTNAME=$HOSTNAME \
+        --build-arg HOSTNAME=$HOSTNAME \
         -t bakhuis/dotfiles:stage0 \
         . \
         -f $DOTFILES_ROOT/install_scripts/tests/Dockerfile.stage0 

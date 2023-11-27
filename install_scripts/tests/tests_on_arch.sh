@@ -18,18 +18,24 @@ export REMOVE_ZSHRC_HOSTNAME=${REMOVE_ZSHRC_HOSTNAME:-false}
 # Run main install script
 source $MAIN_INSTALL_SCRIPT
 
-# Run tests
+
+#############
+# Run tests #
+#############
+
 # source $TEST_SCRIPTS/test_arch_base.sh        # Already tested in docker container creation (need root)
 source $TEST_SCRIPTS/test_homebrew.sh           # Test homebrew install script
 source $TEST_SCRIPTS/test_git.sh                # Test git install script
 source $TEST_SCRIPTS/test_zsh.sh                # Test zsh install script
+source $TEST_SCRIPTS/test_fzf.sh                # Test fzf install script
+source $TEST_SCRIPTS/test_neovim.sh             # Test neovim install script
 
 
 ####################
 # Optional cleanup #
 ####################
 
-# Remove zshrc_hostname as it is put in the gir repo
+# Remove zshrc.$HOSTNAME  as it is put in the git repo
 if [ "$REMOVE_ZSHRC_HOSTNAME" = true ]; then
     printf " *** Removing $ZSH_CONFIG_NAME ...\n"
     rm -f $DOTFILES_ROOT/zsh/$ZSH_CONFIG_NAME

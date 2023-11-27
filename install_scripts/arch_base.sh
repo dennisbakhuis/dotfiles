@@ -54,6 +54,9 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 printf " *** Enabling ParallelDownloads...\n"
                 sed -i "s/^#ParallelDownloads = 5/ParallelDownloads = 5/" /etc/pacman.conf
             fi
+            
+            # add some NL mirrors
+            curl -L "https://archlinux.org/mirrorlist/?country=NL&protocol=http&protocol=https&ip_version=4" | grep https | grep -E "i3d|leaseweb" | sed --expression="s/#Server/Server/g" >> /etc/pacman.d/mirrorlist
  
             # init pacman keyring if required
             if [ ! -f /etc/pacman.d/gnupg ]; then
@@ -70,10 +73,9 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 fi
             fi
  
- 
             # Always update system
             printf " *** Updating system...\n"
-            pacman -Syu --noconfirm
+            pacman -Syyu --noconfirm
  
  
             ########

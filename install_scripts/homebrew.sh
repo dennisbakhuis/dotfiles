@@ -14,6 +14,7 @@ if [ -z "$-echo" ]; then
     set -e
 fi
 
+
 ############
 # Settings #
 ############
@@ -30,27 +31,27 @@ if [ "$(uname)" == "Darwin" ]; then
 
         # if homebrew is not yet installed
         if [ ! -x "$(command -v brew)" ]; then
-            echo "Installing Homebrew..."
+            printf "Installing Homebrew...\n"
 
             # check if curl is installed (default on mac)
             if [ ! -x "$(command -v curl)" ]; then
-                echo " *** ERROR: Installing hombrew - curl is not installed, exiting..."
+                printf " *** ERROR: Installing hombrew - curl is not installed, exiting...\n"
                 exit 1
             fi
 
-            echo "Installing Homebrew..."
+            printf "Installing Homebrew...\n"
             NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
             # install gsed (MacOs uses BSD sed by default instead of GNU sed)
-            echo " *** Installing gsed..."
+            printf " *** Installing gsed..."
             brew install gnu-sed
 
         else
-            echo " *** Homebrew is already installed..."
+            printf " *** Homebrew is already installed...\n"
 
             # check if gsed is installed else install it
             if [ ! -x "$(command -v gsed)" ]; then
-                echo " *** Installing gsed..."
+                printf " *** Installing gsed...\n"
                 brew install gnu-sed
             fi
         fi

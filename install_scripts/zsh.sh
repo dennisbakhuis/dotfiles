@@ -2,6 +2,10 @@
 ######################################
 # Script to zsh                      #
 #                                    #
+# Also install packages:             #
+#  - starship                        #
+#  - exa                             #
+#                                    #
 # Author: Dennis Bakhuis             #
 # Date: 2023-11-25                   #
 ######################################
@@ -34,15 +38,15 @@ if [ "$ZSH_INSTALL" = true ]; then
                 printf " *** ERROR: Installing zsh - homebrew is not installed, exiting...\n"
                 exit 1
             fi
-            NONINTERACTIVE=1 brew install zsh starship
+            NONINTERACTIVE=1 brew install zsh starship exa
 
         elif [ "$(uname)" == "Linux" ]; then
-            sudo pacman -S --noconfirm zsh 
+            sudo pacman -S --noconfirm zsh exa
 
             # check if on 32bit arm else regular install
             if [ "$(uname -m)" == "armv7l" ]; then
                 # 32bit arm (Raspberry Pi <4)
-                curl -sS https://starship.rs/install.sh | sh
+                sh -c "$(curl -fsSL https://starship.rs/install.sh)" -y -f
             else 
                 sudo pacman -S --noconfirm starship
             fi

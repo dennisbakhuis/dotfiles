@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 ######################################
 # Script to install fzf              #
 #                                    #
@@ -13,27 +13,11 @@ if [ -z "$-echo" ]; then
     set -e
 fi
 
+
 ############
 # Settings #
 ############
 FZF_INSTALL=${FZF_INSTALL:-true}  # Install FZF if not installed (default: true)
-
-
-################
-# Prerequisits #
-################
-
-# check if zsh is the current shell
-if [ "$(basename $SHELL)" != "zsh" ]; then
-    echo "zsh is not the current shell, exiting..."
-    exit 1
-fi
-
-# check if fzf is already installed
-if [ -x "$(command -v fzf)" ]; then
-    echo "fzf is already installed, exiting..."
-    exit 0 
-fi
 
 
 ########
@@ -43,13 +27,16 @@ fi
 # Install fzf on Mac or Arch Linux
 if [ "$FZF_INSTALL" == "true" ]; then
     if [ "$(uname)" == "Darwin" ]; then
-        echo "Installing fzf on Mac..."
+        printf " *** Installing fzf, bat, fd, and ripgrep on Mac...\n"
         brew install fzf ripgrep bat fd
+
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        echo "Installing fzf on Arch..."
-        pacman -S fzf ripgrep bat fd
+        printf " *** Installing fzf, bat, fd, and ripgrep on Arch...\n"
+        sudo pacman -S --noconfirm fzf ripgrep bat fd
+
     else
-        echo "OS not supported, exiting..."
+        printf " *** OS not supported, exiting...\n"
         exit 1
+
     fi
 fi
