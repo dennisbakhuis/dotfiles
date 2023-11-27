@@ -100,23 +100,29 @@ source $MAIN_INSTALL_SCRIPTS/fzf.sh
 # 5-BOTH: Neovim (text editor)
 source $MAIN_INSTALL_SCRIPTS/neovim.sh
 
-#
+# 6-BOTH: Ssh (secure shell)
+# source $MAIN_INSTALL_SCRIPTS/ssh.sh
+
+# 7-Arch: Paru (AUR helper)
+# source $MAIN_INSTALL_SCRIPTS/paru.sh
+
+
+
+
+
+
+
 # # create directories if not exist
 # mkdir -pv $HOME/.config/wezterm
 # mkdir -pv $HOME/.ssh
 #
-#
-# # install software check linux or mac
-# if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-#     echo "Arch Linux"
-#     
 #     # install paru (needs to build using rust)
 #     if ! _has paru; then
 #         pacman -S --needed git base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -rf paru
 #     fi
 #     
 #     # install packages
-#     sudo pacman -S tmux nodejs neofetch
+#     sudo pacman -S neofetch
 #     
 #     # install GUI packages
 #     if [[ "$INSTALL_GUI_APPS" == 1 ]]; then
@@ -124,26 +130,11 @@ source $MAIN_INSTALL_SCRIPTS/neovim.sh
 #         sudo pacman -S wezterm ttf-firacode-nerd-font adobe-source-code-pro-fonts
 #     fi
 #
-#     # install miniconda
-#     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
-#     bash ~/miniconda.sh -b -p $HOME/miniconda
-#     
-# elif [[ "$OSTYPE" == "darwin"* ]]; then
-#     echo "Mac OSX"
-#     # install homebrew
-#     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#     brew install tmux nodejs 
 #     brew tap homebrew/cask-fonts
 #     brew install --cask font-source-code-pro wezterm font-fira-mono-nerd-font
+
 #     brew tap nidnogg/zeitfetch
 #     brew install zeitfetch
-#
-#     # Install miniconda
-#     curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ~/miniconda.sh
-#     bash ~/miniconda.sh -b -p $HOME/miniconda
-# else
-#     echo "Unknown OS"
-# fi
 #
 # ############
 # # symlinks #
@@ -153,9 +144,6 @@ source $MAIN_INSTALL_SCRIPTS/neovim.sh
 # ln -s $HOME/dotfiles/alacritty/alacritty.yml.macbook $HOME/.config/alacritty/alacritty.yml
 # rm -f $HOME/.wezterm.lua $HOME/.config/wezterm/wezterm.lua
 # ln -s $HOME/dotfiles/wezterm/wezterm.lua $HOME/.config/wezterm/wezterm.lua
-#
-# rm -f $HOME/.tmux.conf
-# ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
 #
 # rm -f $HOME/.ssh/config
 # ln -s ~/dotfiles/ssh/config ~/.ssh/config
