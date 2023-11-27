@@ -1,0 +1,15 @@
+FROM archlinux:base
+
+# Setting up the environment
+ARG BASE_ARCH_USER
+ARG BASE_ARCH_PASSWORD
+
+# Install stage 0
+COPY $DOTFILES_ROOT /dotfiles
+WORKDIR /dotfiles
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN ./install.sh
+RUN ./install_scripts/tests/test_arch_base.sh
+USER $BASE_ARCH_USER
+
+CMD ["/bin/bash"]

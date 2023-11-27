@@ -1,6 +1,7 @@
 Applications/
 miniconda3/
 Library/
+OrbStack/
 .cache/
 .local/
 .zsh_sessions/

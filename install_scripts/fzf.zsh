@@ -2,6 +2,8 @@
 ######################################
 # Script to install fzf              #
 #                                    #
+# Including fd, ripgrep, bat         #
+#                                    #
 # Author: Dennis Bakhuis             #
 # Date: 2023-11-12                   #
 ######################################
@@ -42,10 +44,10 @@ fi
 if [ "$FZF_INSTALL" == "true" ]; then
     if [ "$(uname)" == "Darwin" ]; then
         echo "Installing fzf on Mac..."
-        brew install fzf
+        brew install fzf ripgrep bat fd
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         echo "Installing fzf on Arch..."
-        pacman -S fzf
+        pacman -S fzf ripgrep bat fd
     else
         echo "OS not supported, exiting..."
         exit 1

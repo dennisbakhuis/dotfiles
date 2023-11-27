@@ -5,5 +5,4 @@ name = Dennis Bakhuis
 email = git@bakhuis.nu
 [pull]
 	rebase = false
-[core]
-	excludefile = /Users/dennis/dotfiles/gitignore
+

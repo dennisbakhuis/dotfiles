@@ -8,7 +8,7 @@
 ###########
 # General #
 ###########
-export ZSH_CONFIG_ROOT=$HOME/dotfiles/zsh   # set zsh config root
+export ZSH_CONFIG_ROOT=$DOTFILES_ROOT/zsh   # set zsh config root
 source $ZSH_CONFIG_ROOT/general.zsh         # load general settings
 
 

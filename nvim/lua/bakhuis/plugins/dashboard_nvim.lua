@@ -10,16 +10,24 @@ return {
                     {
                         icon = ' ',
                         icon_hl = '@variable',
-                        desc = 'Files',
+                        desc = 'files',
                         group = 'Label',
                         action = 'Telescope find_files',
                         key = 'f',
                     },
                     {
-                        desc = ' dotfiles',
-                        group = 'Number',
+                        icon = '⚙  ',
+                        desc = 'dotfiles',
+                        group = '@property',
                         action = 'execute "cd $HOME/dotfiles" | Telescope find_files',
                         key = 'd',
+                    },
+                    {
+                        icon = '✕ ',
+                        desc = 'quit',
+                        group = '@property',
+                        action = 'quitall',
+                        key = 'q',
                     },
                 },
                 footer = { '  ' .. vim.fn.getcwd(), },
@@ -28,4 +36,3 @@ return {
     end,
     dependencies = { {'nvim-tree/nvim-web-devicons'}}
 }
-
