@@ -9,17 +9,18 @@
 # is used for some configs                      #
 #                                               #
 # Author: Dennis Bakhuis                        #
-# Date: 2023-11-25                              #
+# Date: 2023-11-28                              #
 #################################################
-INSTALLER_VERSION=0.1.0     # Version of this installer
+INSTALLER_VERSION=0.2.0     # Version of this installer
 set -e                      # Exit script immediately on first error.
 
 
 #########################################
 # General settings and helper functions #
 #########################################
-export BASE_USER=${BASE_USER:-dennis}     # User to be created in Arch with sudo rights
-export DOTFILES_ROOT=$(pwd)                                     # Location of the dotfiles
+export BASE_USER=${BASE_USER:-dennis}       # User to be created in Arch with sudo rights
+export DOTFILES_ROOT=$(pwd)                 # Location of the dotfiles
+export STAGE2=${STAGE2:-false}              # Install stage 2 (GUI + Python dev)
 
 # if BASE_PASSWORD is not set, ask for it
 if [ -z "$BASE_PASSWORD" ]; then
@@ -28,20 +29,10 @@ if [ -z "$BASE_PASSWORD" ]; then
     printf "\n"
 fi
 
-# if hostname is not set, ask for it, show current set hostname and keep if empty
-if [ -z "$HOSTNAME" ]; then
-    printf " *** Enter hostname (current: '$(hostname)', press enter to keep): "
-    read HOSTNAME
-    if [ -z "$HOSTNAME" ]; then
-        printf " *** Keeping current hostname\n"
-        HOSTNAME=$(hostname)
-    fi
-fi
-
 
 ##################################################################
-# Stage 0                                                        #
-# -------                                                        #
+# Stage 0 - Prepare base Arch system (only executed as root)     #
+##################################################################
 # When running this script as root on Arch it will first install #
 # the arch_base script.                                          #
 ##################################################################
@@ -61,91 +52,62 @@ elif [ "$(whoami)" != "$BASE_USER" ]; then
     exit 1
 fi
 
+# Hostname variable can now be set
+export HOSTNAME=$(hostname)
+
 
 ###################################################################
-# Stage 1                                                         #
+# Stage 1 - default shell system                                  #
 ###################################################################
-# The main stage runs as $BASE_USER and installs components. #
+# The main stage runs as $BASE_USER and installs components.      #
 # Components do their own checks if they are already installed.   #
 # The order of the components is important!                       #
 ###################################################################
 
-# Check if on Mac or Arch
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    printf " *** Detected: Arch Linux\n"
-    INSTALL_GUI_APPS=${INSTALL_GUI_APPS:-false}
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    printf " *** Detected: MacOs\n"
-    INSTALL_GUI_APPS=${INSTALL_GUI_APPS:-true}
-else
-    printf "ERROR: Unknown OS\n"
-    exit 1
-fi
-
 # pre-type sudo password
 echo $BASE_PASSWORD | sudo -S echo "Sudo password set"
 
-# 1-MAC: Homebrew (package manager)
-source $MAIN_INSTALL_SCRIPTS/homebrew.sh
-
-# 2-BOTH: Git (version control)
-source $MAIN_INSTALL_SCRIPTS/git.sh
-
-# 3-BOTH: Zsh (shell)
-source $MAIN_INSTALL_SCRIPTS/zsh.sh
-
-# 4-BOTH: Fzf (fuzzy finder and friends)
-source $MAIN_INSTALL_SCRIPTS/fzf.sh
-
-# 5-BOTH: Neovim (text editor)
-source $MAIN_INSTALL_SCRIPTS/neovim.sh
-
-# 6-BOTH: Ssh (secure shell)
-# source $MAIN_INSTALL_SCRIPTS/ssh.sh
-
-# 7-Arch: Paru (AUR helper)
-# source $MAIN_INSTALL_SCRIPTS/paru.sh
+##############
+# Components #
+##############
+source $MAIN_INSTALL_SCRIPTS/homebrew.sh    # 1-MAC: Homebrew (package manager)
+source $MAIN_INSTALL_SCRIPTS/git.sh         # 2-BOTH: Git (version control)
+source $MAIN_INSTALL_SCRIPTS/zsh.sh         # 3-BOTH: Zsh (shell)
+source $MAIN_INSTALL_SCRIPTS/fzf.sh         # 4-BOTH: Fzf (fuzzy finder and friends)
+source $MAIN_INSTALL_SCRIPTS/neovim.sh      # 5-BOTH: Neovim (text editor)
+source $MAIN_INSTALL_SCRIPTS/ssh.sh         # 6-BOTH: Ssh (secure shell)
+source $MAIN_INSTALL_SCRIPTS/paru.sh        # 7-Arch: Paru (AUR helper)
+source $MAIN_INSTALL_SCRIPTS/fetch.sh       # 8-BOTH: Neofetch/Zeitfetch (system info)
 
 
+#######################################################################
+# Stage 2 - GUI apps and Python dev environment                       #
+#######################################################################
+# This stage installs graphical applications if needed. For me this   #
+# is only needed if on MacOs or when INSTALL_GUI_APPS is set to true. #
+#######################################################################
 
+# if INSTALL_GUI_APPS is not set, check if on mac or arch and set accordingly
+if [ -z "$INSTALL_GUI_APPS" ]; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        printf " *** Detected: Arch Linux (no GUI apps required)\n"
+        INSTALL_GUI_APPS=false
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        printf " *** Detected: MacOs (installing GUI apps)\n"
+        INSTALL_GUI_APPS=true
+    fi
+else
+    printf " *** INSTALL_GUI_APPS is set to $INSTALL_GUI_APPS\n"
+fi
 
+##############
+# Components #
+#############
 
+if [ "$STAGE2" == "true"]; then
 
+    source $MAIN_INSTALL_SCRIPTS/wezterm.sh     # 1-BOTH: Wezterm
+    source $MAIN_INSTALL_SCRIPTS/micromamba.sh  # 2-BOTH: Micromamba (miniconda)
 
-# # create directories if not exist
-# mkdir -pv $HOME/.config/wezterm
-# mkdir -pv $HOME/.ssh
-#
-#     # install paru (needs to build using rust)
-#     if ! _has paru; then
-#         pacman -S --needed git base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -rf paru
-#     fi
-#     
-#     # install packages
-#     sudo pacman -S neofetch
-#     
-#     # install GUI packages
-#     if [[ "$INSTALL_GUI_APPS" == 1 ]]; then
-#         echo "GUI used..."
-#         sudo pacman -S wezterm ttf-firacode-nerd-font adobe-source-code-pro-fonts
-#     fi
-#
-#     brew tap homebrew/cask-fonts
-#     brew install --cask font-source-code-pro wezterm font-fira-mono-nerd-font
-
-#     brew tap nidnogg/zeitfetch
-#     brew install zeitfetch
-#
-# ############
-# # symlinks #
-# ############
-#
-# rm -f $HOME/.alacritty.yml $HOME/.config/alacritty/alacritty.yml
-# ln -s $HOME/dotfiles/alacritty/alacritty.yml.macbook $HOME/.config/alacritty/alacritty.yml
-# rm -f $HOME/.wezterm.lua $HOME/.config/wezterm/wezterm.lua
-# ln -s $HOME/dotfiles/wezterm/wezterm.lua $HOME/.config/wezterm/wezterm.lua
-#
-# rm -f $HOME/.ssh/config
-# ln -s ~/dotfiles/ssh/config ~/.ssh/config
-#
+fi
 

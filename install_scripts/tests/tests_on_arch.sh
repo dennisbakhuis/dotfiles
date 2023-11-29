@@ -29,6 +29,9 @@ source $TEST_SCRIPTS/test_git.sh                # Test git install script
 source $TEST_SCRIPTS/test_zsh.sh                # Test zsh install script
 source $TEST_SCRIPTS/test_fzf.sh                # Test fzf install script
 source $TEST_SCRIPTS/test_neovim.sh             # Test neovim install script
+source $TEST_SCRIPTS/test_ssh.sh                # Test ssh install script
+source $TEST_SCRIPTS/test_paru.sh               # Test paru install script
+source $TEST_SCRIPTS/test_fetch.sh              # Test fetch install script
 
 
 ####################

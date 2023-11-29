@@ -68,6 +68,28 @@ if [ "$(uname)" == "Linux" ]; then
         echo "ERROR($TESTS_FOR): base-devel is not installed, installing..."
         NUM_ERRORS=$((NUM_ERRORS+1))
     fi
+
+    # test if inetutils is installed
+    if ! pacman -Qs inetutils > /dev/null; then
+        echo "ERROR($TESTS_FOR): inetutils is not installed, installing..."
+        NUM_ERRORS=$((NUM_ERRORS+1))
+    fi
+
+    # test if locale is set
+    if ! grep -q "LANG=nl_NL.UTF-8" /etc/locale.conf; then
+        echo "ERROR($TESTS_FOR): Language not set to nl_NL.UTF-8"
+        NUM_ERRORS=$((NUM_ERRORS+1))
+    fi
+    if ! grep -q "LC_MESSAGES=en_US.UTF-8" /etc/locale.conf; then
+        echo "ERROR($TESTS_FOR): System messages not set to en_US.UTF-8"
+        NUM_ERRORS=$((NUM_ERRORS+1))
+    fi
+
+    # test if timezone is set to Europe/Amsterdam
+    if ! grep -q "Europe/Amsterdam" <<< $(readlink /etc/localtime); then
+        echo "ERROR($TESTS_FOR): Timezone not set to Europe/Amsterdam"
+        NUM_ERRORS=$((NUM_ERRORS+1))
+    fi
     
     ###############
 

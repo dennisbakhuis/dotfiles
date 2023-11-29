@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 #########################################
 # Script to install Micromamba          #
 #                                       #
@@ -11,35 +11,11 @@ if [ -z "$-echo" ]; then
     set -e
 fi
 
+
 ############
 # Settings #
 ############
-MICROMAMBA_INSTALL=${MICROMAMBA_INSTALL:-true}  # Install Micromamba if not installed (default: true)
-
-
-################
-# Prerequisits #
-################
-
-# check if zsh is the current shell
-if [ "$(basename $SHELL)" != "zsh" ]; then
-    echo "zsh is not the current shell, exiting..."
-    exit 1
-fi
-
-# check when on mac if brew is installed
-if [ "$(uname)" = "Darwin" ]; then
-    if ! command -v brew &> /dev/null; then
-        echo "brew is not installed, exiting..."
-        exit 1
-    fi
-fi
-
-# check if micromamba is already installed
-if command -v micromamba &> /dev/null; then
-    echo "micromamba is already installed, exiting..."
-    exit 0
-fi
+MICROMAMBA_INSTALL=${MICROMAMBA_INSTALL:-true}
 
 
 ########
@@ -48,13 +24,17 @@ fi
 
 # Install micromamba if not installed
 if [ "$MICROMAMBA_INSTALL" = true ]; then
+
     if [ "$(uname)" = "Darwin" ]; then
-        brew install micromamba
+        NONINTERACTIVE=1 brew install micromamba
+
     else
         mkdir -p $HOME/.local/bin
         curl -Ls https://micro.mamba.pm/api/micromamba/osx-arm64/latest | tar -xvj $HOME/.local/bin/micromamba
+
     fi
 
+    # needed when future components need micromamba (e.g. poetry)
     export MAMBA_ROOT_PREFIX=$HOME/micromamba
     eval "$(micromamba shell hook --shell zsh)"
 

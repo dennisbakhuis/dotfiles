@@ -28,7 +28,7 @@ FZF_INSTALL=${FZF_INSTALL:-true}  # Install FZF if not installed (default: true)
 if [ "$FZF_INSTALL" == "true" ]; then
     if [ "$(uname)" == "Darwin" ]; then
         printf " *** Installing fzf, bat, fd, and ripgrep on Mac...\n"
-        brew install fzf ripgrep bat fd
+        NONINTERACTIVE=1 brew install fzf ripgrep bat fd
 
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         printf " *** Installing fzf, bat, fd, and ripgrep on Arch...\n"

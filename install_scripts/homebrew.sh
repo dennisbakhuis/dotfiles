@@ -44,7 +44,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
             # install gsed (MacOs uses BSD sed by default instead of GNU sed)
             printf " *** Installing gsed..."
-            brew install gnu-sed
+            NONINTERACTIVE=1 brew install gnu-sed
 
         else
             printf " *** Homebrew is already installed...\n"
@@ -52,7 +52,7 @@ if [ "$(uname)" == "Darwin" ]; then
             # check if gsed is installed else install it
             if [ ! -x "$(command -v gsed)" ]; then
                 printf " *** Installing gsed...\n"
-                brew install gnu-sed
+                NONINTERACTIVE=1 brew install gnu-sed
             fi
         fi
     fi

@@ -3,13 +3,24 @@ FROM archlinux:base
 # Setting up the environment
 ARG BASE_USER
 ARG BASE_PASSWORD
+ARG HOSTNAME
 
-# Install stage 0
+# Install stage 0 (only root part)
 COPY $DOTFILES_ROOT /dotfiles
 WORKDIR /dotfiles
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN ./install.sh
+
+# Set locale (only for testing)
+ENV LANG=nl_NL.UTF-8
+ENV LC_MESSAGES=en_US.UTF-8
+
+# Tests (separately test arch_base)
 RUN ./install_scripts/tests/test_arch_base.sh
+
+# Prepare stage 0 for stage 1
+RUN chown -R ${BASE_USER} /dotfiles
 USER $BASE_USER
 
 CMD ["/bin/bash"]
+

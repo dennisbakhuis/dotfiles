@@ -21,9 +21,9 @@ fi
 ############
 # Settings #
 ############
-BASE_ARCH_INSTALL=${BASE_ARCH_INSTALL:-true}        # Install base arch tools (default: true)
-BASE_USER=${BASE_USER:-dennis}  # Add user with username
-BASE_PASSWORD=${BASE_PASSWORD}            # Password must be set in environment
+BASE_ARCH_INSTALL=${BASE_ARCH_INSTALL:-true}    # Install base arch tools (default: true)
+BASE_USER=${BASE_USER:-dennis}                  # Add user with username
+BASE_PASSWORD=${BASE_PASSWORD}                  # Password must be set in environment
 
 
 ########
@@ -55,10 +55,7 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 sed -i "s/^#ParallelDownloads = 5/ParallelDownloads = 5/" /etc/pacman.conf
             fi
             
-            # add some NL mirrors
-            curl -L "https://archlinux.org/mirrorlist/?country=NL&protocol=http&protocol=https&ip_version=4" | grep https | grep -E "i3d|leaseweb" | sed --expression="s/#Server/Server/g" >> /etc/pacman.d/mirrorlist
- 
-            # init pacman keyring if required
+            # init pacman keyring if required and create secret key
             if [ ! -f /etc/pacman.d/gnupg ]; then
                 printf " *** Initializing pacman keyring...\n"
                 pacman-key --init
@@ -73,11 +70,11 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 fi
             fi
  
-            # Always update system
+            # update
             printf " *** Updating system...\n"
-            pacman -Syyu --noconfirm
+            pacman -Syy --noconfirm && pacman -Syu --noconfirm
  
- 
+
             ########
             # Sudo #
             ########
@@ -167,7 +164,38 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 printf " *** Installing inetutils...\n"
                 pacman -Sy --noconfirm inetutils
             fi
+
+
+            ###############################################
+            # Setup locale to en_US.UTF-8 and nl_NL.UTF-8 #
+            ###############################################
+
+            # Turn on en_US.UTF-8 and nl_NL.UTF-8 locales
+            printf " *** Uncommenting en_US.UTF-8 and nl_NL.UTF-8 in /etc/locale.gen ...\n"
+            sed -i "s/^#en_US.UTF-8/en_US.UTF-8/g" /etc/locale.gen
+            sed -i "s/^#nl_NL.UTF-8/nl_NL.UTF-8/g" /etc/locale.gen
              
+            # Set system locale to en_US.UTF-8
+            printf " *** Setting system locale to NL but have EN speaking system...\n"
+            echo -e "LANG=nl_NL.UTF-8\nLC_MESSAGES=en_US.UTF-8" > /etc/locale.conf
+
+            # Generate locales
+            # in docker containers many locales are missing (only used for my tests)
+            # check if lines with the string i18n are in pacman.conf
+            if grep -q "i18n" /etc/pacman.conf; then
+                printf " *** In container with NoExtract for glibc (reinstalling)...\n"
+                sed -i '/i18n/d' /etc/pacman.conf
+                pacman -S --noconfirm glibc
+            else
+                printf " *** Generating locales...\n"
+                locale-gen
+            fi
+
+            # Set timezone to Europe/Amsterdam
+            printf " *** Setting timezone to Europe/Amsterdam...\n"
+            ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+
+
         else
             printf " *** Skipping Arch Base install, already running as regular user...\n"
         fi

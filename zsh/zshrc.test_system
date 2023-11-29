@@ -1,0 +1,11 @@
+####################
+# Base config file #
+####################
+
+# set DOTFILES_ROOT folder
+export DOTFILES_ROOT=/dotfiles
+
+# Source shared zshrc config
+source /dotfiles/zsh/zshrc.default
+
+# After this line added by other porgrams
