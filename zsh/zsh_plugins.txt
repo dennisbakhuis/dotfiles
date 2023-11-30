@@ -6,4 +6,4 @@ zsh-users/zsh-autosuggestions kind:defer
 zsh-users/zsh-completions
 
 # autojump
-skywind3000/z.lua kind:defer
+skywind3000/z.lua

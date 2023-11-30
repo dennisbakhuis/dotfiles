@@ -17,6 +17,7 @@ local function lualine_config()
         white    = '#ffffff',
     }
 
+    -- Conditions
     local conditions = {
         buffer_not_empty = function()
             return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -40,6 +41,7 @@ local function lualine_config()
             -- Disable sections and component separators
             icons_enabled = true,
             component_separators = '',
+            globalstatus = true,
             section_separators = '',
             theme = {
                 -- We are going to use lualine_c an lualine_x as left and
@@ -140,13 +142,31 @@ local function lualine_config()
     }
 
     ins_left {
-        -- filesize component
         'filesize',
         cond = conditions.buffer_not_empty,
     }
 
     ins_left {
-        'filename',
+        -- harpoon mark + Filename
+        function()
+            local current_file = vim.fn.split(vim.api.nvim_buf_get_name(0), "/")
+            current_file = current_file[#current_file]
+
+            local harpoon_marks = require("harpoon").get_mark_config()['marks']
+
+            local file_key = ""
+            for key, value in pairs(harpoon_marks) do
+                local file = vim.fn.split(value['filename'], "/")
+                file = file[#file]
+
+                if current_file == file then
+                    file_key = key .. " "
+                    break
+                end
+            end
+
+            return file_key .. current_file
+        end,
         cond = conditions.buffer_not_empty,
         color = { fg = colors.magenta, gui = 'bold' },
     }
@@ -172,6 +192,33 @@ local function lualine_config()
         function()
             return '%='
         end,
+    }
+
+    ins_right{
+        -- harpoonFiles,
+        function()
+            local harpoon_marks = require("harpoon").get_mark_config()['marks']
+            local currentFile = vim.fn.split(vim.api.nvim_buf_get_name(0), "/")
+            currentFile = currentFile[#currentFile]
+
+            local ret = ""
+            local count = 0
+            for key, value in pairs(harpoon_marks) do
+                local file = vim.fn.split(value['filename'], "/")
+                file = file[#file]
+
+                -- if currentFile not equal add string
+                if currentFile ~= file then
+                    ret = ret .. " " .. key .. " " .. file
+                end
+                count = count + 1
+                if count == 4 then break end
+            end
+
+            return ret
+        end,
+        cond = conditions.buffer_not_empty,
+        color = { fg = colors.cyan, gui = 'bold' },
     }
 
     ins_right {

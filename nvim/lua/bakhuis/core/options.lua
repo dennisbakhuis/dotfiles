@@ -36,7 +36,7 @@ vim.opt.colorcolumn = "80"      -- set color column at 80 characters
 
 vim.opt.splitright = true       -- open new split to the right
 
-vim.opt.laststatus = 3          -- always show a single statusline
+-- vim.opt.laststatus = 3          -- always show a single statusline
 
 -- Check in environment variable NEOVIM_PYTHON_ENV exists and set python provider
 if os.getenv("NEOVIM_PYTHON_ENV") ~= nil then
@@ -66,3 +66,4 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.cmd('vertical resize 80')
     end
 })
+
