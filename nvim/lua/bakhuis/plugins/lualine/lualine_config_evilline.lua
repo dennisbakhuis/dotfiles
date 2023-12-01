@@ -138,12 +138,13 @@ local function lualine_config()
             }
             return { fg = mode_color[vim.fn.mode()] }
         end,
-        padding = { left = 1 },
+        padding = { left = 1, right = 0 },
     }
 
     ins_left {
         'filesize',
         cond = conditions.buffer_not_empty,
+        padding = { left = 1, right = 0 },
     }
 
     ins_left {
@@ -169,11 +170,12 @@ local function lualine_config()
         end,
         cond = conditions.buffer_not_empty,
         color = { fg = colors.magenta, gui = 'bold' },
+        padding = { left = 1, right = 0 },
     }
 
-    ins_left { 'location' }
+    ins_left { 'location', padding = { left = 1, right = 0 }, }
 
-    ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+    ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' }, padding = { left = 1, right = 0 }, }
 
     ins_left {
         'diagnostics',
@@ -184,6 +186,7 @@ local function lualine_config()
             color_warn = { fg = colors.yellow },
             color_info = { fg = colors.cyan },
         },
+        padding = { left = 1, right = 0 },
     }
 
     -- Insert mid section. You can make any number of sections in neovim :)
@@ -192,6 +195,7 @@ local function lualine_config()
         function()
             return '%='
         end,
+        padding = { left = 1, right = 0 },
     }
 
     ins_right{
@@ -219,6 +223,7 @@ local function lualine_config()
         end,
         cond = conditions.buffer_not_empty,
         color = { fg = colors.cyan, gui = 'bold' },
+        padding = { right = 1 },
     }
 
     ins_right {
@@ -241,12 +246,14 @@ local function lualine_config()
             end
             return { fg = color }
         end,
+        padding = { right = 1 },
     }
 
     ins_right {
         'branch',
         icon = '',
         color = { fg = colors.violet, gui = 'bold' },
+        padding = { right = 1 },
     }
 
     ins_right {
@@ -259,6 +266,7 @@ local function lualine_config()
             removed = { fg = colors.red },
         },
         cond = conditions.hide_in_width,
+        padding = { right = 1 },
     }
 
     ins_right {

@@ -21,5 +21,10 @@ if [ "$ZSH_INIT_GIT" = "true" ]; then
         alias gc='git commit -v'
         alias gs='git status'
         alias gr='git reset'
+
+        # if lazygit is installed, additional aliases
+        if command -v lazygit &> /dev/null; then
+            alias lg='lazygit'
+        fi
     fi
 fi

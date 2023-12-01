@@ -2,6 +2,9 @@
 ######################################
 # Script to Git                      #
 #                                    #
+# Additional packages:               #
+#  - lazygit                         #
+#                                    #
 # Author: Dennis Bakhuis             #
 # Date: 2023-11-25                   #
 ######################################
@@ -36,9 +39,9 @@ if [ "$GIT_INSTALL" = true ]; then
                 exit 1
             fi
 
-            NONINTERACTIVE=1 brew install git
+            NONINTERACTIVE=1 brew install git lazygit
         elif [ "$(uname)" == "Linux" ]; then
-            sudo pacman -S --noconfirm git
+            sudo pacman -S --noconfirm git lazygit
         else
             printf " *** ERROR: Installing git - unknown OS, exiting...\n"
             exit 1
