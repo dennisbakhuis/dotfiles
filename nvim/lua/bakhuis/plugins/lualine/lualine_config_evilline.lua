@@ -22,11 +22,11 @@ local function lualine_config()
         buffer_not_empty = function()
             return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
         end,
-        hide_in_width = function()
-            return vim.fn.winwidth(0) > 80
+        show_when_large = function()
+            return vim.o.columns > 80
         end,
-        hide_width_small = function()
-            return vim.fn.winwidth(0) > 160
+        show_when_very_large = function()
+            return vim.o.columns > 120
         end,
         check_git_workspace = function()
             local filepath = vim.fn.expand('%:p:h')
@@ -265,13 +265,13 @@ local function lualine_config()
             modified = { fg = colors.orange },
             removed = { fg = colors.red },
         },
-        cond = conditions.hide_in_width,
+        cond = conditions.show_when_large,
         padding = { right = 1 },
     }
 
     ins_right {
         'datetime',
-        cond = conditions.hide_width_small,
+        cond = conditions.show_when_very_large,
         style = "🕒 %H:%M",
         padding = { right = 1 },
     }
