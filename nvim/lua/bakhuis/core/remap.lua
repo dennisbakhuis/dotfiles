@@ -4,9 +4,6 @@
 -- Author: Dennis Bakhuis 
 -- ------------------------------------
 
--- Map leader key to space
-vim.g.mapleader = " "
-
 -- Make move page up/down keep cursor in place
 vim.keymap.set("n", "<C-u>", "<C-u>zz", {desc = "Move page up"})
 vim.keymap.set("n", "<C-d>", "<C-d>zz", {desc = "Move page down"})

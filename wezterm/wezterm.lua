@@ -28,7 +28,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_background_opacity = 1.0
 config.native_macos_fullscreen_mode = true
 
-config.font = wezterm.font "FiraCode Nerd Font Mono"
+config.font = wezterm.font "Hack Nerd Font Mono"
 config.font_size = 14.0
 
 config.initial_rows = 40

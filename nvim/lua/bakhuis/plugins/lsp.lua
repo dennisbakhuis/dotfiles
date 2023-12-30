@@ -57,6 +57,16 @@ return {
 					local lua_opts = lsp_zero.nvim_lua_ls()
 					require('lspconfig').lua_ls.setup(lua_opts)
 				end,
+                rust_analyzer = function()
+                    local rust_tools = require('rust-tools')
+                    rust_tools.setup({
+                        server = {
+                            on_attach = function(_, bufnr)
+                                vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, {buffer = bufnr})
+                            end
+                        }
+                    })
+                end,
 			},
 		})
 
@@ -82,12 +92,12 @@ return {
 
 		cmp.setup({
 			sources = {
-                {name = 'copilot', group_index = 2 },
+                {name = 'copilot', group_index = 1 },
                 -- other sources
 				{name = 'path', group_index = 2 },
-				{name = 'nvim_lsp', group_index = 2},
-				{name = 'nvim_lua', group_index = 2 },
-                {name = 'buffer', group_index = 2 },
+				{name = 'nvim_lsp', group_index = 3},
+				{name = 'nvim_lua', group_index = 3 },
+                {name = 'buffer', group_index = 3 },
 			},
 			formatting = {
                 fields = {'abbr', 'kind', 'menu'},

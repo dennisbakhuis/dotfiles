@@ -5,6 +5,10 @@
 -- ------------------------------------
 -- vim.api.nvim_exec("language en_US.utf-8", false)
 
+-- Leader must be set first or plugins might map wrong leader in their maps.
+vim.g.mapleader = " "           -- Map leader key to space
+vim.g.maplocalleader = " "      -- Map local leader to space
+
 vim.opt.termguicolors = true    -- enable true colors support
 vim.opt.guicursor = ""          -- disable cursor blinking
 vim.opt.autoread = true         -- auto read when file changes
@@ -22,21 +26,23 @@ vim.opt.backup = false          -- disable backup files
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true         -- enable undo files for persistent undo
 
-vim.opt.hlsearch = false        -- disable search highlighting
+vim.opt.hlsearch = true         -- enable search highlighting
 vim.opt.incsearch = true        -- incremental search
+vim.opt.ignorecase = true       -- ignore case in search
+vim.opt.smartcase = true        -- do not ignore case with capital letters
+vim.opt.breakindent = true      -- indent wrapped lines
 
 vim.opt.wrap = false            -- disable line wrapping
 vim.opt.scrolloff = 8           -- keep 8 lines above and below cursor
 vim.opt.signcolumn = "yes"      -- always show sign column
 vim.opt.isfname:append("@-@")   -- allow @ in file names
 
-vim.opt.updatetime = 500        -- update interval for CursorHold
+vim.opt.updatetime = 250        -- update interval for CursorHold
+vim.opt.timeoutlen = 300        -- timeout for key sequences
 
 vim.opt.colorcolumn = "80"      -- set color column at 80 characters
 
 vim.opt.splitright = true       -- open new split to the right
-
--- vim.opt.laststatus = 3          -- always show a single statusline
 
 -- Check in environment variable NEOVIM_PYTHON_ENV exists and set python provider
 if os.getenv("NEOVIM_PYTHON_ENV") ~= nil then
