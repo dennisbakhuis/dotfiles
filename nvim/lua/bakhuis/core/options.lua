@@ -73,3 +73,7 @@ vim.api.nvim_create_autocmd('FileType', {
     end
 })
 
+-- copy to system clipboard by default
+-- lua nvim: set clipboard=unnamedplus
+vim.o.clipboard = "unnamedplus"
+

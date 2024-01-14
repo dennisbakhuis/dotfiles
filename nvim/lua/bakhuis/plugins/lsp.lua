@@ -63,7 +63,37 @@ return {
                         server = {
                             on_attach = function(_, bufnr)
                                 vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, {buffer = bufnr})
-                            end
+                            end,
+                            settings = {
+                                ['rust-analyzer'] = {
+                                    imports = {
+                                        granularity = {
+                                            group = "module",
+                                        },
+                                        prefix = "self",
+                                    },
+                                    cargo = {
+                                        features = { "ssr" },
+                                        loadOutDirsFromCheck = true,
+                                        buildScripts = {
+                                            enable = true,
+                                        }
+                                    },
+                                    check = {
+                                        features = { "ssr" },
+                                    },
+                                    -- Add clippy lints for Rust.
+                                    checkOnSave = {
+                                        features = { "ssr" },
+                                        command = "clippy",
+                                        extraArgs = { "--no-deps" },
+                                    },
+                                    procMacro = {
+                                        enable = false,
+                                    },
+                                }, -- rust-analyzer options
+                            }
+
                         }
                     })
                 end,

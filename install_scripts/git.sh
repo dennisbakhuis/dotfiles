@@ -64,6 +64,9 @@ if [ "$GIT_INSTALL" = true ]; then
     ln -s $DOTFILES_ROOT/git/gitignore $HOME/.ignore
     cp $DOTFILES_ROOT/git/gitconfig $HOME/.gitconfig
 
+    # fd only use .gitignore when in a git repo; .fdignore is used aways for fd
+    cp $DOTFILES_ROOT/git/gitconfig $HOME/.fdconfig
+
     # set global gitignore as it is a new copy
     printf " *** Setting global gitignore...\n"
     git config --global core.excludesfile $DOTFILES_ROOT/git/gitignore
