@@ -11,6 +11,9 @@
 export ZSH_CONFIG_ROOT=$DOTFILES_ROOT/zsh   # set zsh config root
 source $ZSH_CONFIG_ROOT/general.zsh         # load general settings
 
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
+    exec tmux new-session -A -s ${USER} >/dev/null 2>&1
+fi
 
 #############################
 # Load enabled Init scripts #

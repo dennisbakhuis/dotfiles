@@ -26,7 +26,8 @@ config.audible_bell = 'Disabled'
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
 config.window_background_opacity = 1.0
-config.native_macos_fullscreen_mode = true
+config.native_macos_fullscreen_mode = false
+-- config.window_decorations = "NONE"
 
 config.font = wezterm.font "Hack Nerd Font Mono"
 config.font_size = 14.0
@@ -59,6 +60,7 @@ config.keys = {
     { key = "s", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
     { key = "v", mods = "LEADER",       action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     { key = "o", mods = "LEADER",       action="TogglePaneZoomState" },
+    { key = "f", mods = "LEADER",       action="ToggleFullScreen" },
     { key = "z", mods = "LEADER",       action="TogglePaneZoomState" },
     { key = "c", mods = "LEADER",       action=wezterm.action{SpawnTab="CurrentPaneDomain"}},
     { key = "h", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Left"}},
