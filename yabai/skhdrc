@@ -1,2 +1,8 @@
-
+# restart yabai when updated settings
 ctrl + alt + cmd - r : yabai --restart-service"
+
+# open new terminal
+rcmd - return : alacritty
+
+# open password manager
+# cmd + alt - o : keepassxc

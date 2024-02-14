@@ -78,6 +78,7 @@ source $MAIN_INSTALL_SCRIPTS/neovim.sh      # 5-BOTH: Neovim (text editor)
 source $MAIN_INSTALL_SCRIPTS/ssh.sh         # 6-BOTH: Ssh (secure shell)
 source $MAIN_INSTALL_SCRIPTS/paru.sh        # 7-Arch: Paru (AUR helper)
 source $MAIN_INSTALL_SCRIPTS/fetch.sh       # 8-BOTH: Neofetch/Zeitfetch (system info)
+source $MAIN_INSTALL_SCRIPTS/tmux.sh        # 9-BOTH: Tmux (terminal multiplexer)
 
 
 #######################################################################
@@ -106,7 +107,8 @@ fi
 
 if [ "$STAGE2" == "true"]; then
 
-    source $MAIN_INSTALL_SCRIPTS/wezterm.sh     # 1-BOTH: Wezterm
+    # source $MAIN_INSTALL_SCRIPTS/wezterm.sh     # 1-BOTH: Wezterm
+    source $MAIN_INSTALL_SCRIPTS/alacritty.sh   # 1-BOTH: Alacritty
     source $MAIN_INSTALL_SCRIPTS/micromamba.sh  # 2-BOTH: Micromamba (miniconda)
 
 fi
