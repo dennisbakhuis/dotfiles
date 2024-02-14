@@ -5,23 +5,17 @@ normal.style = "Regular"
 bold.family = "FiraCode Nerd Font Mono"
 italic.family = "FiraCode Nerd Font Mono"
 
-# [shell]
-# program = "/opt/homebrew/bin/tmux"
-# args = ["/Users/dennis/dotfiles/tmux/create_tmux_session.sh"]
-# args = ["new-session", "-A", "-s", "main"]
 [shell]
 program = "/bin/zsh"
 args = ["-l", "-c", "/opt/homebrew/bin/tmux"]
 
 [window]
-# dimensions.columns = 130
-# dimensions.lines = 50
 padding.x = 7
 padding.y = 2
-# startup_mode = "Maximized"
-# startup_mode = "SimpleFullscreen"
-# startup_mode = "Windowed"
 decorations = "none"
+opacity = 0.98
+title = "Alacritty"
+dynamic_title = true
 
 [env]
 TERM = "xterm-256color"
@@ -30,8 +24,8 @@ TERM = "xterm-256color"
 bindings = [
   { key = "Plus", mods = "Command", action = "IncreaseFontSize" },
   { key = "Minus", mods = "Command", action = "DecreaseFontSize" },
-  # { key = "Return", mods = "Command", action = "SpawnNewInstance" },
 ]
+
 
 ################
 # Color scheme #
@@ -39,13 +33,11 @@ bindings = [
 # Colors (Tokyo Night)
 # Source https//github.com/zatchheems/tokyo-night-alacritty-theme
 
-# Default colors
 [colors.primary]
 # background = '#1a1b26'
 background = '#001728'
 foreground = '#a9b1d6'
 
-# Normal colors
 [colors.normal]
 black   = '#32344a'
 red     = '#f7768e'
@@ -56,7 +48,6 @@ magenta = '#ad8ee6'
 cyan    = '#449dab'
 white   = '#787c99'
 
-# Bright colors
 [colors.bright]
 black   = '#444b6a'
 red     = '#ff7a93'

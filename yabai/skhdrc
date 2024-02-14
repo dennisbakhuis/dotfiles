@@ -2,7 +2,7 @@
 ctrl + alt + cmd - r : yabai --restart-service"
 
 # open new terminal
-rcmd - return : alacritty
+cmd - return : alacritty msg create-window
 
 # open password manager
 # cmd + alt - o : keepassxc
