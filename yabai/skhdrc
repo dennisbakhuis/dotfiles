@@ -1,5 +1,6 @@
-# restart yabai when updated settings
+# restart / reload configurations
 ctrl + alt + cmd - r : yabai --restart-service
+ctrl + alt + cmd - b : sketchybar --reload
 
 # open new terminal
 cmd - return : alacritty msg create-window
@@ -10,8 +11,8 @@ alt + cmd - return : open -a Finder
 # open password manager
 cmd + alt - o : keepassxc
 
-# reload sketchybar config
-ctrl + alt + cmd - b : sketchybar --reload
+# open spotify
+cmd + alt - m : open -a Spotify
 
 # rotate layout clockwise
 shift + alt - r : yabai -m space --rotate 270

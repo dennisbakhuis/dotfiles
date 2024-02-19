@@ -3,16 +3,16 @@
 # Make sure to source icons.sh before this file.
 
 WORKSPACE_ICONS=(
-    "$WORK" 
+    "$ICON_TERMINAL" 
     "$BROWSER" 
-    "$MUSIC" 
+    "$ICON_BROWSER" 
     "$UNI" 
     "$MAIL" 
     "$GENERAL" 
     "$GENERAL" 
     "$GENERAL" 
     "$GENERAL"
-    "$GENERAL"
+    "$ICON_MAIL"
 )
 
 ACTIVE_WORKSPACE=$(yabai -m query --spaces --space | jq '.index')

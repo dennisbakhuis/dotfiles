@@ -1,18 +1,26 @@
 #!/bin/sh
 
-source "$HOME/.config/sketchybar/colors.sh"
-source "$HOME/.config/sketchybar/icons.sh"
-source "$HOME/.config/sketchybar/workspaces.sh"
+CONFIG_FOLDER="$HOME/.config/sketchybar"
+PLUGIN_FOLDER="$CONFIG_FOLDER/plugins"
 
-PLUGIN_DIR=${PLUGIN_DIR:-"$HOME/.config/sketchybar/plugins"}
+source $CONFIG_FOLDER/defaults.sh           # create bar + set defaults
+
+ACTIVE_WORKSPACE=$(yabai -m query --spaces --space | jq '.index')
 
 space=(
-  script="$PLUGIN_DIR/workspaces_callback.sh"
-  label.drawing=off
-  icon.padding_left=15
-  icon.padding_right=15
-  update_freq=1
+    script="$PLUGIN_FOLDER/workspaces_callback.sh"
+    background.height=$ITEM_HEIGHT
+    icon.drawing=off
+    label.drawing=on
+    label.padding_left=12
+    label.padding_right=12
+    label.align=center
+    label.font="$GLYPH_FONT"
+    label.font.size=$FONT_SIZE_GLYPHS
+    label.y_offset=1
+    update_freq=0
 )
+
 
 declare -a spacesArray=()
 for i in "${!WORKSPACE_ICONS[@]}"; do
@@ -21,22 +29,22 @@ for i in "${!WORKSPACE_ICONS[@]}"; do
     
     sketchybar --add space space.$sid left \
         --set space.$sid associated_space=$sid \
-        icon=${WORKSPACE_ICONS["$i"]} \
+        label=${WORKSPACE_ICONS["$i"]} \
         click_script="yabai -m space --focus $sid" "${space[@]}"
     
     if [[ $sid -eq $ACTIVE_WORKSPACE ]]; then
       sketchybar --set space.$sid "${SELECTED_WORKSPACE_SETTINGS[@]}"
     fi
+
+    # when workspace is 1 or 10 add addtional padding
+    if [[ $sid -eq 1 ]]; then
+      sketchybar --set space.$sid background.padding_left=4
+    fi
+    if [[ $sid -eq 10 ]]; then
+      sketchybar --set space.$sid background.padding_right=4
+    fi
 done
 
-brackets=(
-    background.color=$STATUS
-    background.height=25
-    background.corner_radius=$CORNER_RADIUS
-    background.border_color=$PURPLE
-    background.border_width=$BORDER_WIDTH
-)
-
-sketchybar --add bracket control "${spacesArray[@]}" center \
-  --set control "${brackets[@]}"
+sketchybar --add bracket workspaces "${spacesArray[@]}" \
+  --set workspaces "${BRACKET_SETTINGS[@]}"
 

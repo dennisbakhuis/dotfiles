@@ -2,24 +2,29 @@
 
 source "$HOME/.config/sketchybar/icons.sh"
 
+export ICON_VOLUME_MUTE=󰖁
+export ICON_VOLUME_LOW=
+export ICON_VOLUME_MEDIUM=󰖀
+export ICON_VOLUME_HIGH=󰕾
+
 volume_change() {
   case $INFO in
   [6-9][0-9] | 100)
-    ICON=$VOLUME
+    ICON=$ICON_VOLUME_HIGH
     ;;
   [3-5][0-9])
-    ICON=$VOLUME_66
+    ICON=$ICON_VOLUME_MEDIUM
     ;;
   [1-2][0-9])
-    ICON=$VOLUME_33
+    ICON=$ICON_VOLUME_LOW
     ;;
   [1-9])
-    ICON=$VOLUME_10
+    ICON=$ICON_VOLUME_LOW
     ;;
   0)
-    ICON=$VOLUME_0
+    ICON=$ICON_VOLUME_MUTE
     ;;
-  *) ICON=$VOLUME_100 ;;
+  *) ICON=$ICON_VOLUME_HIGH ;;
   esac
 
   sketchybar --set volume_icon label=$ICON
