@@ -5,7 +5,6 @@ PLUGIN_FOLDER="$CONFIG_FOLDER/plugins"
 HELPER_FOLDER="$CONFIG_FOLDER/helpers"
 
 source $CONFIG_FOLDER/colors.sh
-source $CONFIG_FOLDER/icons.sh
 
 
 ####################
@@ -46,19 +45,27 @@ export ICON_MUSIC=󰝚
 export ICON_CHAT=󰭹
 export ICON_MAIL=
 
-# Connectivity
+# Connectivity - wifi
+export ICON_WIFI=󰤨
+export ICON_WIFI_NO_INTERNET=󰤫
+export ICON_WIFI_HOTSPOT=󱚸
+export ICON_WIFI_OFF=󱚼
 export ICON_NETWORK=󰀂
 export ICON_SPEED=󰓅
 export ICON_IP=󰩠
 
-# Battery 
+# Connectivity - battery
 # Icons in battery_callback.sh
+
+# Connectivity - volume
+# Icons in volume_callback.sh
 
 
 
 ##############
 # Workspaces #
 ##############
+# To reduce workspaces, remove the corresponding line from the array
 WORKSPACE_ICONS=(
     "$ICON_TERMINAL" 
     "$ICON_CODE" 

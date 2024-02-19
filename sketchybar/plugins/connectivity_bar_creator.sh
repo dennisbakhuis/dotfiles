@@ -40,6 +40,8 @@ wifi=(
     update_freq=30
     icon.drawing=off
     background.padding_left=$ITEM_DISTANCE
+    label.font="$GLYPH_FONT"
+    label.font.size=$FONT_SIZE_GLYPHS
 )
 rm -f /tmp/sketchybar_speed
 rm -f /tmp/sketchybar_wifi

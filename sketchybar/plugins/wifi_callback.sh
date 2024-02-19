@@ -38,21 +38,21 @@ fi
 WIFI_INTERFACE=$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}')
 WIFI_POWER=$(networksetup -getairportpower $WIFI_INTERFACE | awk '{print $4}')
 if [ "$WIFI_POWER" == "Off" ]; then
-  sketchybar --set $NAME label=$WIFI_OFF
+  sketchybar --set $NAME label=$ICON_WIFI_OFF
   exit 0
 fi
 
 SSID_LOWER=$(echo "$SSID" | tr '[:upper:]' '[:lower:]')
 if [[ "$SSID_LOWER" == *iphone* ]]; then
-  sketchybar --set $NAME label=$HOTSPOT
+  sketchybar --set $NAME label=$ICON_WIFI_HOTSPOT
   exit 0
 fi
 
 CURR_TX="$(echo "$CURRENT_WIFI" | grep -o "lastTxRate: .*" | sed 's/^lastTxRate: //')"
 if [ $CURR_TX = 0 ]; then
-  sketchybar --set $NAME label=$WIFI_NO_INTERNET
+  sketchybar --set $NAME label=$ICON_WIFI_NO_INTERNET
   exit 0
 fi
 
-sketchybar --set $NAME label=$WIFI
+sketchybar --set $NAME label=$ICON_WIFI
 
