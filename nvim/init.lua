@@ -1,2 +1,2 @@
-require("bakhuis.core")
-require("bakhuis.lazy")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
