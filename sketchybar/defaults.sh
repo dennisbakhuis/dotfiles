@@ -44,6 +44,7 @@ export ICON_CONTROL=
 export ICON_MUSIC=󰝚
 export ICON_CHAT=󰭹
 export ICON_MAIL=
+export ICON_NOTE=
 
 # Connectivity - wifi
 export ICON_WIFI=󰤨
@@ -74,7 +75,7 @@ WORKSPACE_ICONS=(
     "$ICON_PYTHON" 
     "$ICON_TOY"
     "$ICON_CONTROL"
-    "$ICON_MUSIC"
+    "$ICON_NOTE"
     "$ICON_CHAT"
     "$ICON_MAIL"
 )

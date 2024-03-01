@@ -41,4 +41,4 @@ alias main='kubectl config use-context intelligent-document-checker-dpe-dev-aks'
 alias ydigital='kubectl config use-context tennet-idc-aks'
 alias models='kubectl config use-context tennet-idc-aml-models-aks'
 alias argoprod='argo server -n argo --configmap argo-argo-workflows-workflow-controller-configmap --auth-mode=server --secure=false'
-
+alias kubeshell='kubectl run -i --rm --tty ubuntu --image=ubuntu -- bash'
