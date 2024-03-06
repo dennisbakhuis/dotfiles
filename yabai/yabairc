@@ -8,8 +8,8 @@ sudo yabai --load-sa
 ###########
 # Windows #
 ###########
-yabai -m config layout bsp                      # Binary Space Partitioning
-yabai -m config window_placement second_child   # new windows are placed to the right or below the focused window
+yabai -m config layout bsp                    # Binary Space Partitioning
+yabai -m config window_placement second_child # new windows are placed to the right or below the focused window
 yabai -m config split_ratio 0.50
 yabai -m config split_type auto
 yabai -m config auto_balance on
@@ -41,12 +41,19 @@ yabai -m config window_border on
 yabai -m config active_window_border_color 0xFFC099FF
 yabai -m config normal_window_border_color 0xFF444A73
 
+##########
+# Spaces #
+##########
+source $HOME/dotfiles/yabai/yabai_spaces.sh
+yabai -m signal --add event=display_removed action="$HOME/dotfiles/yabai/yabai_spaces.sh"
+yabai -m signal --add event=display_added action="$HOME/dotfiles/yabai/yabai_spaces.sh"
+
 ##################
 # mouse settings #
 ##################
 yabai -m config mouse_modifier fn
-yabai -m config mouse_action1 move      # Modifier + left-click
-yabai -m config mouse_action2 resize    # Modifier + right-click
+yabai -m config mouse_action1 move   # Modifier + left-click
+yabai -m config mouse_action2 resize # Modifier + right-click
 yabai -m mouse_drop_action swap
 
 yabai -m config focus_follows_mouse off
@@ -61,4 +68,3 @@ yabai -m rule --add app="^Raycast" sticky=on layer=above manage=off
 yabai -m rule --add app="^Spotify" sticky=on layer=above manage=off
 yabai -m rule --add app="^KeePassXC" sticky=on layer=above manage=off
 yabai -m rule --add app="^ProtonVPN" sticky=on layer=above manage=off
-

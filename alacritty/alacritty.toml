@@ -18,7 +18,7 @@ title = "Alacritty"
 dynamic_title = true
 
 [env]
-TERM = "xterm-256color"
+TERM = "screen-256color"
 
 [keyboard]
 bindings = [
