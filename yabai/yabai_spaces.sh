@@ -25,7 +25,7 @@ echo "delete_up_to: $delete_up_to"
 
 # Setup or destroy spaces as needed to match 9
 for _ in $(yabai -m query --spaces | jq ".[].index | select(. > $delete_up_to )"); do
-	yabai -m space --destroy 10
+	yabai -m space --destroy $delete_up_to
 done
 
 # Set Up Main screen Spaces
