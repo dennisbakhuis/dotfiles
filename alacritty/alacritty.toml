@@ -13,7 +13,7 @@ program = "/bin/zsh"
 padding.x = 7
 padding.y = 2
 decorations = "none"
-opacity = 0.98
+opacity = 0.95
 title = "Alacritty"
 dynamic_title = true
 
