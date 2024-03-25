@@ -7,7 +7,7 @@ italic.family = "FiraCode Nerd Font Mono"
 
 [shell]
 program = "/bin/zsh"
-# args = ["-l", "-c", "/opt/homebrew/bin/tmux"]
+args = ["-l", "-c", "/opt/homebrew/bin/tmux"]
 
 [window]
 padding.x = 7

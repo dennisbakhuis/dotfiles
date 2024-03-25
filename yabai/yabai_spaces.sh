@@ -5,6 +5,7 @@ setup_space() {
 	local idx="$1"
 	local name="$2"
 	local display="$3"
+	local mode="$4"
 	local space=
 	echo "setup space $idx : $name on display $display"
 
@@ -15,31 +16,29 @@ setup_space() {
 
 	yabai -m space "$idx" --label "$name"
 	yabai -m space "$idx" --display "$display"
+	yabai -m space "$idx" --layout "$mode"
 }
 
 number_of_screens=$(yabai -m query --displays | jq '. | length')
-delete_up_to=$((number_of_screens + 7))
+number_of_spaces=$(yabai -m query --spaces | jq '. | length')
 
 echo "number_of_screens: $number_of_screens"
-echo "delete_up_to: $delete_up_to"
+echo "number_of_spaces: $number_of_spaces"
 
-# Setup or destroy spaces as needed to match 9
-for _ in $(yabai -m query --spaces | jq ".[].index | select(. > $delete_up_to )"); do
-	yabai -m space --destroy $delete_up_to
-done
+# Set Up Main screen Spaces (base setup)
+setup_space 1 terminal 1 bsp
+setup_space 2 web 1 bsp
+setup_space 3 code 1 bsp
+setup_space 4 work 1 bsp
+setup_space 5 play 1 bsp
+setup_space 6 notes 1 bsp
+setup_space 7 chat 1 bsp
+setup_space 8 mail 1 bsp
 
-# Set Up Main screen Spaces
-setup_space 1 terminal 1
-setup_space 2 web 1
-setup_space 3 code 1
-setup_space 4 work 1
-setup_space 5 play 1
-setup_space 6 notes 1
-setup_space 7 chat 1
-setup_space 8 mail 1
-
-# Set up second screen if present by checking leng
-if [ "$number_of_screens" -gt 1 ]; then
-	setup_space 9 second_work 2
-	setup_space 10 second_play 2
+if [ "$number_of_screens" -eq 1 ] && [ "$number_of_spaces" -eq 10 ]; then
+	yabai -m space --destroy 10
+	yabai -m space --destroy 9
+elif [ "$number_of_screens" -eq 2 ]; then
+	setup_space 9 second_work 2 float
+	setup_space 10 second_play 2 float
 fi
