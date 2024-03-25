@@ -36,9 +36,14 @@ setup_space 7 chat 1 bsp
 setup_space 8 mail 1 bsp
 
 if [ "$number_of_screens" -eq 1 ] && [ "$number_of_spaces" -eq 10 ]; then
+	echo "destroying spaces 9 and 10"
 	yabai -m space --destroy 10
 	yabai -m space --destroy 9
+elif [ "$number_of_screens" -eq 1 ] && [ "$number_of_spaces" -eq 9 ]; then
+	echo "destroying space 9"
+	yabai -m space --destroy 9
 elif [ "$number_of_screens" -eq 2 ]; then
+	echo "setting up second screen spaces"
 	setup_space 9 second_work 2 float
 	setup_space 10 second_play 2 float
 fi
