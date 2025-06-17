@@ -52,8 +52,8 @@ yabai -m signal --add event=display_added action="$HOME/dotfiles/yabai/yabai_spa
 # mouse settings #
 ##################
 yabai -m config mouse_modifier fn
-yabai -m config mouse_action1 move   # Modifier + left-click
-yabai -m config mouse_action2 resize # Modifier + right-click
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
 yabai -m mouse_drop_action swap
 
 yabai -m config focus_follows_mouse off
@@ -63,8 +63,9 @@ yabai -m config mouse_follows_focus off
 # disable specific apps #
 #########################
 yabai -m rule --add app="^System Settings" sticky=on manage=off
+yabai -m rule --add app="^Signal$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Calculator" sticky=on manage=off
 yabai -m rule --add app="^Raycast" sticky=on layer=above manage=off
-yabai -m rule --add app="^Spotify" sticky=on layer=above manage=off
 yabai -m rule --add app="^KeePassXC" sticky=on layer=above manage=off
 yabai -m rule --add app="^ProtonVPN" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder" manage=off

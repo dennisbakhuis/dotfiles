@@ -12,7 +12,7 @@ args = ["-l", "-c", "/opt/homebrew/bin/tmux"]
 [window]
 padding.x = 7
 padding.y = 2
-decorations = "none"
+decorations = "full"
 opacity = 0.95
 title = "Alacritty"
 dynamic_title = true
@@ -75,6 +75,16 @@ action = "DecreaseFontSize"
 key = "Slash"
 mods = "Control"
 chars = "\u001f"
+
+[[keyboard.bindings]]
+mods = "Command | Shift"
+key = "C"
+action = "Copy"
+
+[[keyboard.bindings]]
+mods = "Command | Shift"
+key = "V"
+action = "Paste"
 
 ################
 # Color scheme #

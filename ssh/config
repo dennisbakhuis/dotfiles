@@ -8,3 +8,15 @@ Host *
 Host *.github.com
   AddKeysToAgent yes
 
+Host azure-ca
+  HostName ssh.dev.azure.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_devops_ca_account
+  IdentitiesOnly yes
+
+Host azure-ka
+  HostName ssh.dev.azure.com
+  User git
+  IdentityFile ~/.ssh/id_rsa
+  IdentitiesOnly yes
+

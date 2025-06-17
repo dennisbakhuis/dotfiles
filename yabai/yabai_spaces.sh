@@ -7,7 +7,7 @@ setup_space() {
 	local display="$3"
 	local mode="$4"
 	local space=
-	echo "setup space $idx : $name on display $display"
+	echo "setup space $idx : $name on display $display in mode $mode"
 
 	space=$(yabai -m query --spaces --space "$idx")
 	if [ -z "$space" ]; then
@@ -33,17 +33,14 @@ setup_space 4 work 1 bsp
 setup_space 5 play 1 bsp
 setup_space 6 notes 1 bsp
 setup_space 7 chat 1 bsp
-setup_space 8 mail 1 bsp
+setup_space 8 mail_work 1 bsp
+setup_space 9 mail_work 1 bsp
 
 if [ "$number_of_screens" -eq 1 ] && [ "$number_of_spaces" -eq 10 ]; then
-	echo "destroying spaces 9 and 10"
+	echo "destroying space 10"
 	yabai -m space --destroy 10
-	yabai -m space --destroy 9
-elif [ "$number_of_screens" -eq 1 ] && [ "$number_of_spaces" -eq 9 ]; then
-	echo "destroying space 9"
-	yabai -m space --destroy 9
 elif [ "$number_of_screens" -eq 2 ]; then
+	sleep 1
 	echo "setting up second screen spaces"
-	setup_space 9 second_work 2 float
-	setup_space 10 second_play 2 float
+	setup_space 10 large_screen 2 float
 fi
