@@ -4,7 +4,7 @@
 #                                    #
 # Also install packages:             #
 #  - starship                        #
-#  - eza (modern ls replacement)     #
+#  - lsd (modern ls with colors)     #
 #  - zoxide (smart directory jumper) #
 #                                    #
 # Author: Dennis Bakhuis             #
@@ -31,13 +31,13 @@ else
     print_info "Fish shell is already installed"
 fi
 
-# check if eza is installed
-if [ ! -x "$(command -v eza)" ]; then
-    print_step "Installing eza (modern ls)..."
-    eval $PKG_INSTALL_NONINTERACTIVE eza
-    print_success "Eza installed"
+# check if lsd is installed
+if [ ! -x "$(command -v lsd)" ]; then
+    print_step "Installing lsd (modern ls with colorful icons)..."
+    eval $PKG_INSTALL_NONINTERACTIVE lsd
+    print_success "lsd installed"
 else
-    print_info "Eza is already installed"
+    print_info "lsd is already installed"
 fi
 
 # check if starship is installed

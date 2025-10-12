@@ -42,6 +42,19 @@ name = 'Code'
 
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
+id = '431A65B5-EBC3-47D3-A025-8030184104BE'
+name = 'Notes'
+openAppsOnActivation = false
+shortcut = 'cmd+6'
+symbolIconName = 'note.text'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.apple.Notes'
+iconPath = '/System/Applications/Notes.app/Contents/Resources/AppIcon.icns'
+name = 'Notes'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
 id = '2CABA658-28EE-4AB5-B477-AB0FEAEEC160'
 name = 'Teams'
 openAppsOnActivation = false
@@ -55,13 +68,26 @@ name = 'Microsoft Teams'
 
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
-id = '431A65B5-EBC3-47D3-A025-8030184104BE'
-name = 'Notes'
+id = 'FAD2C420-4866-4B4D-97AD-FEEFC5B8F4A3'
+name = 'Outlook'
 openAppsOnActivation = false
-shortcut = 'cmd+6'
-symbolIconName = 'note.text'
+shortcut = 'cmd+8'
+symbolIconName = 'mail.stack.fill'
 
 [[profiles.workspaces.apps]]
-bundleIdentifier = 'com.apple.Notes'
-iconPath = '/System/Applications/Notes.app/Contents/Resources/AppIcon.icns'
-name = 'Notes'
+bundleIdentifier = 'com.microsoft.Outlook'
+iconPath = '/Applications/Microsoft Outlook.app/Contents/Resources/Outlook.icns'
+name = 'Microsoft Outlook'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = '93E4A893-4784-4EB7-BFB2-471B6E2FD6C7'
+name = 'Proton'
+openAppsOnActivation = false
+shortcut = 'cmd+9'
+symbolIconName = 'person.2.fill'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'ch.protonmail.desktop'
+iconPath = '/Applications/Proton Mail.app/Contents/Resources/electron.icns'
+name = 'Proton Mail'

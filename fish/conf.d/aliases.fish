@@ -25,16 +25,16 @@ if command -v nvim &>/dev/null
     alias v='nvim'
 end
 
-# Use eza instead of ls
-if command -v eza &>/dev/null
-    alias ls='eza --color=always --group-directories-first --icons'
-    alias ll='eza -la --icons --octal-permissions --group-directories-first'
-    alias l='eza -bGF --header --git --color=always --group-directories-first --icons'
-    alias llm='eza -lbGd --header --git --sort=modified --reverse --color=always --group-directories-first --icons'
-    alias la='eza --long --all --group --group-directories-first'
-    alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --color=always --group-directories-first --icons'
-    alias lt='eza --tree --level=2 --color=always --group-directories-first --icons'
-    alias tree='eza --tree --color=always --group-directories-first --icons'
+# Use lsd instead of ls
+if command -v lsd &>/dev/null
+    alias ls='lsd --group-directories-first --icon=always'
+    alias ll='lsd -lA --group-directories-first --icon=always'
+    alias l='lsd -lF --group-directories-first --icon=always'
+    alias llm='lsd -lA --group-directories-first --icon=always --timesort --reverse'
+    alias la='lsd --long --all --group-directories-first'
+    alias lx='lsd -lA --group-directories-first --icon=always --total-size'
+    alias lt='lsd --tree --depth=2 --group-directories-first --icon=always'
+    alias tree='lsd --tree --group-directories-first --icon=always'
 end
 
 ##########
