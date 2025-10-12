@@ -87,18 +87,13 @@ fi
 
 # Create fish config directory structure
 mkdir -p $HOME/.config/fish
-mkdir -p $HOME/.config/fish/conf.d
 
 # Link fish configuration (using -f to force overwrite if exists)
 ln -sf $DOTFILES_ROOT/fish/config.fish $HOME/.config/fish/config.fish
 ln -sf $DOTFILES_ROOT/fish/fish_variables $HOME/.config/fish/fish_variables
 
-# Link conf.d files (for modular configuration)
-ln -sf $DOTFILES_ROOT/fish/conf.d/aliases.fish $HOME/.config/fish/conf.d/aliases.fish
-ln -sf $DOTFILES_ROOT/fish/conf.d/fzf.fish $HOME/.config/fish/conf.d/fzf.fish
-ln -sf $DOTFILES_ROOT/fish/conf.d/fetch.fish $HOME/.config/fish/conf.d/fetch.fish
-ln -sf $DOTFILES_ROOT/fish/conf.d/isomorphic_copy.fish $HOME/.config/fish/conf.d/isomorphic_copy.fish
-ln -sf $DOTFILES_ROOT/fish/conf.d/zoxide.fish $HOME/.config/fish/conf.d/zoxide.fish
+# Link entire conf.d directory (for modular configuration)
+ln -sfn $DOTFILES_ROOT/fish/conf.d $HOME/.config/fish/conf.d
 print_success "Fish configuration files linked"
 
 # Install Fisher plugin manager if not already installed

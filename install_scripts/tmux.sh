@@ -42,3 +42,12 @@ rm -f $HOME/.tmux.conf
 
 # Link tmux configuration
 ln -sf $DOTFILES_ROOT/tmux/tmux.conf $HOME/.tmux.conf
+
+# Install TPM (Tmux Plugin Manager) if not already installed
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    printf " *** Installing TPM (Tmux Plugin Manager)...\n"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    printf " *** TPM installed. Run 'prefix + I' in tmux to install plugins.\n"
+else
+    printf " *** TPM is already installed.\n"
+fi

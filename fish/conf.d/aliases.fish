@@ -53,7 +53,6 @@ alias kl='kubectl logs'
 ##########
 # Docker #
 ##########
-alias dps='python3 ~/dotfiles/python/docker-pretty-print/docker-pretty-print.py'
 alias dprune='docker system prune -a'
 
 ##########

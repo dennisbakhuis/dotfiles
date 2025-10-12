@@ -11,8 +11,9 @@ italic.style = "Italic"
 # Note: Update the fish and tmux paths based on your OS
 # macOS (Homebrew): /opt/homebrew/bin/fish and /opt/homebrew/bin/tmux
 # Linux: /usr/bin/fish and /usr/bin/tmux
-program = "/opt/homebrew/bin/fish"
-args = ["-l", "-c", "/opt/homebrew/bin/tmux"]
+# Launch tmux directly for faster startup (~6x faster than fish->tmux)
+program = "/opt/homebrew/bin/tmux"
+args = ["new", "-A", "-s", "scratch"]
 
 [window]
 padding.x = 7
