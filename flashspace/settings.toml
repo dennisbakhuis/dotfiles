@@ -1,0 +1,99 @@
+# FlashSpace Settings Configuration
+# https://github.com/wojciech-kulik/FlashSpace
+
+# Workspace switching behavior
+activeWorkspaceOnFocusChange = true
+changeWorkspaceOnAppAssign = true
+keepUnassignedAppsOnSwitch = false
+loopWorkspaces = true
+skipEmptyWorkspacesOnSwitch = false
+
+# Display mode: 'static' (fixed display assignment) or 'dynamic' (follow cursor)
+displayMode = 'static'
+alternativeDisplays = ''
+
+# Cursor behavior
+centerCursorOnFocusChange = false
+centerCursorOnWorkspaceChange = false
+
+# Focus management
+enableFocusManagement = false
+focusFrontmostWindow = false
+
+# Space control (workspace overview)
+enableSpaceControl = true
+enableSpaceControlAnimations = true
+enableSpaceControlTilesAnimations = true
+showSpaceControl = 'cmd+`'
+spaceControlCurrentDisplayWorkspaces = false
+spaceControlHideEmptyWorkspaces = false
+spaceControlNumberOfColumns = 0
+spaceControlUpdateScreenshotsOnOpen = false
+
+# Workspace transitions
+enableWorkspaceTransitions = false
+workspaceTransitionDimming = 0.2
+workspaceTransitionDuration = 0.3
+
+# Gesture controls (three-finger and four-finger swipes)
+enableSwipeGestures = false
+swipeThreshold = 0.2
+swipeLeft3FingerAction = 'previousWorkspace'
+swipeRight3FingerAction = 'nextWorkspace'
+swipeUp3FingerAction = 'none'
+swipeDown3FingerAction = 'none'
+swipeLeft4FingerAction = 'none'
+swipeRight4FingerAction = 'none'
+swipeUp4FingerAction = 'none'
+swipeDown4FingerAction = 'none'
+
+# Picture-in-Picture support
+enablePictureInPictureSupport = true
+pipScreenCornerOffset = 15
+switchWorkspaceWhenPipCloses = true
+pipApps = []
+
+# Menu bar
+showMenuBarIcon = true
+showMenuBarTitle = true
+menuBarTitleTemplate = '$WORKSPACE'
+menuBarDisplayAliases = ''
+
+# Notifications
+showFloatingNotifications = true
+
+# App management
+restoreHiddenAppsOnSwitch = true
+restartAppOnWakeUp = false
+
+# Updates
+checkForUpdatesAutomatically = false
+
+# Integrations (SketchyBar)
+enableIntegrations = false
+runScriptOnLaunch = ''
+runScriptOnWorkspaceChange = 'sketchybar --trigger flashspace_workspace_change WORKSPACE="$WORKSPACE" DISPLAY="$DISPLAY"'
+runScriptOnProfileChange = 'sketchybar --reload'
+runScriptAfterWorkspaceChange = ''
+
+# Floating apps (appear in all workspaces)
+[[floatingApps]]
+bundleIdentifier = 'com.apple.systempreferences'
+iconPath = '/System/Applications/System Settings.app/Contents/Resources/SystemSettings.icns'
+name = 'System Settings'
+
+[[floatingApps]]
+bundleIdentifier = 'com.anthropic.claudefordesktop'
+iconPath = '/Applications/Claude.app/Contents/Resources/electron.icns'
+name = 'Claude'
+
+# Add more floating apps as needed
+# [[floatingApps]]
+# bundleIdentifier = 'com.apple.finder'
+# iconPath = '/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns'
+# name = 'Finder'
+#
+# [[floatingApps]]
+# bundleIdentifier = 'com.apple.calculator'
+# iconPath = '/System/Applications/Calculator.app/Contents/Resources/AppIcon.icns'
+# name = 'Calculator'

@@ -1,9 +1,9 @@
 #!/bin/sh
 ######################################
-# Script to install Homebrew         #
+# Script to check Homebrew           #
 #                                    #
-# Also install packages:             #
-#  - gsed                            #
+# Homebrew is a prerequisite and     #
+# should already be installed.       #
 #                                    #
 # Author: Dennis Bakhuis             #
 # Date: 2023-11-12                   #
@@ -14,46 +14,14 @@ if [ -z "$-echo" ]; then
     set -e
 fi
 
-
-############
-# Settings #
-############
-HOMEBREW_INSTALL=${HOMEBREW_INSTALL:-true}  # Install Homebrew if not installed (default: true)
-
-
 ########
 # Main #
 ########
 
-# Only if on mac install Homebrew
-if [ "$(uname)" == "Darwin" ]; then
-    if [ "$HOMEBREW_INSTALL" = true ]; then
-
-        # if homebrew is not yet installed
-        if [ ! -x "$(command -v brew)" ]; then
-            printf "Installing Homebrew...\n"
-
-            # check if curl is installed (default on mac)
-            if [ ! -x "$(command -v curl)" ]; then
-                printf " *** ERROR: Installing hombrew - curl is not installed, exiting...\n"
-                exit 1
-            fi
-
-            printf "Installing Homebrew...\n"
-            NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-            # install gsed (MacOs uses BSD sed by default instead of GNU sed)
-            printf " *** Installing gsed..."
-            NONINTERACTIVE=1 brew install gnu-sed
-
-        else
-            printf " *** Homebrew is already installed...\n"
-
-            # check if gsed is installed else install it
-            if [ ! -x "$(command -v gsed)" ]; then
-                printf " *** Installing gsed...\n"
-                NONINTERACTIVE=1 brew install gnu-sed
-            fi
-        fi
-    fi
+# Only if on macOS (Homebrew should already be installed as prerequisite)
+if [ "$OS_TYPE" = "macos" ]; then
+    # Homebrew should already be installed (checked in main install.sh)
+    printf " *** Homebrew is available...\n"
+else
+    printf " *** Skipping Homebrew check on $OS_TYPE...\n"
 fi

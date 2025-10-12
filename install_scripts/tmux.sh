@@ -12,50 +12,33 @@ if [ -z "$-echo" ]; then
 fi
 
 
-############
-# Settings #
-############
-TMUX_INSTALL=${TMUX_INSTALL:-true}  # Install Git if not installed (default: true)
-
-
 ########
 # Main #
 ########
 
 # Only install tmux if not yet installed
-if [ "$TMUX_INSTALL" = true ]; then
-    if [ ! -x "$(command -v tmux)" ]; then
-        printf " *** Installing Tmux...\n"
-
-        # check if on Mac
-        if [ "$(uname)" == "Darwin" ]; then
-
-            # check if homebrew is installed
-            if [ ! -x "$(command -v brew)" ]; then
-                printf " *** ERROR: Installing Tmux - homebrew is not installed, exiting...\n"
-                exit 1
-            fi
-
-            NONINTERACTIVE=1 brew install tmux
-
-        elif [ "$(uname)" == "Linux" ]; then
-            sudo pacman -S --noconfirm tmux
-        else
-            printf " *** ERROR: Installing Tmux - unknown OS, exiting...\n"
-            exit 1
-        fi
-    else
-        printf " *** Tmux is already installed..."
-    fi
-
-    # Check if DOTFILES_ROOT is set
-    if [ -z "$DOTFILES_ROOT" ]; then
-        printf " *** ERROR(Tmux): DOTFILES_ROOT is not set, exiting...\n"
-        exit 1
-    fi
-
-    # Relink/copy gitignore and gitconfig
-    rm -rf $HOME/.tmux.conf
-    ln -s $DOTFILES_ROOT/tmux/tmux.conf $HOME/.tmux.conf
-
+if [ ! -x "$(command -v tmux)" ]; then
+    printf " *** Installing Tmux on $OS_TYPE...\n"
+    eval $PKG_INSTALL_NONINTERACTIVE tmux
+else
+    printf " *** Tmux is already installed..."
 fi
+
+# Check if DOTFILES_ROOT is set
+if [ -z "$DOTFILES_ROOT" ]; then
+    printf " *** ERROR(Tmux): DOTFILES_ROOT is not set, exiting...\n"
+    exit 1
+fi
+
+# Backup existing tmux config if it exists and is not a symlink
+if [ -f "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
+    BACKUP_FILE="$HOME/.tmux.conf.backup.$(date +%Y%m%d_%H%M%S)"
+    printf " *** Backing up existing .tmux.conf to $BACKUP_FILE...\n"
+    mv "$HOME/.tmux.conf" "$BACKUP_FILE"
+fi
+
+# Remove old symlink if it exists
+rm -f $HOME/.tmux.conf
+
+# Link tmux configuration
+ln -sf $DOTFILES_ROOT/tmux/tmux.conf $HOME/.tmux.conf

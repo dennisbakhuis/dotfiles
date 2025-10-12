@@ -1,0 +1,127 @@
+[font]
+size = 14
+normal.family = "FiraCode Nerd Font"
+normal.style = "Regular"
+bold.family = "FiraCode Nerd Font"
+bold.style = "Bold"
+italic.family = "FiraCode Nerd Font"
+italic.style = "Italic"
+
+[terminal.shell]
+# Note: Update the fish and tmux paths based on your OS
+# macOS (Homebrew): /opt/homebrew/bin/fish and /opt/homebrew/bin/tmux
+# Linux: /usr/bin/fish and /usr/bin/tmux
+program = "/opt/homebrew/bin/fish"
+args = ["-l", "-c", "/opt/homebrew/bin/tmux"]
+
+[window]
+padding.x = 7
+padding.y = 2
+decorations = "full"
+opacity = 0.95
+title = "Alacritty"
+dynamic_title = true
+
+[env]
+TERM = "screen-256color"
+
+################
+# Key bindings #
+################
+# CSI corrections
+# [[keyboard.bindings]]
+# key = 'Enter'
+# mods = 'Shift'
+# # chars = "^[[13;5u"
+# chars = "\u001b[13;2u"
+#
+# [[keyboard.bindings]]
+# key = 'Tab'
+# mods = 'Control'
+# chars = "\u001b[9;5u"
+#
+# [[keyboard.bindings]]
+# key = 'Enter'
+# mods = 'Control'
+# chars = "\u001b[13;5u"
+#
+# [[keyboard.bindings]]
+# key = 'H'
+# mods = 'Control'
+# chars = "\u001b[104;5u"
+#
+# [[keyboard.bindings]]
+# key = 'I'
+# mods = 'Control'
+# chars = "\u001b[105;5u"
+#
+# [[keyboard.bindings]]
+# key = 'J'
+# mods = 'Control'
+# chars = "\u001b[106;5u"
+#
+# [[keyboard.bindings]]
+# key = 'M'
+# mods = 'Control'
+# chars = "\u001b[109;5u"
+
+# General
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Command"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Command"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Slash"
+mods = "Control"
+chars = "\u001f"
+
+[[keyboard.bindings]]
+mods = "Command | Shift"
+key = "C"
+action = "Copy"
+
+[[keyboard.bindings]]
+mods = "Command | Shift"
+key = "V"
+action = "Paste"
+
+################
+# Color scheme #
+################
+
+###############
+# Tokyo Night #
+###############
+
+[colors.primary]
+# background = '#1a1b26'
+background = '#001728'
+foreground = '#a9b1d6'
+
+[colors.normal]
+black = '#32344a'
+red = '#f7768e'
+green = '#9ece6a'
+yellow = '#e0af68'
+blue = '#7aa2f7'
+magenta = '#ad8ee6'
+cyan = '#449dab'
+white = '#787c99'
+
+[colors.bright]
+black = '#444b6a'
+red = '#ff7a93'
+green = '#b9f27c'
+yellow = '#ff9e64'
+blue = '#7da6ff'
+magenta = '#bb9af7'
+cyan = '#0db9d7'
+white = '#acb0d0'
+
+[terminal]

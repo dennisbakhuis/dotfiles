@@ -1,0 +1,67 @@
+[[profiles]]
+id = '0383F872-5E2E-47ED-BC4E-31FF4058C308'
+name = 'Default'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = 'E145EBC1-BD93-4249-A45A-CDB9B08EDF88'
+name = 'Terminal'
+openAppsOnActivation = false
+shortcut = 'cmd+1'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'org.alacritty'
+iconPath = '/Applications/Alacritty.app/Contents/Resources/alacritty.icns'
+name = 'Alacritty'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = '8191D496-6596-4617-8B7A-C86997D9B372'
+name = 'Browser'
+openAppsOnActivation = false
+shortcut = 'cmd+2'
+symbolIconName = 'network'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.apple.Safari'
+iconPath = '/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns'
+name = 'Safari'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = '5BCF21ED-BE63-4B33-97A5-BFFB3E9ACF47'
+name = 'Code'
+openAppsOnActivation = false
+shortcut = 'cmd+3'
+symbolIconName = 'hammer.fill'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.microsoft.VSCode'
+iconPath = '/Applications/Visual Studio Code.app/Contents/Resources/Code.icns'
+name = 'Code'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = '2CABA658-28EE-4AB5-B477-AB0FEAEEC160'
+name = 'Teams'
+openAppsOnActivation = false
+shortcut = 'cmd+7'
+symbolIconName = 'message.badge.filled.fill'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.microsoft.teams2'
+iconPath = '/Applications/Microsoft Teams.app/Contents/Resources/AppIcon.icns'
+name = 'Microsoft Teams'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = '431A65B5-EBC3-47D3-A025-8030184104BE'
+name = 'Notes'
+openAppsOnActivation = false
+shortcut = 'cmd+6'
+symbolIconName = 'note.text'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.apple.Notes'
+iconPath = '/System/Applications/Notes.app/Contents/Resources/AppIcon.icns'
+name = 'Notes'

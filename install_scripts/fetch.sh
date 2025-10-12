@@ -11,32 +11,25 @@ if [ -z "$-echo" ]; then
     set -e
 fi
 
-############
-# Settings #
-############
-FETCH_INSTALL=${FETCH_INSTALL:-true}      # Install fetch
-
-
 ########
 # Main #
 ########
 
-if [ "$FETCH_INSTALL" = true ]; then
-
-    # check if on mac or arch
-    if [ "$(uname)" == "Darwin" ]; then
-        printf " *** Installing Zeitfetch on Mac...\n"
+# Install different fetch tools based on OS
+if [ "$OS_TYPE" = "macos" ]; then
+    if [ ! -x "$(command -v zeitfetch)" ]; then
+        printf " *** Installing Zeitfetch on macOS...\n"
         NONINTERACTIVE=1 brew tap nidnogg/zeitfetch
         NONINTERACTIVE=1 brew install zeitfetch
-
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        printf " *** Installing Neofetch on Arch...\n"
-        sudo pacman -S --noconfirm neofetch
-
     else
-        printf " *** OS not supported, exiting...\n"
-        exit 1
-
+        printf " *** Zeitfetch is already installed...\n"
     fi
-
+else
+    # Linux (Arch/Ubuntu)
+    if [ ! -x "$(command -v neofetch)" ]; then
+        printf " *** Installing Neofetch on $OS_TYPE...\n"
+        eval $PKG_INSTALL_NONINTERACTIVE neofetch
+    else
+        printf " *** Neofetch is already installed...\n"
+    fi
 fi
