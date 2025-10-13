@@ -1,22 +1,38 @@
 Include ~/.orbstack/ssh/config
 
 Host *
-  HostkeyAlgorithms +ssh-rsa
-  PubkeyAcceptedKeyTypes +ssh-rsa
-  AddKeysToAgent  yes
-
-Host *.github.com
   AddKeysToAgent yes
 
+# Github
+Host *.github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519_github
+  IdentitiesOnly yes
+
+# Azure only accepts rsa
 Host azure-ca
   HostName ssh.dev.azure.com
   User git
   IdentityFile ~/.ssh/id_rsa_devops_ca_account
   IdentitiesOnly yes
 
+# Azure only accepts rsa
 Host azure-ka
   HostName ssh.dev.azure.com
   User git
   IdentityFile ~/.ssh/id_rsa
   IdentitiesOnly yes
 
+# Meterkast server
+Host meterkast
+  HostName 192.168.50.103
+  User dennis
+  IdentityFile ~/.ssh/id_ed25519_meterkast
+  IdentitiesOnly yes
+
+# Meterkast server
+Host synology
+  HostName 192.168.50.102
+  User dennis
+  IdentityFile ~/.ssh/id_ed25519_synology
+  IdentitiesOnly yes
