@@ -41,6 +41,28 @@ iconPath = '/Applications/Visual Studio Code.app/Contents/Resources/Code.icns'
 name = 'Code'
 
 [[profiles.workspaces]]
+apps = []
+display = 'Built-in Retina Display'
+id = '8F773329-1E98-42ED-B9BE-1482AAFC3F97'
+name = 'Scratch'
+openAppsOnActivation = false
+shortcut = 'cmd+4'
+symbolIconName = 'wrench.and.screwdriver.fill'
+
+[[profiles.workspaces]]
+display = 'Built-in Retina Display'
+id = 'C897AEB9-5375-4E05-B624-B799549F0195'
+name = 'Present'
+openAppsOnActivation = false
+shortcut = 'cmd+5'
+symbolIconName = 'movieclapper.fill'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.microsoft.Powerpoint'
+iconPath = '/Applications/Microsoft PowerPoint.app/Contents/Resources/PPT3.icns'
+name = 'Microsoft PowerPoint'
+
+[[profiles.workspaces]]
 display = 'Built-in Retina Display'
 id = '431A65B5-EBC3-47D3-A025-8030184104BE'
 name = 'Notes'

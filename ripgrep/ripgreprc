@@ -1,0 +1,73 @@
+# ripgrep configuration file
+# This file is read by ripgrep when RIPGREP_CONFIG_PATH is set
+#
+# Configuration reference: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
+
+# Search hidden files and directories by default
+--hidden
+
+# Follow symbolic links
+--follow
+
+# Smart case: searches case-insensitively if pattern is all lowercase
+# and case-sensitively if pattern contains uppercase letters
+--smart-case
+
+# Show line numbers
+--line-number
+
+# Show column numbers
+--column
+
+# Sort results by file path (more predictable output)
+--sort=path
+
+# Use colors for output (auto-detect terminal support)
+--colors=line:fg:yellow
+--colors=line:style:bold
+--colors=path:fg:green
+--colors=path:style:bold
+--colors=match:fg:red
+--colors=match:style:bold
+
+# Exclude directories commonly not needed in searches
+--glob=!.git/
+--glob=!.svn/
+--glob=!.hg/
+--glob=!.DS_Store
+--glob=!node_modules/
+--glob=!.venv/
+--glob=!venv/
+--glob=!__pycache__/
+--glob=!*.pyc
+--glob=!.pytest_cache/
+--glob=!.mypy_cache/
+--glob=!.ruff_cache/
+--glob=!build/
+--glob=!dist/
+--glob=!target/
+--glob=!.next/
+--glob=!.nuxt/
+--glob=!coverage/
+--glob=!.coverage
+--glob=!*.egg-info/
+--glob=!.tox/
+--glob=!.idea/
+--glob=!.vscode/
+--glob=!*.log
+--glob=!*.min.js
+--glob=!*.min.css
+--glob=!package-lock.json
+--glob=!yarn.lock
+--glob=!Cargo.lock
+
+# Set max columns to display (prevents very long lines from cluttering output)
+--max-columns=150
+
+# Show context: 2 lines before and after each match
+# (commented out by default, uncomment if you want context)
+# --context=2
+
+# Use PCRE2 regex engine (more powerful, slightly slower)
+# (commented out by default, uncomment if you need advanced regex features)
+# --pcre2
