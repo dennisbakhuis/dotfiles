@@ -169,6 +169,7 @@ source $MAIN_INSTALL_SCRIPTS/fetch.sh           # 7-BOTH: Neofetch/Zeitfetch (sy
 source $MAIN_INSTALL_SCRIPTS/tmux.sh            # 8-BOTH: Tmux (terminal multiplexer)
 source $MAIN_INSTALL_SCRIPTS/python_uv.sh       # 9-BOTH: uv (Python package manager)
 source $MAIN_INSTALL_SCRIPTS/isomorphic_copy.sh # 10-BOTH: isomorphic_copy (clipboard over SSH)
+source $MAIN_INSTALL_SCRIPTS/htop.sh            # 11-BOTH: htop (interactive process viewer)
 
 # Apply macOS defaults if on macOS
 if [ "$OS_TYPE" = "macos" ]; then
@@ -190,5 +191,6 @@ if [ "$OS_TYPE" = "macos" ]; then
     source $MAIN_INSTALL_SCRIPTS/mac_gui_apps/flashspace.sh    # Workspace manager (install + config)
     source $MAIN_INSTALL_SCRIPTS/mac_gui_apps/vscode.sh        # Visual Studio Code editor
     source $MAIN_INSTALL_SCRIPTS/mac_gui_apps/signal.sh        # Signal messaging app
+    source $MAIN_INSTALL_SCRIPTS/mac_gui_apps/macmon.sh        # macOS system monitor
 fi
 

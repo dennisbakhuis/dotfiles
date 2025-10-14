@@ -37,6 +37,10 @@ if command -v lsd &>/dev/null
     alias tree='lsd --tree --group-directories-first --icon=always'
 end
 
+if command -v macmon &>/dev/null
+    alias mtop='macmon'
+end
+
 ##########
 # Python #
 ##########
