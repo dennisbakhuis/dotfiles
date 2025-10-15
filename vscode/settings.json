@@ -44,6 +44,9 @@
   "terminal.integrated.scrollback": 10000,
   "terminal.integrated.shell.osx": "/opt/homebrew/bin/fish",
   "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.automationProfile.osx": {
+    "path": "/opt/homebrew/bin/fish"
+  },
 
   // Workbench
   "workbench.colorTheme": "Default Dark Modern",
@@ -53,11 +56,18 @@
   "workbench.editor.enablePreview": false,
   "workbench.editor.closeOnFileDelete": true,
   "workbench.tree.indent": 20,
+  "workbench.activityBar.location": "default",
+  "workbench.panel.defaultLocation": "bottom",
+  "workbench.panel.opensMaximized": "never",
 
   // Explorer
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.compactFolders": false,
+  "explorer.openEditors.visible": 0,
+
+  // Default folder for open dialog
+  "files.defaultFolder": "~/repos/",
 
   // Git
   "git.autofetch": true,
@@ -114,5 +124,8 @@
   "security.workspace.trust.untrustedFiles": "open",
 
   // Telemetry
-  "telemetry.telemetryLevel": "off"
+  "telemetry.telemetryLevel": "off",
+
+  // GitHub Copilot - prevent chat pane from auto-opening
+  "github.copilot.chat.openOnStartup": false
 }

@@ -41,13 +41,17 @@ iconPath = '/Applications/Visual Studio Code.app/Contents/Resources/Code.icns'
 name = 'Code'
 
 [[profiles.workspaces]]
-apps = []
 display = 'Built-in Retina Display'
 id = '8F773329-1E98-42ED-B9BE-1482AAFC3F97'
-name = 'Scratch'
+name = 'Music'
 openAppsOnActivation = false
 shortcut = 'cmd+4'
-symbolIconName = 'wrench.and.screwdriver.fill'
+symbolIconName = 'music.note.list'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.spotify.client'
+iconPath = '/Applications/Spotify.app/Contents/Resources/AppIcon.icns'
+name = 'Spotify'
 
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'

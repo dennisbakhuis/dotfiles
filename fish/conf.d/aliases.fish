@@ -16,6 +16,7 @@ if command -v git &>/dev/null
     alias gaa='git add --all'
     alias gc='git commit'
     alias gs='git status'
+    alias gu='git for-each-ref --sort=-committerdate refs/heads/ refs/remotes/ --format="%(committerdate:relative) %(refname:short) - %(contents:subject)"'
 end
 
 ##########
