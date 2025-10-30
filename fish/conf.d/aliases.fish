@@ -47,6 +47,31 @@ end
 ##########
 alias jl='jupyter lab --ip=0.0.0.0'
 
+# uv shortcuts for quick virtual environment creation and activation
+if command -v uv &>/dev/null
+    # Smart venv function: creates .venv if it doesn't exist, then activates
+    function ve
+        if not test -d .venv
+            echo "Creating virtual environment..."
+            uv venv
+        end
+        source .venv/bin/activate.fish
+    end
+
+    # Deactivate virtual environment
+    function ved
+        if test -n "$VIRTUAL_ENV"
+            deactivate
+            echo "Virtual environment deactivated"
+        else
+            echo "No active virtual environment found"
+        end
+    end
+
+    # Shorter alias
+    alias venv='ve'
+end
+
 ###########
 # Kubectl #
 ###########

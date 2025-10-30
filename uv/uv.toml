@@ -1,0 +1,21 @@
+# uv configuration file
+# Author: Dennis Bakhuis
+# Date: 2025-10-18
+#
+# Documentation: https://docs.astral.sh/uv/configuration/files/
+
+# How uv handles virtual environments:
+# - `uv venv` - Creates a .venv in the current directory
+# - `uv run`, `uv sync`, `uv add` - Work with projects (require pyproject.toml)
+# - `uv pip install` - By default, can install globally (we prevent this below)
+#
+# This configuration ensures you never accidentally install packages globally.
+
+# Pip settings - require virtual environment
+[pip]
+# Prevent installing packages outside of a virtual environment
+# This will cause `uv pip install` to fail unless you're in an active venv
+system = false
+
+# Use hardlinks when installing packages (saves disk space, fast)
+link-mode = "hardlink"

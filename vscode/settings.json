@@ -53,7 +53,7 @@
   "workbench.iconTheme": "vs-seti",
   "workbench.startupEditor": "welcomePage",
   "workbench.sideBar.location": "left",
-  "workbench.editor.enablePreview": false,
+  "workbench.editor.revealIfOpen": true,
   "workbench.editor.closeOnFileDelete": true,
   "workbench.tree.indent": 20,
   "workbench.activityBar.location": "default",
@@ -67,7 +67,9 @@
   "explorer.openEditors.visible": 0,
 
   // Default folder for open dialog
-  "files.defaultFolder": "~/repos/",
+  "window.openFoldersInNewWindow": "on",
+  "window.openWithoutArgumentsInNewWindow": "on",
+  "dialog.defaultPath": "/Users/dennis/repos",
 
   // Git
   "git.autofetch": true,
@@ -127,5 +129,12 @@
   "telemetry.telemetryLevel": "off",
 
   // GitHub Copilot - prevent chat pane from auto-opening
-  "github.copilot.chat.openOnStartup": false
+  "github.copilot.chat.openOnStartup": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "chat.commandCenter.enabled": false,
+  "files.dialog.defaultPath": "/Users/dennis/repos",
+  "makefile.configureOnOpen": true,
+  "workbench.editor.autoLockGroups": {
+    "workbench.editor.chatSession": false
+  }
 }

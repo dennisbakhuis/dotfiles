@@ -34,3 +34,9 @@ if [ ! -x "$(command -v uv)" ]; then
 else
     printf " *** uv is already installed...\n"
 fi
+
+# Create config directory and symlink uv config
+printf " *** Setting up uv configuration...\n"
+mkdir -p ~/.config/uv
+ln -sf $DOTFILES_ROOT/uv/uv.toml ~/.config/uv/uv.toml
+printf " *** uv configuration linked successfully...\n"

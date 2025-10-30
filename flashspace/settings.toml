@@ -28,6 +28,7 @@ runScriptAfterWorkspaceChange = ''
 runScriptOnLaunch = ''
 runScriptOnProfileChange = 'sketchybar --reload'
 runScriptOnWorkspaceChange = 'sketchybar --trigger flashspace_workspace_change WORKSPACE="$WORKSPACE" DISPLAY="$DISPLAY"'
+showFlashSpace = 'cmd+opt+`'
 showFloatingNotifications = true
 showMenuBarIcon = true
 showMenuBarTitle = true
@@ -59,3 +60,13 @@ name = 'System Settings'
 bundleIdentifier = 'com.anthropic.claudefordesktop'
 iconPath = '/Applications/Claude.app/Contents/Resources/electron.icns'
 name = 'Claude'
+
+[[floatingApps]]
+bundleIdentifier = 'com.apple.Preview'
+iconPath = '/System/Applications/Preview.app/Contents/Resources/AppIcon.icns'
+name = 'Preview'
+
+[[floatingApps]]
+bundleIdentifier = 'com.apple.finder'
+iconPath = '/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns'
+name = 'Finder'

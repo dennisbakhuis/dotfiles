@@ -59,6 +59,21 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 
 #####################
+# Display           #
+#####################
+printf " *** Configuring Display settings...\n"
+
+# Disable auto-brightness adjustment
+sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool false
+
+# Disable auto-brightness for current user (backup method)
+defaults write com.apple.BezelServices dAuto -bool false
+
+# Disable True Tone (if available)
+defaults write com.apple.CoreBrightness TrueTone -bool false
+
+
+#####################
 # Keyboard & Input  #
 #####################
 printf " *** Configuring Keyboard & Input settings...\n"
