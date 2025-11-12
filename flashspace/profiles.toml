@@ -53,6 +53,11 @@ bundleIdentifier = 'com.spotify.client'
 iconPath = '/Applications/Spotify.app/Contents/Resources/AppIcon.icns'
 name = 'Spotify'
 
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.apple.Music'
+iconPath = '/System/Applications/Music.app/Contents/Resources/AppIcon.icns'
+name = 'Music'
+
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
 id = 'C897AEB9-5375-4E05-B624-B799549F0195'

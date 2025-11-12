@@ -4,7 +4,7 @@ Host *
   AddKeysToAgent yes
 
 # Github
-Host *.github.com
+Host github.com *.github.com
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_ed25519_github
   IdentitiesOnly yes
@@ -35,4 +35,10 @@ Host synology
   HostName 192.168.50.102
   User dennis
   IdentityFile ~/.ssh/id_ed25519_synology
+  IdentitiesOnly yes
+
+Host etheron
+  HostName 5.181.134.208
+  User root
+  IdentityFile ~/.ssh/id_ed25519_etheron
   IdentitiesOnly yes

@@ -23,3 +23,21 @@ set -gx LS_COLORS "di=38;5;33:ln=38;5;51:so=38;5;13:pi=38;5;5:ex=38;5;40:bd=38;5
 if test -f $HOME/.secrets.fish
     source $HOME/.secrets.fish
 end
+# bun
+set --export BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# Fix for Cmd-V paste functionality
+if status is-interactive
+    # Define the paste function if it doesn't exist
+    function __fish_paste
+        set -l data (pbpaste)
+        if test -n "$data"
+            commandline -i -- $data
+        end
+    end
+end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :

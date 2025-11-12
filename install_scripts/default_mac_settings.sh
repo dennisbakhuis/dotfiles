@@ -72,6 +72,9 @@ defaults write com.apple.BezelServices dAuto -bool false
 # Disable True Tone (if available)
 defaults write com.apple.CoreBrightness TrueTone -bool false
 
+# Disable slightly dim display on battery
+sudo pmset -b lessbright 0
+
 
 #####################
 # Keyboard & Input  #
