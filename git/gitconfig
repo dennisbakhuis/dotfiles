@@ -11,3 +11,7 @@ email = git@bakhuis.nu
 [url "git@tennet-idc:v3/tennetidc"]
 	insteadOf = git@ssh.dev.azure.com:v3/tennetidc
 
+# Azure DevOps URL rewriting for MCP-TenneT organization
+# Rewrites git@ssh.dev.azure.com:v3/MCP-TenneT -> git@tennet-mcp:v3/MCP-TenneT
+[url "git@tennet-mcp:v3/MCP-TenneT/"]
+	insteadOf = git@ssh.dev.azure.com:v3/MCP-TenneT/
