@@ -6,3 +6,8 @@ email = git@bakhuis.nu
 [pull]
 	rebase = false
 
+# Azure DevOps URL rewriting for tennetidc organization
+# Rewrites git@ssh.dev.azure.com:v3/tennetidc -> git@tennet-idc:v3/tennetidc
+[url "git@tennet-idc:v3/tennetidc"]
+	insteadOf = git@ssh.dev.azure.com:v3/tennetidc
+

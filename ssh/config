@@ -9,18 +9,19 @@ Host github.com *.github.com
   IdentityFile ~/.ssh/id_ed25519_github
   IdentitiesOnly yes
 
-# Azure only accepts rsa
-Host azure-ca
+# Azure DevOps - MCP-TenneT (default)
+Host tennet-mcp
   HostName ssh.dev.azure.com
   User git
-  IdentityFile ~/.ssh/id_rsa_devops_ca_account
+  IdentityFile ~/.ssh/rsa_4096_tennet_mcp
   IdentitiesOnly yes
 
-# Azure only accepts rsa
-Host azure-ka
+# Azure DevOps - IDC-TenneT (works through url rewrite in git)
+# git@ssh.dev.azure.com:v3/tennetidc/* --> git@tennet-idc:v3/tennetidc/*
+Host tennet-idc
   HostName ssh.dev.azure.com
   User git
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/rsa_4096_tennet_idc
   IdentitiesOnly yes
 
 # Meterkast server
@@ -37,6 +38,7 @@ Host synology
   IdentityFile ~/.ssh/id_ed25519_synology
   IdentitiesOnly yes
 
+# VPS
 Host etheron
   HostName 5.181.134.208
   User root

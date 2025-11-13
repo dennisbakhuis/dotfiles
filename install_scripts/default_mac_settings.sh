@@ -89,33 +89,54 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Remap Caps Lock to Control
-# Note: This requires the keyboard identifier which varies per device
-# We'll attempt to set it for all connected keyboards
 printf " *** Remapping Caps Lock to Control...\n"
 
-# Get all keyboard product IDs and vendor IDs
-KEYBOARD_IDS=$(ioreg -n IOHIDKeyboard -r | grep -E '(VendorID|ProductID)' | awk '{ print $4 }' | paste -s -d'-\n' -)
+# Use hidutil for the remapping (this is the most reliable method on modern macOS)
+# HIDKeyboardModifierMappingSrc: 0x700000039 = Caps Lock
+# HIDKeyboardModifierMappingDst: 0x7000000E0 = Left Control
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}' 2>/dev/null
 
-if [ -n "$KEYBOARD_IDS" ]; then
-    # Loop through each keyboard and set Caps Lock to Control
-    while IFS='-' read -r vendor product; do
-        defaults -currentHost write -g "com.apple.keyboard.modifiermapping.${vendor}-${product}-0" -array-add '
-        <dict>
-            <key>HIDKeyboardModifierMappingDst</key>
-            <integer>30064771302</integer>
-            <key>HIDKeyboardModifierMappingSrc</key>
-            <integer>30064771129</integer>
-        </dict>
-        '
-        printf " *** Set Caps Lock → Control for keyboard ${vendor}-${product}\n"
-    done <<< "$KEYBOARD_IDS"
+if [ $? -eq 0 ]; then
+    printf " *** Caps Lock → Control mapping applied for current session\n"
 else
-    printf " *** Warning: No keyboards detected. Caps Lock remapping will apply on next connection.\n"
+    printf " *** Warning: Failed to apply Caps Lock → Control mapping\n"
 fi
 
-# Alternative: Use hidutil for immediate effect (requires reboot or logout to persist)
-# This works for the current session
-hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}' >/dev/null 2>&1 || true
+# To make this persistent across reboots, create a LaunchAgent
+LAUNCH_AGENT_DIR="${HOME}/Library/LaunchAgents"
+LAUNCH_AGENT_PLIST="${LAUNCH_AGENT_DIR}/com.user.capslock-to-control.plist"
+
+mkdir -p "$LAUNCH_AGENT_DIR"
+
+cat > "$LAUNCH_AGENT_PLIST" << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.capslock-to-control</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/hidutil</string>
+        <string>property</string>
+        <string>--set</string>
+        <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+EOF
+
+# Load the LaunchAgent
+launchctl unload "$LAUNCH_AGENT_PLIST" 2>/dev/null || true
+launchctl load "$LAUNCH_AGENT_PLIST" 2>/dev/null
+
+if [ $? -eq 0 ]; then
+    printf " *** LaunchAgent created to persist Caps Lock → Control mapping across reboots\n"
+else
+    printf " *** Warning: Failed to load LaunchAgent for persistent mapping\n"
+fi
 
 
 #####################
