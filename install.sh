@@ -170,6 +170,7 @@ source $MAIN_INSTALL_SCRIPTS/tmux.sh            # 8-BOTH: Tmux (terminal multipl
 source $MAIN_INSTALL_SCRIPTS/python_uv.sh       # 9-BOTH: uv (Python package manager)
 source $MAIN_INSTALL_SCRIPTS/isomorphic_copy.sh # 10-BOTH: isomorphic_copy (clipboard over SSH)
 source $MAIN_INSTALL_SCRIPTS/htop.sh            # 11-BOTH: htop (interactive process viewer)
+source $MAIN_INSTALL_SCRIPTS/gitui.sh           # 12-BOTH: gitui (terminal UI for git)
 
 # Apply macOS defaults if on macOS
 if [ "$OS_TYPE" = "macos" ]; then

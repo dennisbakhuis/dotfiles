@@ -82,6 +82,7 @@ On macOS, Stage 2 (GUI applications) installs automatically when you run the ins
 - **Neofetch/Zeitfetch** (system info, displayed on login shells only)
 - **uv** - Fast Python package and project manager
 - **isomorphic_copy** - Seamless clipboard over SSH
+- **gitui** - Blazing fast terminal UI for git
 
 **macOS Only:**
 - **macOS system defaults** (Dock, Finder, screenshots, etc.)
