@@ -1,22 +1,29 @@
 # Fish Shell Aliases
 # Author: Dennis Bakhuis
-# Date: 2025-10-10
+# Date: 2025-11-20
+
+# Source custom functions
+source $HOME/dotfiles/fish/functions/aliases_info.fish
+source $HOME/dotfiles/fish/functions/git_branches.fish
+source $HOME/dotfiles/fish/functions/git_log_search.fish
 
 ###########
 # General #
 ###########
-alias hist='history'
+alias reload='exec fish'  # Reload Fish shell
+alias aliases='aliases_info'  # Show aliases and key bindings
 
-######
+#######
 # Git #
-######
+#######
 if command -v git &>/dev/null
     alias g='git'
     alias ga='git add'
-    alias gaa='git add --all'
     alias gc='git commit'
     alias gs='git status'
-    alias gu='git for-each-ref --sort=-committerdate refs/heads/ refs/remotes/ --format="%(committerdate:relative) %(refname:short) - %(contents:subject)"'
+    alias gu='git for-each-ref --sort=-committerdate refs/heads/ refs/remotes/ --format="%(committerdate:relative) %(refname:short) - %(contents:subject)"'  # Show recent branch activity
+    alias gb='git_branches'
+    alias gl='git_log_search'  # Search git log with fzf
 end
 
 ##########
@@ -29,17 +36,14 @@ end
 # Use lsd instead of ls
 if command -v lsd &>/dev/null
     alias ls='lsd --group-directories-first --icon=always'
+    alias l='ls'
     alias ll='lsd -lA --group-directories-first --icon=always'
-    alias l='lsd -lF --group-directories-first --icon=always'
-    alias llm='lsd -lA --group-directories-first --icon=always --timesort --reverse'
-    alias la='lsd --long --all --group-directories-first'
-    alias lx='lsd -lA --group-directories-first --icon=always --total-size'
     alias lt='lsd --tree --depth=2 --group-directories-first --icon=always'
     alias tree='lsd --tree --group-directories-first --icon=always'
 end
 
 if command -v macmon &>/dev/null
-    alias mtop='macmon'
+    alias mtop='macmon'  # Mac specialized htop
 end
 
 ##########
@@ -47,10 +51,8 @@ end
 ##########
 alias jl='jupyter lab --ip=0.0.0.0'
 
-# uv shortcuts for quick virtual environment creation and activation
 if command -v uv &>/dev/null
-    # Smart venv function: creates .venv if it doesn't exist, then activates
-    function ve
+    function virtual_environment
         if not test -d .venv
             echo "Creating virtual environment..."
             uv venv
@@ -58,8 +60,7 @@ if command -v uv &>/dev/null
         source .venv/bin/activate.fish
     end
 
-    # Deactivate virtual environment
-    function ved
+    function virtual_environment_deactivate
         if test -n "$VIRTUAL_ENV"
             deactivate
             echo "Virtual environment deactivated"
@@ -68,8 +69,8 @@ if command -v uv &>/dev/null
         end
     end
 
-    # Shorter alias
-    alias venv='ve'
+    alias ve='virtual_environment'  # Enter python virtual environment
+    alias ved='virtual_environment_deactivate'  # Deactivate python virtual environment
 end
 
 ###########
@@ -79,17 +80,9 @@ alias k='kubectl'
 alias kd='kubectl describe'
 alias kg='kubectl get'
 alias kl='kubectl logs'
+alias kubeshell='kubectl run -i --rm --tty ubuntu --image=ubuntu -- bash'  # Open shell within k8s cluster
 
 ##########
 # Docker #
 ##########
 alias dprune='docker system prune -a'
-
-##########
-# TenneT #
-##########
-alias main='kubectl config use-context intelligent-document-checker-dpe-dev-aks'
-alias ydigital='kubectl config use-context tennet-idc-aks'
-alias models='kubectl config use-context tennet-idc-aml-models-aks'
-alias argoprod='argo server -n argo --configmap argo-argo-workflows-workflow-controller-configmap --auth-mode=server --secure=false'
-alias kubeshell='kubectl run -i --rm --tty ubuntu --image=ubuntu -- bash'
