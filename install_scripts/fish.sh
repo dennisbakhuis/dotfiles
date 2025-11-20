@@ -94,6 +94,21 @@ ln -sf $DOTFILES_ROOT/fish/fish_variables $HOME/.config/fish/fish_variables
 
 # Link entire conf.d directory (for modular configuration)
 ln -sfn $DOTFILES_ROOT/fish/conf.d $HOME/.config/fish/conf.d
+
+# Handle completions directory - backup if exists and not a symlink
+if [ -d "$HOME/.config/fish/completions" ] && [ ! -L "$HOME/.config/fish/completions" ]; then
+    COMPLETIONS_BACKUP="$HOME/.config/fish/completions.backup.$(date +%Y%m%d_%H%M%S)"
+    print_warning "Backing up existing completions to $COMPLETIONS_BACKUP"
+    mv "$HOME/.config/fish/completions" "$COMPLETIONS_BACKUP"
+fi
+
+# Remove old symlink if it exists
+if [ -L "$HOME/.config/fish/completions" ]; then
+    rm "$HOME/.config/fish/completions"
+fi
+
+# Link entire completions directory (for tab completions)
+ln -sfn $DOTFILES_ROOT/fish/completions $HOME/.config/fish/completions
 print_success "Fish configuration files linked"
 
 # Install Fisher plugin manager if not already installed

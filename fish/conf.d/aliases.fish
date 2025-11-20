@@ -5,6 +5,7 @@
 # Source custom functions
 source $HOME/dotfiles/fish/functions/aliases_info.fish
 source $HOME/dotfiles/fish/functions/git_branches.fish
+source $HOME/dotfiles/fish/functions/git_branch_delete.fish
 source $HOME/dotfiles/fish/functions/git_log_search.fish
 
 ###########
@@ -21,8 +22,8 @@ if command -v git &>/dev/null
     alias ga='git add'
     alias gc='git commit'
     alias gs='git status'
-    alias gu='git for-each-ref --sort=-committerdate refs/heads/ refs/remotes/ --format="%(committerdate:relative) %(refname:short) - %(contents:subject)"'  # Show recent branch activity
-    alias gb='git_branches'
+    alias gb='git_branches'  # Show branches with merge status and activity
+    alias gbd='git_branch_delete'  # Delete local and/or remote branches
     alias gl='git_log_search'  # Search git log with fzf
 end
 

@@ -1,8 +1,8 @@
-# Git Branches - Display all branches with merge status information
+# Git Branches - Display all branches with merge status and activity information
 #
 # Shows local and remote branches sorted by commit date. For regular branches,
-# displays which branches they've been merged into and when. For main/master
-# branches, shows the most recently merged branch.
+# displays which branches they've been merged into and when, along with last
+# commit activity. For main/master branches, shows the most recently merged branch.
 
 function git_branches
     set -l main_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "master")
@@ -14,6 +14,10 @@ function git_branches
     git branch --sort=-committerdate | while read -l line
         set -l branch (echo $line | string trim | string replace '* ' '')
         set -l is_current (string match -r '^\*' $line)
+
+        # Get last activity info (relative date and commit subject)
+        set -l last_activity (git log -1 --format="%cr - %s" $branch 2>/dev/null)
+        set -l activity_display (set_color brblack)"($last_activity)"(set_color normal)
 
         if test "$branch" = "$main_branch" -o "$branch" = "main" -o "$branch" = "master"
             set -l last_merged
@@ -34,15 +38,15 @@ function git_branches
 
             if test -n "$last_merged"
                 if test -n "$is_current"
-                    echo (set_color yellow)"$line"(set_color normal) (set_color blue)"← last merge: $last_merged"(set_color normal)
+                    echo (set_color yellow)"$line"(set_color normal) (set_color blue)"← last merge: $last_merged"(set_color normal) $activity_display
                 else
-                    echo "$line" (set_color blue)"← last merge: $last_merged"(set_color normal)
+                    echo "$line" (set_color blue)"← last merge: $last_merged"(set_color normal) $activity_display
                 end
             else
                 if test -n "$is_current"
-                    echo (set_color yellow)"$line"(set_color normal)
+                    echo (set_color yellow)"$line"(set_color normal) $activity_display
                 else
-                    echo "$line"
+                    echo "$line" $activity_display
                 end
             end
         else
@@ -76,15 +80,15 @@ function git_branches
                 set -l formatted_date (date -j -f "%Y-%m-%d %H:%M:%S %z" "$merge_date" "+%Y-%m-%d %H:%M" 2>/dev/null || echo "")
 
                 if test -n "$is_current"
-                    echo (set_color yellow)"$line"(set_color normal) (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal)
+                    echo (set_color yellow)"$line"(set_color normal) (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
                 else
-                    echo "$line" (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal)
+                    echo "$line" (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
                 end
             else
                 if test -n "$is_current"
-                    echo (set_color yellow)"$line"(set_color normal)
+                    echo (set_color yellow)"$line"(set_color normal) $activity_display
                 else
-                    echo "$line"
+                    echo "$line" $activity_display
                 end
             end
         end
@@ -92,5 +96,10 @@ function git_branches
 
     echo ""
     echo (set_color cyan)"Remote branches:"(set_color normal)
-    git branch -r --sort=-committerdate | string match -v '*/HEAD*'
+    git branch -r --sort=-committerdate | string match -v '*/HEAD*' | while read -l remote_branch
+        set -l branch (echo $remote_branch | string trim)
+        set -l last_activity (git log -1 --format="%cr - %s" $branch 2>/dev/null)
+        set -l activity_display (set_color brblack)"($last_activity)"(set_color normal)
+        echo "  $branch" $activity_display
+    end
 end
