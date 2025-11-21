@@ -1,10 +1,15 @@
-# This is Git's per-user configuration file.
 [user]
-# Please adapt and uncomment the following lines:
 name = Dennis Bakhuis
 email = git@bakhuis.nu
 [pull]
 	rebase = false
+
+[color]
+	ui = auto
+	status = auto
+	branch = auto
+	diff = auto
+	interactive = auto
 
 # Azure DevOps URL rewriting for tennetidc organization
 # Rewrites git@ssh.dev.azure.com:v3/tennetidc -> git@tennet-idc:v3/tennetidc

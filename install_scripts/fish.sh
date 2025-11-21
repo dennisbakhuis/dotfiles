@@ -95,20 +95,32 @@ ln -sf $DOTFILES_ROOT/fish/fish_variables $HOME/.config/fish/fish_variables
 # Link entire conf.d directory (for modular configuration)
 ln -sfn $DOTFILES_ROOT/fish/conf.d $HOME/.config/fish/conf.d
 
-# Handle completions directory - backup if exists and not a symlink
-if [ -d "$HOME/.config/fish/completions" ] && [ ! -L "$HOME/.config/fish/completions" ]; then
-    COMPLETIONS_BACKUP="$HOME/.config/fish/completions.backup.$(date +%Y%m%d_%H%M%S)"
-    print_warning "Backing up existing completions to $COMPLETIONS_BACKUP"
-    mv "$HOME/.config/fish/completions" "$COMPLETIONS_BACKUP"
+# Handle functions directory - backup if exists and not a symlink
+if [ -d "$HOME/.config/fish/functions" ] && [ ! -L "$HOME/.config/fish/functions" ]; then
+    FUNCTIONS_BACKUP="$HOME/.config/fish/functions.backup.$(date +%Y%m%d_%H%M%S)"
+    print_warning "Backing up existing functions to $FUNCTIONS_BACKUP"
+    mv "$HOME/.config/fish/functions" "$FUNCTIONS_BACKUP"
 fi
 
 # Remove old symlink if it exists
-if [ -L "$HOME/.config/fish/completions" ]; then
-    rm "$HOME/.config/fish/completions"
+if [ -L "$HOME/.config/fish/functions" ]; then
+    rm "$HOME/.config/fish/functions"
 fi
 
-# Link entire completions directory (for tab completions)
-ln -sfn $DOTFILES_ROOT/fish/completions $HOME/.config/fish/completions
+# Link entire functions directory (for custom functions)
+ln -sfn $DOTFILES_ROOT/fish/functions $HOME/.config/fish/functions
+
+# Ensure completions directory exists
+mkdir -p $HOME/.config/fish/completions
+
+# Link individual completion files (instead of entire directory to allow other tools to add completions)
+print_step "Linking completion files..."
+for completion_file in $DOTFILES_ROOT/fish/completions/*.fish; do
+    if [ -f "$completion_file" ]; then
+        completion_name=$(basename "$completion_file")
+        ln -sf "$completion_file" "$HOME/.config/fish/completions/$completion_name"
+    fi
+done
 print_success "Fish configuration files linked"
 
 # Install Fisher plugin manager if not already installed
