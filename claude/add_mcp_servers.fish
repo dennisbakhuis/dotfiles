@@ -18,10 +18,10 @@ echo ""
 read -P "Enter Context7 API key (or press Enter to skip): " -l context7_api_key
 
 if test -n "$context7_api_key"
-    echo "Installing Context7 MCP server globally..."
-    claude mcp add --global --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: $context7_api_key"
+    echo "Installing Context7 MCP server..."
+    claude mcp add --scope user --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: $context7_api_key"
     set_color green
-    echo "✓ Context7 MCP server installed globally"
+    echo "✓ Context7 MCP server installed."
     set_color normal
 else
     set_color yellow
