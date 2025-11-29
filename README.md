@@ -93,6 +93,34 @@ On macOS, Stage 2 (GUI applications) installs automatically when you run the ins
 - **OrbStack** - Fast, lightweight Docker/Linux container runtime
 - **FlashSpace** - Blazingly fast virtual workspace manager
 
+## Fish Shell
+
+Fish is configured with Starship prompt, zoxide for smart navigation, and extensive fzf integration.
+
+### Key Features
+- **fzf shortcuts:**
+  - `Ctrl+R` - Search command history
+  - `Ctrl+T` - Search files
+  - `Alt+C` - Change directory (interactive)
+  - `Ctrl+Alt+F` - Search files (fzf.fish)
+  - `Ctrl+Alt+L` - Search git log
+  - `Ctrl+Alt+S` - Search git status
+
+- **Zoxide (smart cd):**
+  - `z <dir>` - Jump to frequent/recent directory
+  - `zi <dir>` - Interactive directory selection
+
+- **Git aliases:**
+  - `gb` - Show branches with merge status
+  - `gbd` - Delete branches (local/remote)
+  - `gbs` - Switch/create branch
+  - `gl` - Search git log with fzf
+
+- **Other:**
+  - `aliases` - Show all aliases and keybindings
+  - `ve` / `ved` - Enter/exit Python virtual environment (uses uv)
+  - `ls` → `lsd` with icons and colors
+
 ## Configuration Structure
 
 Configurations are symlinked to your home directory:
@@ -103,6 +131,39 @@ Configurations are symlinked to your home directory:
 - `~/.config/alacritty/alacritty.toml` → `alacritty/alacritty.macos.toml` (macOS) or `alacritty/alacritty.linux.toml` (Linux)
 - `~/.config/flashspace/profiles.toml` → `flashspace/profiles.toml` (macOS only)
 - `~/.config/flashspace/settings.toml` → `flashspace/settings.toml` (macOS only)
+- `~/.claude/settings.json` → `claude/settings.json`
+- `~/.claude/CLAUDE.md` → `claude/CLAUDE.md`
+
+## VSCode
+
+VSCode configurations include project-wide diagnostics, custom keybindings, and formatter settings.
+
+### Key Features
+- **Project-wide diagnostics** - See problems in all files (Python, TypeScript/JavaScript)
+- **Format on save** - Black (Python), Prettier (JS/TS/JSON)
+- **Custom terminal shortcuts:**
+  - `cmd+\` - Toggle terminal open/close
+  - `cmd+option+\` - Cycle through terminal sessions
+  - `ctrl+shift+` - New terminal
+
+**Note:** VSCode settings are in `vscode/` but need to be manually copied to your VSCode settings location.
+
+## Claude Code
+
+Claude Code settings and global instructions are automatically symlinked during installation.
+
+### Optional: MCP Server Setup
+
+After installing dotfiles, you can optionally set up MCP (Model Context Protocol) servers for enhanced Claude Code functionality:
+
+```fish
+~/dotfiles/claude/add_mcp_servers.fish
+```
+
+This interactive script will help you configure:
+- **Context7** - AI-powered codebase context and search (requires API key)
+
+The script also provides recommendations for other useful MCP servers including filesystem, GitHub, Brave Search, PostgreSQL, Puppeteer, and Slack integrations.
 
 ## Supported Systems
 

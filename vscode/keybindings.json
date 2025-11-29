@@ -10,12 +10,17 @@
   },
   {
     "key": "cmd+\\",
-    "command": "workbench.action.terminal.focus"
+    "command": "workbench.action.terminal.focus",
+    "when": "!terminalFocus"
   },
   {
     "key": "cmd+\\",
-    "command": "workbench.action.focusActiveEditorGroup",
+    "command": "workbench.action.terminal.toggleTerminal",
     "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+alt+\\",
+    "command": "workbench.action.terminal.focusNext"
   },
 
   // Navigation
