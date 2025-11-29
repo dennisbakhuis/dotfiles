@@ -76,6 +76,11 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
 
+  // TypeScript/JavaScript - enable project-wide diagnostics
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "javascript.validate.enable": true,
+  "typescript.validate.enable": true,
+
   // Language-specific settings
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
@@ -121,6 +126,9 @@
   "python.linting.flake8Enabled": true,
   "python.formatting.provider": "none",
   "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.indexing": true,
 
   // Security
   "security.workspace.trust.untrustedFiles": "open",
@@ -136,5 +144,6 @@
   "makefile.configureOnOpen": true,
   "workbench.editor.autoLockGroups": {
     "workbench.editor.chatSession": false
-  }
+  },
+  "claudeCode.preferredLocation": "panel"
 }

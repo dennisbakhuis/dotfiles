@@ -8,6 +8,15 @@
     "key": "ctrl+shift+`",
     "command": "workbench.action.terminal.new"
   },
+  {
+    "key": "cmd+\\",
+    "command": "workbench.action.terminal.focus"
+  },
+  {
+    "key": "cmd+\\",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
 
   // Navigation
   {

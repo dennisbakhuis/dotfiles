@@ -45,14 +45,13 @@ fi
 rm -f $HOME/.ignore
 rm -f $HOME/.gitignore
 
-# Link/copy gitignore and gitconfig
-# gitconfig is copied as path to gitignore is different on each machine
+# Link gitignore and gitconfig
 ln -sf $DOTFILES_ROOT/git/gitignore $HOME/.ignore
-cp -f $DOTFILES_ROOT/git/gitconfig $HOME/.gitconfig
+ln -sf $DOTFILES_ROOT/git/gitconfig $HOME/.gitconfig
 
 # fd only use .gitignore when in a git repo; .fdignore is used always for fd
 cp -f $DOTFILES_ROOT/git/gitignore $HOME/.fdignore
 
-# set global gitignore as it is a new copy
+# set global gitignore
 printf " *** Setting global gitignore...\n"
 git config --global core.excludesfile $DOTFILES_ROOT/git/gitignore
