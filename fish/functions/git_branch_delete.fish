@@ -109,12 +109,21 @@ function git_branch_delete
 
             if test $status -eq 0
                 echo (set_color green)"✓ Remote branch deleted successfully"(set_color normal)
+                # Prune stale remote-tracking branches
+                git fetch --prune --quiet 2>/dev/null
             else
                 echo (set_color red)"✗ Failed to delete remote branch"(set_color normal)
                 return 1
             end
         else
             echo (set_color yellow)"Warning: Remote branch 'origin/$branch_name' does not exist"(set_color normal)
+            # Clean up stale local tracking branch if it exists
+            if git show-ref --verify --quiet refs/remotes/origin/$branch_name
+                git branch -rd origin/$branch_name 2>/dev/null
+                if test $status -eq 0
+                    echo (set_color green)"✓ Cleaned up stale tracking branch"(set_color normal)
+                end
+            end
         end
     end
 end
