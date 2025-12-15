@@ -176,17 +176,17 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
     end
 
     set -l pr_title ""
-    set -l pr_body_lines
+    set -l pr_body_text ""
 
     # Handle case where BODY: might be on the same line as title or separate
     if string match -qr "TITLE:\s*(.+?)\s+BODY:\s*(.*)" "$llm_output"
         # Title and body on same/adjacent lines
         set pr_title (echo "$llm_output" | string replace -rf '.*TITLE:\s*(.+?)\s+BODY:.*' '$1' | string trim)
-        set -l body_text (echo "$llm_output" | string replace -rf '.*BODY:\s*(.*)' '$1' | string trim)
-        set pr_body_lines (echo "$body_text" | string split \n)
+        set pr_body_text (echo "$llm_output" | string replace -rf '.*BODY:\s*(.*)' '$1' | string trim)
     else if string match -q "*TITLE:*" "$llm_output"
         # Separate TITLE: and BODY: lines
         set -l in_body 0
+        set -l body_lines
         for line in (echo "$llm_output" | string split \n)
             if string match -q "TITLE:*" $line
                 set pr_title (string replace -r '^TITLE:\s*' '' $line | string trim)
@@ -195,12 +195,14 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
                 # Check if body content is on same line as BODY:
                 set -l body_start (string replace -r '^BODY:\s*' '' $line | string trim)
                 if test -n "$body_start"
-                    set -a pr_body_lines "$body_start"
+                    set -a body_lines "$body_start"
                 end
             else if test $in_body -eq 1
-                set -a pr_body_lines "$line"
+                set -a body_lines "$line"
             end
         end
+        # Join with actual newlines
+        set pr_body_text (string join \n $body_lines)
     end
 
     if test -z "$pr_title"
@@ -210,8 +212,8 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
         return 1
     end
 
-    if test (count $pr_body_lines) -eq 0
-        set pr_body_lines "No description provided"
+    if test -z "$pr_body_text"
+        set pr_body_text "No description provided"
     end
 
     echo ""
@@ -220,7 +222,7 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
     echo "$pr_title"
     echo ""
     echo (set_color green)"Generated PR Body:"(set_color normal)
-    printf "%s\n" $pr_body_lines
+    echo -e "$pr_body_text"
     echo (set_color cyan)"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"(set_color normal)
     echo ""
 
@@ -234,7 +236,7 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
 
     echo (set_color cyan)"Creating pull request..."(set_color normal)
 
-    set -l pr_url (printf "%s\n" $pr_body_lines | gh pr create \
+    set -l pr_url (echo -e "$pr_body_text" | gh pr create \
         --base "$dest_branch" \
         --head "$current_branch" \
         --title "$pr_title" \
