@@ -45,7 +45,7 @@
     "path": "/opt/homebrew/bin/fish"
   },
 
-  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.colorTheme": "GitHub Dark Default",
   "workbench.iconTheme": "vs-seti",
   "workbench.startupEditor": "welcomePage",
   "workbench.sideBar.location": "left",
@@ -132,5 +132,6 @@
     "workbench.editor.chatSession": false
   },
   "claudeCode.preferredLocation": "panel",
-  "workbench.secondarySideBar.defaultVisibility": "hidden"
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "claudeCode.selectedModel": "default"
 }

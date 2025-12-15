@@ -53,6 +53,12 @@ function git_branch_delete
         return 1
     end
 
+    if test \( "$branch_name" = "main" -o "$branch_name" = "dev" \) -a -z "$force_flag"
+        echo (set_color red)"Error: Cannot delete protected branch '$branch_name' without force flag"(set_color normal)
+        echo "Use -f or --force flag to force delete: "(set_color yellow)"gbd -f $branch_name"(set_color normal)
+        return 1
+    end
+
     set -l has_remote (git remote get-url origin &>/dev/null; echo $status)
     if test $has_remote -ne 0
         set delete_remote 0
@@ -103,26 +109,36 @@ function git_branch_delete
     end
 
     if test $delete_remote -eq 1
+        set -l remote_exists 0
+        set -l tracking_exists 0
+
         if git ls-remote --exit-code --heads origin $branch_name &>/dev/null
+            set remote_exists 1
+        end
+
+        if git show-ref --verify --quiet refs/remotes/origin/$branch_name
+            set tracking_exists 1
+        end
+
+        if test $remote_exists -eq 1
             echo (set_color cyan)"Deleting remote branch: origin/$branch_name"(set_color normal)
             git push origin --delete $branch_name
 
-            if test $status -eq 0
-                echo (set_color green)"✓ Remote branch deleted successfully"(set_color normal)
-                # Prune stale remote-tracking branches
-                git fetch --prune --quiet 2>/dev/null
-            else
+            if test $status -ne 0
                 echo (set_color red)"✗ Failed to delete remote branch"(set_color normal)
                 return 1
             end
-        else
-            echo (set_color yellow)"Warning: Remote branch 'origin/$branch_name' does not exist"(set_color normal)
-            # Clean up stale local tracking branch if it exists
-            if git show-ref --verify --quiet refs/remotes/origin/$branch_name
-                git branch -rd origin/$branch_name 2>/dev/null
-                if test $status -eq 0
-                    echo (set_color green)"✓ Cleaned up stale tracking branch"(set_color normal)
-                end
+            echo (set_color green)"✓ Remote branch deleted successfully"(set_color normal)
+        else if test $tracking_exists -eq 1
+            echo (set_color yellow)"Note: Remote branch 'origin/$branch_name' not found on server"(set_color normal)
+        end
+
+        # Prune to clean up any stale tracking references
+        if test $remote_exists -eq 1 -o $tracking_exists -eq 1
+            echo (set_color cyan)"Cleaning up stale tracking references"(set_color normal)
+            git fetch --prune --quiet 2>/dev/null
+            if test $status -eq 0
+                echo (set_color green)"✓ Tracking references cleaned up"(set_color normal)
             end
         end
     end

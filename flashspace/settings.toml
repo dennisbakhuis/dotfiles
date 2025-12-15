@@ -32,7 +32,6 @@ showFlashSpace = 'cmd+opt+`'
 showFloatingNotifications = true
 showMenuBarIcon = true
 showMenuBarTitle = true
-showSpaceControl = 'cmd+`'
 skipEmptyWorkspacesOnSwitch = false
 spaceControlCurrentDisplayWorkspaces = false
 spaceControlHideEmptyWorkspaces = false
@@ -48,6 +47,7 @@ swipeThreshold = 0.20000000000000001
 swipeUp3FingerAction = 'none'
 swipeUp4FingerAction = 'none'
 switchWorkspaceWhenPipCloses = true
+toggleTheFocusedAppFloating = 'cmd+opt+tab'
 workspaceTransitionDimming = 0.20000000000000001
 workspaceTransitionDuration = 0.29999999999999999
 
