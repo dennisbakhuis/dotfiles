@@ -177,18 +177,31 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
 
     set -l pr_title ""
     set -l pr_body ""
-    set -l parsing_body 0
 
-    for line in (echo "$llm_output" | string split \n)
-        if string match -q "TITLE: *" $line
-            set pr_title (string replace "TITLE: " "" $line)
-        else if string match -q "BODY:" $line
-            set parsing_body 1
-        else if test $parsing_body -eq 1
-            if test -n "$pr_body"
-                set pr_body "$pr_body\n$line"
-            else
-                set pr_body "$line"
+    # Handle case where BODY: might be on the same line as title or separate
+    if string match -qr "TITLE:\s*(.+?)\s+BODY:\s*(.*)" "$llm_output"
+        # Title and body on same/adjacent lines
+        set pr_title (echo "$llm_output" | string replace -rf '.*TITLE:\s*(.+?)\s+BODY:.*' '$1' | string trim)
+        set pr_body (echo "$llm_output" | string replace -rf '.*BODY:\s*(.*)' '$1' | string trim)
+    else if string match -q "*TITLE:*" "$llm_output"
+        # Separate TITLE: and BODY: lines
+        set -l in_body 0
+        for line in (echo "$llm_output" | string split \n)
+            if string match -q "TITLE:*" $line
+                set pr_title (string replace -r '^TITLE:\s*' '' $line | string trim)
+            else if string match -q "BODY:*" $line
+                set in_body 1
+                # Check if body content is on same line as BODY:
+                set -l body_start (string replace -r '^BODY:\s*' '' $line | string trim)
+                if test -n "$body_start"
+                    set pr_body "$body_start"
+                end
+            else if test $in_body -eq 1 -a -n "$line"
+                if test -n "$pr_body"
+                    set pr_body "$pr_body\n$line"
+                else
+                    set pr_body "$line"
+                end
             end
         end
     end
