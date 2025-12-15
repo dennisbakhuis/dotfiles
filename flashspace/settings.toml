@@ -20,7 +20,6 @@ keepUnassignedAppsOnSwitch = false
 loopWorkspaces = true
 menuBarDisplayAliases = ''
 menuBarTitleTemplate = '$WORKSPACE'
-pipApps = []
 pipScreenCornerOffset = 15
 restartAppOnWakeUp = false
 restoreHiddenAppsOnSwitch = true
@@ -32,6 +31,7 @@ showFlashSpace = 'cmd+opt+`'
 showFloatingNotifications = true
 showMenuBarIcon = true
 showMenuBarTitle = true
+showSpaceControl = 'cmd+`'
 skipEmptyWorkspacesOnSwitch = false
 spaceControlCurrentDisplayWorkspaces = false
 spaceControlHideEmptyWorkspaces = false
@@ -70,3 +70,8 @@ name = 'Preview'
 bundleIdentifier = 'com.apple.finder'
 iconPath = '/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns'
 name = 'Finder'
+
+[[pipApps]]
+bundleIdentifier = 'com.microsoft.teams2'
+name = 'Microsoft Teams'
+pipWindowTitleRegex = 'Meeting with.*'

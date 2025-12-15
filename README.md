@@ -81,6 +81,7 @@ On macOS, Stage 2 (GUI applications) installs automatically when you run the ins
 - **SSH** configuration
 - **Neofetch/Zeitfetch** (system info, displayed on login shells only)
 - **uv** - Fast Python package and project manager
+- **llm** - Command-line tool for interacting with Large Language Models (OpenAI, Anthropic, Google Gemini)
 - **isomorphic_copy** - Seamless clipboard over SSH
 - **gitui** - Blazing fast terminal UI for git
 
@@ -121,6 +122,51 @@ Fish is configured with Starship prompt, zoxide for smart navigation, and extens
   - `ve` / `ved` - Enter/exit Python virtual environment (uses uv)
   - `ls` → `lsd` with icons and colors
 
+## LLM CLI Tool
+
+The `llm` command-line tool is installed for interacting with Large Language Models from the terminal.
+
+### Post-Installation Setup
+
+After running the installer, configure your API keys:
+
+```bash
+fish ~/dotfiles/llm_cli/setup_llm_keys.fish
+```
+
+Or manually configure individual providers:
+
+```bash
+llm keys set openai        # OpenAI (GPT-4, GPT-3.5)
+llm keys set anthropic     # Anthropic (Claude)
+llm keys set gemini        # Google Gemini
+```
+
+### Basic Usage
+
+```bash
+# Simple prompt
+llm "Explain what Python decorators are"
+
+# Use a specific model
+llm -m gpt-4o "Write a haiku about programming"
+llm -m claude-3-5-sonnet-20241022 "Explain async/await"
+
+# Pipe input
+cat file.py | llm "Explain this code"
+
+# Multi-line prompts
+llm << EOF
+Review this function and suggest improvements:
+$(cat my_function.py)
+EOF
+```
+
+### Documentation
+
+- Official documentation: https://llm.datasette.io/
+- GitHub repository: https://github.com/simonw/llm
+
 ## Configuration Structure
 
 Configurations are symlinked to your home directory:
@@ -133,6 +179,7 @@ Configurations are symlinked to your home directory:
 - `~/.config/flashspace/settings.toml` → `flashspace/settings.toml` (macOS only)
 - `~/.claude/settings.json` → `claude/settings.json`
 - `~/.claude/CLAUDE.md` → `claude/CLAUDE.md`
+- `~/.config/llm/config.toml` → `llm_cli/config.toml`
 
 ## VSCode
 

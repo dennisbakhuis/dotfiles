@@ -1,0 +1,12 @@
+# LLM CLI Tool Configuration
+# See: https://llm.datasette.io/en/stable/configuration.html
+
+# Uncomment and set your preferred default model
+# default_model = "gpt-4o"
+# default_model = "claude-3-5-sonnet-20241022"
+
+# SQLite logging (stores prompts and responses)
+# log_to_db = true
+
+# Custom directory for storing data (optional)
+# llm_user_path = "~/.config/llm"
