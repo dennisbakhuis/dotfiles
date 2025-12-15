@@ -8,6 +8,7 @@ source $HOME/dotfiles/fish/functions/git_branches.fish
 source $HOME/dotfiles/fish/functions/git_branch_delete.fish
 source $HOME/dotfiles/fish/functions/git_branch_switch.fish
 source $HOME/dotfiles/fish/functions/git_log_search.fish
+source $HOME/dotfiles/fish/functions/github_pull_request.fish
 
 ###########
 # General #
@@ -27,6 +28,7 @@ if command -v git &>/dev/null
     alias gbd='git_branch_delete'  # Delete local and/or remote branches
     alias gbs='git_branch_switch'  # Switch to branch or create if doesn't exist
     alias gl='git_log_search'  # Search git log with fzf
+    alias ghpr='github_pull_request'  # Create PR with AI-generated content
 end
 
 ##########
