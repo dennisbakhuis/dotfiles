@@ -68,6 +68,11 @@ function git_branch_switch
 
     else if test $local_exists -eq 0
         echo (set_color cyan)"Switching to existing local branch: $branch_name"(set_color normal)
+
+        if test $has_remote -eq 0
+            git fetch origin $branch_name:refs/remotes/origin/$branch_name --quiet 2>/dev/null
+        end
+
         git switch $branch_name --quiet
         if test $status -eq 0
             echo (set_color green)"✓ Switched to branch: $branch_name"(set_color normal)
