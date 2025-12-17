@@ -40,15 +40,19 @@ else
     print_info "lsd is already installed"
 fi
 
-# check if starship is installed
 if [ ! -x "$(command -v starship)" ]; then
     print_step "Installing starship prompt..."
-    # Install starship (check if on 32bit arm for special handling)
-    if [ "$(uname -m)" = "armv7l" ]; then
-        # 32bit arm (Raspberry Pi <4) - use curl installer
-        sh -c "$(curl -fsSL https://starship.rs/install.sh)" -y -f
+
+    IS_WSL=false
+    if [ -f /proc/version ] && grep -qi "microsoft\|wsl" /proc/version; then
+        IS_WSL=true
+    fi
+
+    if [ "$IS_WSL" = true ] || [ "$(uname -m)" = "armv7l" ]; then
+        print_info "Detected WSL/ARM, using official installer..."
+        sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y -f
     else
-        # Regular install via package manager
+        # Native Linux (Ubuntu/Arch) or macOS - use package manager
         eval $PKG_INSTALL_NONINTERACTIVE starship
     fi
     print_success "Starship prompt installed"
@@ -56,7 +60,6 @@ else
     print_info "Starship is already installed"
 fi
 
-# check if zoxide is installed
 if [ ! -x "$(command -v zoxide)" ]; then
     print_step "Installing zoxide (smart cd)..."
     eval $PKG_INSTALL_NONINTERACTIVE zoxide
@@ -65,7 +68,6 @@ else
     print_info "Zoxide is already installed"
 fi
 
-# check if DOTFILES_ROOT is set
 if [ -z "$DOTFILES_ROOT" ]; then
     print_error "DOTFILES_ROOT is not set, exiting"
     exit 1
@@ -73,47 +75,37 @@ fi
 
 print_step "Configuring Fish shell..."
 
-# Backup existing fish config if it exists and is not a symlink
 if [ -d "$HOME/.config/fish" ] && [ ! -L "$HOME/.config/fish" ]; then
     BACKUP_DIR="$HOME/.config/fish.backup.$(date +%Y%m%d_%H%M%S)"
     print_warning "Backing up existing fish config to $BACKUP_DIR"
     mv "$HOME/.config/fish" "$BACKUP_DIR"
 fi
 
-# Remove old symlink if it exists
 if [ -L "$HOME/.config/fish" ]; then
     rm "$HOME/.config/fish"
 fi
 
-# Create fish config directory structure
 mkdir -p $HOME/.config/fish
 
-# Link fish configuration (using -f to force overwrite if exists)
 ln -sf $DOTFILES_ROOT/fish/config.fish $HOME/.config/fish/config.fish
 ln -sf $DOTFILES_ROOT/fish/fish_variables $HOME/.config/fish/fish_variables
 
-# Link entire conf.d directory (for modular configuration)
 ln -sfn $DOTFILES_ROOT/fish/conf.d $HOME/.config/fish/conf.d
 
-# Handle functions directory - backup if exists and not a symlink
 if [ -d "$HOME/.config/fish/functions" ] && [ ! -L "$HOME/.config/fish/functions" ]; then
     FUNCTIONS_BACKUP="$HOME/.config/fish/functions.backup.$(date +%Y%m%d_%H%M%S)"
     print_warning "Backing up existing functions to $FUNCTIONS_BACKUP"
     mv "$HOME/.config/fish/functions" "$FUNCTIONS_BACKUP"
 fi
 
-# Remove old symlink if it exists
 if [ -L "$HOME/.config/fish/functions" ]; then
     rm "$HOME/.config/fish/functions"
 fi
 
-# Link entire functions directory (for custom functions)
 ln -sfn $DOTFILES_ROOT/fish/functions $HOME/.config/fish/functions
 
-# Ensure completions directory exists
 mkdir -p $HOME/.config/fish/completions
 
-# Link individual completion files (instead of entire directory to allow other tools to add completions)
 print_step "Linking completion files..."
 for completion_file in $DOTFILES_ROOT/fish/completions/*.fish; do
     if [ -f "$completion_file" ]; then
@@ -123,7 +115,6 @@ for completion_file in $DOTFILES_ROOT/fish/completions/*.fish; do
 done
 print_success "Fish configuration files linked"
 
-# Install Fisher plugin manager if not already installed
 if [ ! -f "$HOME/.config/fish/functions/fisher.fish" ]; then
     print_step "Installing Fisher plugin manager..."
     fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
@@ -132,17 +123,13 @@ else
     print_info "Fisher is already installed"
 fi
 
-# Install fzf.fish plugin via Fisher
 print_step "Installing fzf.fish plugin..."
 fish -c "fisher install PatrickF1/fzf.fish" 2>/dev/null && print_success "fzf.fish plugin installed" || print_info "fzf.fish plugin already installed"
 
-# Set default shell to fish
 print_step "Setting default shell to fish..."
 
-# Get the fish binary path
 FISH_PATH=$(which fish)
 
-# Check if fish is in /etc/shells, if not add it
 if ! grep -q "$FISH_PATH" /etc/shells; then
     print_warning "Adding fish to /etc/shells"
     echo "$FISH_PATH" | sudo tee -a /etc/shells > /dev/null
@@ -163,7 +150,6 @@ if [ "$CURRENT_SHELL" != "$FISH_PATH" ]; then
     if [ "$OS_TYPE" = "macos" ]; then
         sudo chsh -s "$FISH_PATH" $BASE_USER
     else
-        # Linux (Arch/Ubuntu) uses usermod
         sudo usermod --shell "$FISH_PATH" $BASE_USER
     fi
     print_success "Default shell changed to fish"
