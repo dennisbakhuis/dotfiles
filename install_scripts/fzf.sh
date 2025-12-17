@@ -19,7 +19,6 @@ fi
 
 print_header "🔍 FZF and Friends Installation"
 
-# Install fzf on Mac, Arch, or Ubuntu
 if [ ! -x "$(command -v fzf)" ]; then
     print_step "Installing fzf (fuzzy finder)..."
     eval $PKG_INSTALL_NONINTERACTIVE fzf
@@ -28,7 +27,6 @@ else
     print_info "fzf is already installed"
 fi
 
-# Install ripgrep
 if [ ! -x "$(command -v rg)" ]; then
     print_step "Installing ripgrep (fast grep)..."
     eval $PKG_INSTALL_NONINTERACTIVE ripgrep
@@ -37,7 +35,6 @@ else
     print_info "ripgrep is already installed"
 fi
 
-# Install bat
 if [ ! -x "$(command -v bat)" ]; then
     print_step "Installing bat (cat with wings)..."
     eval $PKG_INSTALL_NONINTERACTIVE bat
@@ -46,10 +43,13 @@ else
     print_info "bat is already installed"
 fi
 
-# Install fd
 if [ ! -x "$(command -v fd)" ]; then
     print_step "Installing fd (fast find)..."
-    eval $PKG_INSTALL_NONINTERACTIVE fd
+    if [ "$OS_TYPE" = "ubuntu" ]; then
+        eval $PKG_INSTALL_NONINTERACTIVE fd-find
+    else
+        eval $PKG_INSTALL_NONINTERACTIVE fd
+    fi
     print_success "fd installed"
 else
     print_info "fd is already installed"
