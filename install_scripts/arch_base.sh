@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #########################################
 # Script to install base Arch tools     #
 #                                       #
@@ -30,7 +30,7 @@ BASE_PASSWORD=${BASE_PASSWORD}                  # Password must be set in enviro
 # Main #
 ########
 if [ -f /etc/arch-release ]; then  # Only run if on Arch
-    
+
     if [ "$BASE_ARCH_INSTALL" = true ]; then
 
         # Only run as root
@@ -39,7 +39,7 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
             #############
             # Arch init #
             #############
- 
+
             # Make Pacman colorful and enable parallel downloads if required
             printf " *** Setting up pacman...\n"
             if grep -q "^Color" /etc/pacman.conf; then
@@ -54,12 +54,12 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 printf " *** Enabling ParallelDownloads...\n"
                 sed -i "s/^#ParallelDownloads = 5/ParallelDownloads = 5/" /etc/pacman.conf
             fi
-            
+
             # init pacman keyring if required and create secret key
             if [ ! -f /etc/pacman.d/gnupg ]; then
                 printf " *** Initializing pacman keyring...\n"
                 pacman-key --init
- 
+
                 # check if on arm or amd64
                 if uname -m | grep -q arm; then
                     printf " *** Installing archlinuxarm keyring...\n"
@@ -69,16 +69,16 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                     pacman-key --populate archlinux
                 fi
             fi
- 
+
             # update
             printf " *** Updating system...\n"
             pacman -Syy --noconfirm && pacman -Syu --noconfirm
- 
+
 
             ########
             # Sudo #
             ########
- 
+
             # Install sudo if required
             if command -v sudo &> /dev/null; then
                 printf " *** sudo is already installed...\n"
@@ -86,11 +86,11 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 printf " *** Installing sudo...\n"
                 pacman -Sy --noconfirm sudo
             fi
- 
+
             # Uncommend wheel group in sudoers if required
             printf " *** Enabling wheel group in sudoers...\n"
             sed -i "s/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/" /etc/sudoers
- 
+
             # Check if sudo insults are already enabled
             if grep -q insults /etc/sudoers; then
                 printf " *** sudo insults are already enabled...\n"
@@ -98,16 +98,16 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 printf " *** Enabling sudo insults...\n"
                 printf "Defaults insults" >> /etc/sudoers
             fi
-            
- 
+
+
             ############
             # New user #
             ############
- 
+
             # Create new user if not exists and add to wheel
             if id -u $BASE_USER > /2>&1; then
                 printf " *** User $BASE_USER already exists...\n"
- 
+
                 # check if user is in wheel group
                 if groups $BASE_USER | grep -q wheel; then
                     printf " *** User $BASE_USER is already in wheel group...\n"
@@ -117,25 +117,25 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 fi
             else
                 printf " *** Creating new user $BASE_USER...\n"
- 
+
                 # Check if password is set
                 if [ -z "$BASE_PASSWORD" ]; then
                     printf "BASE_PASSWORD is required to create user, exiting...\n"
                     exit 1
                 fi
- 
+
                 useradd -rm -G wheel -s /bin/bash -u 1001 $BASE_USER
- 
+
                 printf " *** Setting password for new user $BASE_USER...\n"
                 printf " -----> \`$BASE_USER\`:\`$BASE_PASSWORD\`\n"
                 echo "$BASE_USER:$BASE_PASSWORD" | chpasswd
             fi
- 
- 
+
+
             #######################
             # Turn off root login #
             #######################
- 
+
             # Check if root is already disabled
             if passwd -S root | grep -q "NP"; then
                 printf " *** Root is already disabled...\n"
@@ -143,12 +143,12 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
                 printf " *** Disabling root login...\n"
                 passwd -d root
             fi
-        
- 
+
+
             ####################################
             # Install base-devel and inetutils #
             ####################################
- 
+
             # Install base-devel if required
             if pacman -Qs base-devel > /dev/null; then
                 printf " *** base-devel is already installed...\n"
@@ -174,7 +174,7 @@ if [ -f /etc/arch-release ]; then  # Only run if on Arch
             printf " *** Uncommenting en_US.UTF-8 and nl_NL.UTF-8 in /etc/locale.gen ...\n"
             sed -i "s/^#en_US.UTF-8/en_US.UTF-8/g" /etc/locale.gen
             sed -i "s/^#nl_NL.UTF-8/nl_NL.UTF-8/g" /etc/locale.gen
-             
+
             # Set system locale to en_US.UTF-8
             printf " *** Setting system locale to NL but have EN speaking system...\n"
             echo -e "LANG=nl_NL.UTF-8\nLC_MESSAGES=en_US.UTF-8" > /etc/locale.conf
