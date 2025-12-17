@@ -171,8 +171,7 @@ source $MAIN_INSTALL_SCRIPTS/python_uv.sh       # 9-BOTH: uv (Python package man
 source $MAIN_INSTALL_SCRIPTS/llm.sh             # 10-BOTH: llm (LLM command-line tool)
 source $MAIN_INSTALL_SCRIPTS/isomorphic_copy.sh # 11-BOTH: isomorphic_copy (clipboard over SSH)
 source $MAIN_INSTALL_SCRIPTS/htop.sh            # 12-BOTH: htop (interactive process viewer)
-source $MAIN_INSTALL_SCRIPTS/gitui.sh           # 13-BOTH: gitui (terminal UI for git)
-source $MAIN_INSTALL_SCRIPTS/claude.sh          # 14-BOTH: Claude Code (AI coding assistant)
+source $MAIN_INSTALL_SCRIPTS/claude.sh          # 13-BOTH: Claude Code (AI coding assistant)
 
 # Apply macOS defaults if on macOS
 if [ "$OS_TYPE" = "macos" ]; then
