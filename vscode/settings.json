@@ -133,6 +133,6 @@
   },
   "claudeCode.preferredLocation": "panel",
   "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "claudeCode.selectedModel": "default",
+  "claudeCode.selectedModel": "opus",
   "extensions.ignoreRecommendations": true
 }

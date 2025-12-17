@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #################################################
 # Install script for my configs on new machines #
 #                                               #
@@ -196,4 +196,3 @@ if [ "$OS_TYPE" = "macos" ]; then
     source $MAIN_INSTALL_SCRIPTS/mac_gui_apps/signal.sh        # Signal messaging app
     source $MAIN_INSTALL_SCRIPTS/mac_gui_apps/macmon.sh        # macOS system monitor
 fi
-
