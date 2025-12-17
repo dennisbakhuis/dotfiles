@@ -26,6 +26,8 @@ if [ ! -x "$(command -v uv)" ]; then
         NONINTERACTIVE=1 brew install uv
     else
         curl -LsSf https://astral.sh/uv/install.sh | sh
+        # Add uv to PATH immediately after installation
+        export PATH="$HOME/.local/bin:$PATH"
     fi
 
     printf " *** uv installed successfully...\n"
