@@ -43,20 +43,15 @@ name = 'Code'
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
 id = '8F773329-1E98-42ED-B9BE-1482AAFC3F97'
-name = 'Music'
+name = 'Remote'
 openAppsOnActivation = false
 shortcut = 'cmd+4'
-symbolIconName = 'music.note.list'
+symbolIconName = 'av.remote'
 
 [[profiles.workspaces.apps]]
-bundleIdentifier = 'com.spotify.client'
-iconPath = '/Applications/Spotify.app/Contents/Resources/AppIcon.icns'
-name = 'Spotify'
-
-[[profiles.workspaces.apps]]
-bundleIdentifier = 'com.apple.Music'
-iconPath = '/System/Applications/Music.app/Contents/Resources/AppIcon.icns'
-name = 'Music'
+bundleIdentifier = 'com.microsoft.rdc.macos'
+iconPath = '/Applications/Windows App.app/Contents/Resources/AppIcon.icns'
+name = 'Windows App'
 
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
@@ -71,6 +66,21 @@ bundleIdentifier = 'com.microsoft.Powerpoint'
 iconPath = '/Applications/Microsoft PowerPoint.app/Contents/Resources/PPT3.icns'
 name = 'Microsoft PowerPoint'
 
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.seriflabs.affinityphoto2'
+iconPath = '/Applications/Affinity Photo 2.app/Contents/Resources/AppIcon.icns'
+name = 'Affinity Photo 2'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.apple.iWork.Keynote'
+iconPath = '/Applications/Keynote.app/Contents/Resources/AppIcon.icns'
+name = 'Keynote'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.jacobzweig.trilla'
+iconPath = '/Applications/trilla.app/Contents/Resources/icon.icns'
+name = 'trilla'
+
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
 id = '431A65B5-EBC3-47D3-A025-8030184104BE'
@@ -83,6 +93,11 @@ symbolIconName = 'note.text'
 bundleIdentifier = 'com.apple.Notes'
 iconPath = '/System/Applications/Notes.app/Contents/Resources/AppIcon.icns'
 name = 'Notes'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'md.obsidian'
+iconPath = '/Applications/Obsidian.app/Contents/Resources/icon.icns'
+name = 'Obsidian'
 
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'

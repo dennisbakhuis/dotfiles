@@ -2,5 +2,13 @@
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
     "DISABLE_AUTOUPDATER": "1"
-  }
+  },
+  "permissions": {
+    "allow": [
+      "mcp__context7__query-docs",
+      "Bash(uv search)"
+    ]
+  },
+  "model": "sonnet",
+  "effortLevel": "high"
 }

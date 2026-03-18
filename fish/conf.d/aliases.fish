@@ -91,3 +91,10 @@ alias kubeshell='kubectl run -i --rm --tty ubuntu --image=ubuntu -- bash'  # Ope
 # Docker #
 ##########
 alias dprune='docker system prune -a'
+
+############
+# ZeroClaw #
+############
+if command -v zeroclaw &>/dev/null
+    alias zc='zeroclaw'
+end

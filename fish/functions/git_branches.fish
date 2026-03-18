@@ -5,6 +5,8 @@
 # commit activity. For main/master branches, shows the most recently merged branch.
 
 function git_branches
+    git fetch --prune 2>/dev/null
+
     set -l main_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "master")
 
     set -l all_branches (git branch -a --format='%(refname:short)' | string trim)
@@ -50,6 +52,12 @@ function git_branches
                 end
             end
         else
+            set -l branch_author (git log origin/$main_branch..$branch --format="%an" 2>/dev/null | tail -1)
+            if test -z "$branch_author"
+                set branch_author (git log -1 --format="%an" $branch 2>/dev/null)
+            end
+            set -l author_display (set_color magenta)"[$branch_author]"(set_color normal)
+
             set -l merged_into
             for target in $all_branches
                 if test "$branch" = "$target"
@@ -80,15 +88,15 @@ function git_branches
                 set -l formatted_date (date -j -f "%Y-%m-%d %H:%M:%S %z" "$merge_date" "+%Y-%m-%d %H:%M" 2>/dev/null || echo "")
 
                 if test -n "$is_current"
-                    echo (set_color yellow)"$line"(set_color normal) (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
+                    echo (set_color yellow)"$line"(set_color normal) $author_display (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
                 else
-                    echo "$line" (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
+                    echo "$line" $author_display (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
                 end
             else
                 if test -n "$is_current"
-                    echo (set_color yellow)"$line"(set_color normal) $activity_display
+                    echo (set_color yellow)"$line"(set_color normal) $author_display $activity_display
                 else
-                    echo "$line" $activity_display
+                    echo "$line" $author_display $activity_display
                 end
             end
         end
