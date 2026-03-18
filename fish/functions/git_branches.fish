@@ -5,7 +5,7 @@
 # commit activity. For main/master branches, shows the most recently merged branch.
 
 function git_branches
-    git fetch --prune 2>/dev/null
+    perl -e 'alarm 5; exec @ARGV' -- git fetch --prune 2>/dev/null
 
     set -l main_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "master")
 
