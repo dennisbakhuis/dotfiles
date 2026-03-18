@@ -69,7 +69,7 @@ function git_branch_delete
             echo (set_color cyan)"Deleting local branch: $branch_name"(set_color normal)
 
             set -l has_commits 0
-            set -l upstream (git rev-parse --abbrev-ref $branch_name@{upstream} 2>/dev/null)
+            set -l upstream (git branch --list $branch_name --format='%(upstream:short)')
             if test -n "$upstream"
                 set -l branch_commit (git rev-parse $branch_name)
                 set -l upstream_commit (git rev-parse $upstream)

@@ -81,11 +81,14 @@ function git_branches
             end
 
             if test (count $merged_into) -gt 0
-                set -l merge_date (git log --merges --first-parent $merged_into[1] --format="%ci" --grep="Merge.*$branch" -1 2>/dev/null)
-                if test -z "$merge_date"
-                    set merge_date (git log -1 --format="%ci" $branch 2>/dev/null)
+                set -l merge_commit (git log --merges --first-parent $merged_into[1] --format="%H" --grep="Merge.*$branch" -1 2>/dev/null)
+                set -l formatted_date ""
+                if test -n "$merge_commit"
+                    set formatted_date (git log -1 --format="%cd" --date=format:"%Y-%m-%d %H:%M" $merge_commit 2>/dev/null)
                 end
-                set -l formatted_date (date -j -f "%Y-%m-%d %H:%M:%S %z" "$merge_date" "+%Y-%m-%d %H:%M" 2>/dev/null || echo "")
+                if test -z "$formatted_date"
+                    set formatted_date (git log -1 --format="%cd" --date=format:"%Y-%m-%d %H:%M" $branch 2>/dev/null)
+                end
 
                 if test -n "$is_current"
                     echo (set_color yellow)"$line"(set_color normal) $author_display (set_color green)"✓ (merged to $merged_into[1] on $formatted_date)"(set_color normal) $activity_display
