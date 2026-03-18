@@ -70,9 +70,13 @@ function git_branch_delete
 
             set -l has_commits 0
             set -l upstream (git branch --list $branch_name --format='%(upstream:short)')
+            set -l upstream_commit ""
             if test -n "$upstream"
-                set -l branch_commit (git rev-parse $branch_name)
-                set -l upstream_commit (git rev-parse $upstream)
+                set upstream_commit (git rev-parse $upstream 2>/dev/null)
+            end
+
+            if test -n "$upstream_commit"
+                set -l branch_commit (git rev-parse $branch_name 2>/dev/null)
                 if test "$branch_commit" != "$upstream_commit"
                     set has_commits 1
                 end
