@@ -111,6 +111,7 @@
     "editor.autoIndent": "advanced"
   },
 
+  "python.terminal.activateEnvironment": false,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
@@ -133,7 +134,7 @@
   },
   "claudeCode.preferredLocation": "panel",
   "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "claudeCode.selectedModel": "default",
+  "claudeCode.selectedModel": "opus",
   "extensions.ignoreRecommendations": true,
   "[dart]": {
     "editor.formatOnSave": true,

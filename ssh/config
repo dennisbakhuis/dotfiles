@@ -44,3 +44,9 @@ Host etheron
   User root
   IdentityFile ~/.ssh/id_ed25519_etheron
   IdentitiesOnly yes
+
+Host forgejo.bakhuis.nu
+    HostName forgejo.bakhuis.nu
+    Port 2222
+    User git
+    IdentityFile ~/.ssh/forgejo

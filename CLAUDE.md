@@ -27,14 +27,14 @@ dotfiles/
 ├── llm_cli/                   # LLM CLI tool config and setup scripts
 │   ├── config.toml           # LLM configuration (symlinked to ~/.config/llm/)
 │   └── setup_llm_keys.fish   # Post-install helper for Anthropic setup
-├── vscode/                    # VSCode settings (manual copy required)
+├── vscode/                    # VSCode settings (symlinked to ~/Library/Application Support/Code/User/)
 ├── alacritty/                 # Terminal emulator config (macOS/Linux specific)
 └── scripts/                   # Utility scripts (Azure, testing, etc.)
 ```
 
 ## Configuration Organization
 
-All configurations use **symlinks** (except VSCode, which requires manual copying):
+All configurations use **symlinks**:
 
 - Fish: `~/.config/fish/` → `$DOTFILES_ROOT/fish/`
 - Git: `~/.gitconfig` → `$DOTFILES_ROOT/git/gitconfig`
@@ -42,6 +42,7 @@ All configurations use **symlinks** (except VSCode, which requires manual copyin
 - Tmux: `~/.tmux.conf` → `$DOTFILES_ROOT/tmux/tmux.conf`
 - Claude: `~/.claude/settings.json` → `$DOTFILES_ROOT/claude/settings.json`
 - LLM: `~/.config/llm/config.toml` → `$DOTFILES_ROOT/llm_cli/config.toml`
+- VSCode: `~/Library/Application Support/Code/User/settings.json` → `$DOTFILES_ROOT/vscode/settings.json`
 - Alacritty: Platform-specific (`.macos.toml` or `.linux.toml`)
 
 This approach means:
