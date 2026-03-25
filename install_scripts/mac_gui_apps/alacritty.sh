@@ -31,8 +31,7 @@ fi
 if [ ! -x "$(command -v alacritty)" ]; then
     print_step "Installing Alacritty terminal emulator..."
 
-    # Install fonts and Alacritty
-    NONINTERACTIVE=1 brew tap homebrew/cask-fonts
+    # Install fonts and Alacritty (fonts are in the main homebrew-cask tap)
     NONINTERACTIVE=1 brew install --cask font-fira-code-nerd-font font-source-code-pro alacritty
 
     print_success "Alacritty installed successfully"
