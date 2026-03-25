@@ -20,7 +20,6 @@ set -e                      # Exit script immediately on first error.
 #########################################
 # General settings and helper functions #
 #########################################
-export BASE_USER=${BASE_USER:-dennis}       # User to be created in Arch with sudo rights
 export DOTFILES_ROOT=$(pwd)                 # Location of the dotfiles
 export STAGE2=${STAGE2:-false}              # Install stage 2 (GUI + Python dev)
 
@@ -84,7 +83,7 @@ printf "Detected OS: $OS_TYPE (using $PKG_MANAGER)\n"
 
 # if BASE_PASSWORD is not set, ask for it
 if [ -z "$BASE_PASSWORD" ]; then
-    printf " *** Enter password for user \`$BASE_USER\`: "
+    printf " *** Enter sudo password: "
     read -s BASE_PASSWORD
     printf "\n"
 fi
@@ -116,6 +115,7 @@ fi
 # Stage 0 only runs on Arch when executed as root
 if [ "$(id -u)" -eq 0 ]; then
     if [ "$OS_TYPE" = "arch" ]; then
+        export BASE_USER=${BASE_USER:-dennis}
         printf "Stage 0\n-------\n"
         source $MAIN_INSTALL_SCRIPTS/arch_base.sh
         printf "\n\n *** To continue, run this script as \`$BASE_USER\`\n"
@@ -124,10 +124,6 @@ if [ "$(id -u)" -eq 0 ]; then
         printf " *** ERROR: Do not run this script as root on $OS_TYPE\n"
         exit 1
     fi
-elif [ "$(whoami)" != "$BASE_USER" ]; then
-    # Script is run as non-root user that is not $BASE_USER
-    printf " *** ERROR: This script should be run as \`$BASE_USER\`\n"
-    exit 1
 fi
 
 # Hostname variable can now be set

@@ -24,7 +24,7 @@ email = git@bakhuis.nu
 [url "git@tennet-mcp:v3/MCP-TenneT/"]
 	insteadOf = git@ssh.dev.azure.com:v3/MCP-TenneT/
 [core]
-	excludesfile = /Users/dennis/dotfiles/git/gitignore
+	excludesfile = ~/dotfiles/git/gitignore
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

@@ -63,8 +63,6 @@
 
   "window.openFoldersInNewWindow": "on",
   "window.openWithoutArgumentsInNewWindow": "on",
-  "dialog.defaultPath": "/Users/dennis/repos",
-
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
@@ -127,7 +125,6 @@
   "github.copilot.chat.openOnStartup": false,
   "github.copilot.editor.enableAutoCompletions": true,
   "chat.commandCenter.enabled": false,
-  "files.dialog.defaultPath": "/Users/dennis/repos",
   "makefile.configureOnOpen": true,
   "workbench.editor.autoLockGroups": {
     "workbench.editor.chatSession": false
