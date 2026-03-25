@@ -137,20 +137,21 @@ fi
 
 # Change default shell (different commands for different OSes)
 # Only change if not already the default shell
+CURRENT_USER=$(whoami)
 if command -v getent >/dev/null 2>&1; then
-  CURRENT_SHELL=$(getent passwd "$BASE_USER" | cut -d: -f7)
+  CURRENT_SHELL=$(getent passwd "$CURRENT_USER" | cut -d: -f7)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  CURRENT_SHELL=$(dscl . -read /Users/"$BASE_USER" UserShell | awk '{print $2}')
+  CURRENT_SHELL=$(dscl . -read /Users/"$CURRENT_USER" UserShell | awk '{print $2}')
 else
-  CURRENT_SHELL=$(grep "^$BASE_USER:" /etc/passwd | cut -d: -f7)
+  CURRENT_SHELL=$(grep "^$CURRENT_USER:" /etc/passwd | cut -d: -f7)
 fi
 
 if [ "$CURRENT_SHELL" != "$FISH_PATH" ]; then
     print_step "Changing default shell to fish..."
     if [ "$OS_TYPE" = "macos" ]; then
-        sudo chsh -s "$FISH_PATH" $BASE_USER
+        sudo chsh -s "$FISH_PATH" "$CURRENT_USER"
     else
-        sudo usermod --shell "$FISH_PATH" $BASE_USER
+        sudo usermod --shell "$FISH_PATH" "$CURRENT_USER"
     fi
     print_success "Default shell changed to fish"
 else

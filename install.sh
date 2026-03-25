@@ -81,11 +81,13 @@ fi
 
 printf "Detected OS: $OS_TYPE (using $PKG_MANAGER)\n"
 
-# if BASE_PASSWORD is not set, ask for it
-if [ -z "$BASE_PASSWORD" ]; then
-    printf " *** Enter sudo password: "
-    read -s BASE_PASSWORD
-    printf "\n"
+# if BASE_PASSWORD is not set, ask for it (Linux only - macOS uses interactive sudo)
+if [ "$OS_TYPE" != "macos" ]; then
+    if [ -z "$BASE_PASSWORD" ]; then
+        printf " *** Enter sudo password: "
+        read -s BASE_PASSWORD
+        printf "\n"
+    fi
 fi
 
 
@@ -133,13 +135,15 @@ export HOSTNAME=$(hostname)
 ###################################################################
 # Stage 1 - default shell system                                  #
 ###################################################################
-# The main stage runs as $BASE_USER and installs components.      #
+# The main stage installs components as the current user.         #
 # Components do their own checks if they are already installed.   #
 # The order of the components is important!                       #
 ###################################################################
 
-# pre-type sudo password
-echo "$BASE_PASSWORD" | sudo -S echo "Sudo password set"
+# pre-type sudo password (Linux only - macOS uses interactive sudo)
+if [ "$OS_TYPE" != "macos" ]; then
+    echo "$BASE_PASSWORD" | sudo -S echo "Sudo password set"
+fi
 
 # Update package manager on Linux systems
 if [ "$OS_TYPE" = "ubuntu" ]; then

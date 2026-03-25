@@ -19,14 +19,8 @@ printf " *** Configuring macOS system defaults...\n"
 #####################
 printf " *** Configuring General UI/UX settings...\n"
 
-# Refresh sudo timestamp (assumes password was already provided by main installer)
-# This prevents sudo from asking for password again during this script
-# Use BASE_PASSWORD if available
-if [ -n "$BASE_PASSWORD" ]; then
-    echo "$BASE_PASSWORD" | sudo -S -v 2>/dev/null
-else
-    sudo -v
-fi
+# Refresh sudo timestamp
+sudo -v
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
