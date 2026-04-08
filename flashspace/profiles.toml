@@ -43,15 +43,20 @@ name = 'Code'
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'
 id = '8F773329-1E98-42ED-B9BE-1482AAFC3F97'
-name = 'Remote'
+name = 'Music/Remote'
 openAppsOnActivation = false
 shortcut = 'cmd+4'
-symbolIconName = 'av.remote'
+symbolIconName = 'music.note.list'
 
 [[profiles.workspaces.apps]]
 bundleIdentifier = 'com.microsoft.rdc.macos'
 iconPath = '/Applications/Windows App.app/Contents/Resources/AppIcon.icns'
 name = 'Windows App'
+
+[[profiles.workspaces.apps]]
+bundleIdentifier = 'com.spotify.client'
+iconPath = '/Applications/Spotify.app/Contents/Resources/AppIcon.icns'
+name = 'Spotify'
 
 [[profiles.workspaces]]
 display = 'Built-in Retina Display'

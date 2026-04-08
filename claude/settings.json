@@ -12,7 +12,7 @@
       "Bash(uv add:*)",
       "Bash(uv run:*)",
       "Bash(brew list:*)",
-      "Bash(uv remove:*)",
+      "Bash(uv remove:*)"
     ],
     "additionalDirectories": [
     ]

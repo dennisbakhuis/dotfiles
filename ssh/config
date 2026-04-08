@@ -50,3 +50,11 @@ Host forgejo.bakhuis.nu
     Port 2222
     User git
     IdentityFile ~/.ssh/forgejo
+
+Host bitbucket.alfa.local
+    HostName bitbucket.alfa.local
+    User git
+    Port 29418
+    IdentityFile ~/.ssh/id_ed25519_bitbucket
+    IdentitiesOnly yes
+
