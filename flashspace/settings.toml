@@ -48,6 +48,7 @@ swipeThreshold = 0.20000000000000001
 swipeUp3FingerAction = 'none'
 swipeUp4FingerAction = 'none'
 switchWorkspaceWhenPipCloses = false
+toggleTheFocusedAppFloating = 'cmd+opt+f'
 workspaceTransitionDimming = 0.20000000000000001
 workspaceTransitionDuration = 0.29999999999999999
 
@@ -70,3 +71,8 @@ name = 'Preview'
 bundleIdentifier = 'com.apple.finder'
 iconPath = '/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns'
 name = 'Finder'
+
+[[floatingApps]]
+bundleIdentifier = 'ru.keepcoder.Telegram'
+iconPath = '/Applications/Telegram.app/Contents/Resources/AppIcon.icns'
+name = 'Telegram'
