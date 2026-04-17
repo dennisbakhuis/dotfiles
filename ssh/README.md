@@ -1,3 +1,20 @@
+# SSH Configuration
+
+## Layout
+
+- `ssh/config` (tracked, symlinked to `~/.ssh/config`): universal `Host *` defaults and a single `Include ~/.ssh/config.local`.
+- `ssh/hosts/<hostname>.conf` (tracked): machine-specific host entries. Used when the machine's short hostname matches.
+- `ssh/hosts/<os>.conf` (tracked, optional): OS-level fallback (`macos.conf`, `ubuntu.conf`, `arch.conf`). Used only if no hostname-specific file exists for this machine.
+- `~/.ssh/config.local` (symlink, created by installer): points at the resolved hostname or OS file.
+
+On every install the script picks `ssh/hosts/$(hostname -s).conf` if it exists, else `ssh/hosts/$OS_TYPE.conf`, else leaves a placeholder. Entries for a machine only live on that machine — editing one host file on one machine doesn't touch the others.
+
+## Adding a new machine
+
+1. `hostname -s` → lowercase → `<name>`
+2. Create `ssh/hosts/<name>.conf` with the host blocks you want.
+3. Re-run `./install.sh` (or just the ssh script).
+
 # SSH Key Management
 
 ## Why Ed25519?

@@ -92,6 +92,16 @@ mods = "Command"
 key = "V"
 action = "Paste"
 
+[[keyboard.bindings]]
+mods = "Command | Shift"
+key = "C"
+action = "Copy"
+
+[[keyboard.bindings]]
+mods = "Command | Shift"
+key = "V"
+action = "Paste"
+
 ################
 # Color scheme #
 ################

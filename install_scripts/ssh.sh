@@ -57,3 +57,39 @@ rm -f $HOME/.ssh/config
 
 # Link ssh configuration
 ln -sf $DOTFILES_ROOT/ssh/config $HOME/.ssh/config
+
+# Resolve machine-specific host file: prefer ssh/hosts/<hostname>.conf,
+# fall back to ssh/hosts/<os>.conf. Both tracked in the repo so changes
+# propagate via git, while only the relevant file is active per machine.
+MACHINE_HOSTNAME=$(hostname -s | tr '[:upper:]' '[:lower:]')
+HOST_CONF="$DOTFILES_ROOT/ssh/hosts/$MACHINE_HOSTNAME.conf"
+OS_CONF="$DOTFILES_ROOT/ssh/hosts/$OS_TYPE.conf"
+
+if [ -f "$HOST_CONF" ]; then
+    printf " *** Linking ~/.ssh/config.local -> ssh/hosts/%s.conf\n" "$MACHINE_HOSTNAME"
+    ACTIVE_CONF="$HOST_CONF"
+elif [ -f "$OS_CONF" ]; then
+    printf " *** No hostname-specific config for %s, falling back to %s.conf\n" "$MACHINE_HOSTNAME" "$OS_TYPE"
+    ACTIVE_CONF="$OS_CONF"
+else
+    printf " *** No hostname or OS config found. Create ssh/hosts/%s.conf or ssh/hosts/%s.conf\n" "$MACHINE_HOSTNAME" "$OS_TYPE"
+    ACTIVE_CONF=""
+fi
+
+# Replace existing config.local (file or symlink) with a symlink to the
+# resolved tracked file, or an empty placeholder if none exists yet.
+if [ -L "$HOME/.ssh/config.local" ] || [ -f "$HOME/.ssh/config.local" ]; then
+    rm -f "$HOME/.ssh/config.local"
+fi
+
+if [ -n "$ACTIVE_CONF" ]; then
+    ln -sf "$ACTIVE_CONF" "$HOME/.ssh/config.local"
+else
+    cat > "$HOME/.ssh/config.local" <<EOF
+# Machine-specific SSH host entries.
+# Create ssh/hosts/$MACHINE_HOSTNAME.conf in the dotfiles repo to track
+# entries for this machine, or ssh/hosts/$OS_TYPE.conf for an OS-level
+# fallback, then re-run install.sh to link it here.
+EOF
+    chmod 600 "$HOME/.ssh/config.local"
+fi

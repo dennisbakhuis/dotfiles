@@ -1,60 +1,7 @@
-Include ~/.orbstack/ssh/config
+# Universal SSH defaults. Machine-specific host entries live in
+# ~/.ssh/config.local (untracked), seeded by install_scripts/ssh.sh.
+
+Include ~/.ssh/config.local
 
 Host *
   AddKeysToAgent yes
-
-# Github
-Host github.com *.github.com
-  AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519_github
-  IdentitiesOnly yes
-
-# Azure DevOps - MCP-TenneT (default)
-Host tennet-mcp
-  HostName ssh.dev.azure.com
-  User git
-  IdentityFile ~/.ssh/rsa_4096_tennet_mcp
-  IdentitiesOnly yes
-
-# Azure DevOps - IDC-TenneT (works through url rewrite in git)
-# git@ssh.dev.azure.com:v3/tennetidc/* --> git@tennet-idc:v3/tennetidc/*
-Host tennet-idc
-  HostName ssh.dev.azure.com
-  User git
-  IdentityFile ~/.ssh/rsa_4096_tennet_idc
-  IdentitiesOnly yes
-
-# Meterkast server
-Host meterkast
-  HostName 192.168.50.103
-  User dennis
-  IdentityFile ~/.ssh/id_ed25519_meterkast
-  IdentitiesOnly yes
-
-# Meterkast server
-Host synology
-  HostName 192.168.50.102
-  User dennis
-  IdentityFile ~/.ssh/id_ed25519_synology
-  IdentitiesOnly yes
-
-# VPS
-Host etheron
-  HostName 5.181.134.208
-  User root
-  IdentityFile ~/.ssh/id_ed25519_etheron
-  IdentitiesOnly yes
-
-Host forgejo.bakhuis.nu
-    HostName forgejo.bakhuis.nu
-    Port 2222
-    User git
-    IdentityFile ~/.ssh/forgejo
-
-Host bitbucket.alfa.local
-    HostName bitbucket.alfa.local
-    User git
-    Port 29418
-    IdentityFile ~/.ssh/id_ed25519_bitbucket
-    IdentitiesOnly yes
-
