@@ -6,10 +6,16 @@
 input=$(cat)
 
 MODEL=$(echo "$input"  | jq -r '.model.display_name // "unknown"')
-USED=$(echo "$input"   | jq -r '.context_window.current_usage.input_tokens // .context_window.total_input_tokens // 0')
 TOTAL=$(echo "$input"  | jq -r '.context_window.context_window_size // 200000')
-PCT=$(echo "$input"    | jq -r '.context_window.used_percentage // 0' | awk '{printf "%.0f", $1}')
-FREE=$((TOTAL - USED))
+USED_TOKENS=$(echo "$input" | jq -r '
+  .context_window |
+  (.total_input_tokens // 0) +
+  (.total_output_tokens // 0) +
+  (.current_usage.cache_creation_input_tokens // 0) +
+  (.current_usage.cache_read_input_tokens // 0)
+')
+[ -z "$USED_TOKENS" ] || [ "$USED_TOKENS" = "null" ] && USED_TOKENS=0
+PCT=$(( USED_TOKENS * 100 / TOTAL ))
 COST=$(echo "$input"   | jq -r '.cost.total_cost_usd // 0' | awk '{printf "%.2f", $1}')
 
 RL5_PCT=$(echo "$input"   | jq -r '.rate_limits.five_hour.used_percentage // 0'  | awk '{printf "%.0f", $1}')
@@ -66,11 +72,11 @@ COLS=$(( COLS - 30 ))  # reserve space for right-aligned tips
 MIN_BAR=8       # minimum bar width
 MAX_BAR=30      # maximum bar width
 
-FREE_H=$(fmt_tokens "$FREE")
+USED_H=$(fmt_tokens "$USED_TOKENS")
 TOTAL_H=$(fmt_tokens "$TOTAL")
 
 # Plain-text segments (no bars, no ANSI) for length measurement
-TXT_CORE="${MODEL}  ${FREE_H}/${TOTAL_H} (${PCT}%) €${COST}"
+TXT_CORE="${MODEL}  ${USED_H}/${TOTAL_H} (${PCT}%) €${COST}"
 TXT_5H="  5h: ${RL5_PCT}% (↺${RL5_TIME})"
 TXT_7D="  7d: ${RL7_PCT}% (↺${RL7_TIME})"
 # Extra chars per bar slot: " " before bar + " " after = 2
@@ -122,7 +128,7 @@ done
 
 # --- Output ---
 printf "$(color $PCT)%s %s${c_reset} %s/%s (%s%%) " \
-  "$MODEL" "$(make_bar $PCT $BAR_W)" "$FREE_H" "$TOTAL_H" "$PCT"
+  "$MODEL" "$(make_bar $PCT $BAR_W)" "$USED_H" "$TOTAL_H" "$PCT"
 printf "${c_grey}€%s${c_reset}" "$COST"
 
 if [ "$MODE5H" != "none" ]; then
