@@ -10,12 +10,9 @@ if [ ! -x "$(command -v claude)" ]; then
         print_step "Installing Claude Code via Homebrew cask"
         brew install --cask claude-code
     else
-        if [ ! -x "$(command -v npm)" ]; then
-            print_step "Installing Node.js and npm (required for Claude Code)"
-            eval $PKG_INSTALL_NONINTERACTIVE nodejs npm
-        fi
-        print_step "Installing Claude Code via npm"
-        sudo npm install -g @anthropic-ai/claude-code
+        print_step "Installing Claude Code via native installer"
+        curl -fsSL https://claude.ai/install.sh | bash
+        export PATH="$HOME/.local/bin:$PATH"
     fi
     print_success "Claude Code installed"
 else

@@ -15,9 +15,11 @@
 # ====================================================================
 
 if command -v fzf &>/dev/null
-    # Set up fzf's built-in Fish shell integration
-    # This provides Ctrl+T (files), Ctrl+R (history), and Alt+C (directories)
-    fzf --fish | source
+    # Set up fzf's built-in Fish shell integration (fzf >= 0.48).
+    # Older Ubuntu apt packages ship fzf 0.38, which lacks --fish.
+    if fzf --help 2>&1 | string match -q -- '*--fish*'
+        fzf --fish | source
+    end
 
     # Configure fzf to use fd for better performance and gitignore support
     set -gx FZF_DEFAULT_COMMAND 'fd --type f --strip-cwd-prefix --hidden --exclude .git'

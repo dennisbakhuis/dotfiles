@@ -30,12 +30,9 @@
       "Bash(brew list:*)",
       "Bash(cwebp:*)",
       "Bash(avifenc:*)",
-      "Read(//Users/dennis/.config/llm/**)",
-      "Read(//Users/dennis/.claude/**)",
-      "Read(//opt/homebrew/Caskroom/claude-code/2.1.81/**)",
-      "Bash(ssh -G github.com)",
-      "Bash(git -C /Users/dennis/dotfiles status)",
-      "Bash(git -C /Users/dennis/dotfiles diff --stat)"
+      "Bash(git:*)",
+      "WebFetch(domain:docs.claude.com)",
+      "Bash(fish:*)"
     ],
     "additionalDirectories": [
       "/Users/dennis/.ssh"
