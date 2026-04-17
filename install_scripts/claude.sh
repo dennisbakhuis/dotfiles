@@ -1,8 +1,26 @@
 #!/bin/bash
 ##########################
-# Claude Code Settings   #
+# Claude Code            #
 ##########################
-print_header "Claude Code Settings"
+print_header "Claude Code"
+
+# Install the `claude` CLI if missing
+if [ ! -x "$(command -v claude)" ]; then
+    if [ "$OS_TYPE" = "macos" ]; then
+        print_step "Installing Claude Code via Homebrew cask"
+        brew install --cask claude-code
+    else
+        if [ ! -x "$(command -v npm)" ]; then
+            print_step "Installing Node.js and npm (required for Claude Code)"
+            eval $PKG_INSTALL_NONINTERACTIVE nodejs npm
+        fi
+        print_step "Installing Claude Code via npm"
+        sudo npm install -g @anthropic-ai/claude-code
+    fi
+    print_success "Claude Code installed"
+else
+    print_info "Claude Code is already installed"
+fi
 
 CLAUDE_DIR="$HOME/.claude"
 

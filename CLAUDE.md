@@ -24,9 +24,6 @@ dotfiles/
 ├── tmux/                      # Tmux config (symlinked to ~/.tmux.conf)
 ├── ssh/                       # SSH config (symlinked to ~/.ssh/config)
 ├── claude/                    # Claude Code settings (symlinked to ~/.claude/)
-├── llm_cli/                   # LLM CLI tool config and setup scripts
-│   ├── config.toml           # LLM configuration (symlinked to ~/.config/llm/)
-│   └── setup_llm_keys.fish   # Post-install helper for Anthropic setup
 ├── vscode/                    # VSCode settings (symlinked to ~/Library/Application Support/Code/User/)
 ├── alacritty/                 # Terminal emulator config (macOS/Linux specific)
 └── scripts/                   # Utility scripts (Azure, testing, etc.)
@@ -41,7 +38,6 @@ All configurations use **symlinks**:
 - Neovim: `~/.config/nvim/` → `$DOTFILES_ROOT/nvim/`
 - Tmux: `~/.tmux.conf` → `$DOTFILES_ROOT/tmux/tmux.conf`
 - Claude: `~/.claude/settings.json` → `$DOTFILES_ROOT/claude/settings.json`
-- LLM: `~/.config/llm/config.toml` → `$DOTFILES_ROOT/llm_cli/config.toml`
 - VSCode: `~/Library/Application Support/Code/User/settings.json` → `$DOTFILES_ROOT/vscode/settings.json`
 - Alacritty: Platform-specific (`.macos.toml` or `.linux.toml`)
 
@@ -65,7 +61,7 @@ This approach means:
 - Run once, then switch to created user
 
 **Stage 1** (Core CLI, all platforms):
-- Installs Fish, Neovim, fzf, tmux, Git, uv, llm, etc.
+- Installs Fish, Neovim, fzf, tmux, Git, uv, Claude Code, etc.
 - Sets up configurations via symlinks
 - Applies macOS defaults (if on macOS)
 - Order matters: components depend on earlier installations
@@ -147,30 +143,6 @@ All install scripts use `$PKG_INSTALL_NONINTERACTIVE` for automation.
 ## Post-Install Configuration
 
 Some tools require additional setup after installation:
-
-### LLM CLI Tool
-
-The `llm` command-line tool for interacting with Large Language Models (Claude, GPT, Gemini) is installed but requires API key configuration.
-
-**Post-install script**: `llm_cli/setup_llm_keys.fish`
-
-This script:
-1. Installs the `llm-anthropic` plugin
-2. Prompts for Anthropic API key (get from https://console.anthropic.com/settings/keys)
-3. Configures the key: `llm keys set anthropic`
-4. Sets default model: `llm models default claude-sonnet-4.5`
-
-**Usage**:
-```bash
-fish ~/dotfiles/llm_cli/setup_llm_keys.fish
-```
-
-**Manual configuration**:
-```bash
-llm install llm-anthropic
-llm keys set anthropic
-llm models default claude-sonnet-4.5
-```
 
 ### Claude Code MCP Servers
 

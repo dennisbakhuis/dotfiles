@@ -121,4 +121,36 @@ function aliases_info
         set_color normal
         printf " --> Interactive directory selection\n"
     end
+
+    if test -x "$HOME/.tools/isomorphic_copy/bin/c"
+        echo ""
+        printf "  "
+        set_color cyan
+        printf "Isomorphic Copy (clipboard over SSH)\n"
+        set_color normal
+
+        printf "  "
+        set_color yellow
+        printf "%-15s" "c"
+        set_color normal
+        printf " --> Copy stdin to clipboard (e.g. `echo hi | c`)\n"
+
+        printf "  "
+        set_color yellow
+        printf "%-15s" "p"
+        set_color normal
+        printf " --> Paste clipboard to stdout\n"
+
+        printf "  "
+        set_color yellow
+        printf "%-15s" "cssh"
+        set_color normal
+        printf " --> ssh wrapper that forwards clipboard\n"
+
+        printf "  "
+        set_color yellow
+        printf "%-15s" "cdocker"
+        set_color normal
+        printf " --> docker exec wrapper that forwards clipboard\n"
+    end
 end

@@ -5,12 +5,12 @@
 #
 # Description:
 #   Creates a GitHub pull request from the current branch to the specified
-#   destination branch. Uses the llm CLI tool to generate a PR title and
-#   body based on the git commit history.
+#   destination branch. Uses `claude -p` to generate a PR title and body
+#   based on the git commit history.
 #
 # Requirements:
 #   - gh (GitHub CLI)
-#   - llm (LLM CLI tool with configured model)
+#   - claude (Claude Code CLI)
 
 function github_pull_request
     set -l dest_branch ""
@@ -39,9 +39,9 @@ function github_pull_request
         return 1
     end
 
-    if not command -v llm &>/dev/null
-        echo (set_color red)"Error: llm CLI tool is not installed"(set_color normal)
-        echo "Install it using the dotfiles installer or: brew install llm"
+    if not command -v claude &>/dev/null
+        echo (set_color red)"Error: claude (Claude Code CLI) is not installed"(set_color normal)
+        echo "Install it using the dotfiles installer or: brew install --cask claude-code"
         return 1
     end
 
@@ -144,7 +144,7 @@ function github_pull_request
 
     echo (set_color cyan)"Generating PR title and description with AI..."(set_color normal)
 
-    set -l llm_prompt "You are helping create a GitHub Pull Request. Based on the following git commit information, generate a concise PR title and detailed PR body.
+    set -l prompt "You are helping create a GitHub Pull Request. Based on the following git commit information, generate a concise PR title and detailed PR body.
 
 COMMITS:
 $commit_log
@@ -167,13 +167,13 @@ BODY:
 
 Keep the title concise and the body clear and professional. Focus on WHAT changed and WHY, not HOW (the code shows the HOW)."
 
-    set -l llm_output_lines
-    echo "$llm_prompt" | llm --no-stream 2>&1 | while read -l line
-        set -a llm_output_lines "$line"
+    set -l output_lines
+    echo "$prompt" | claude -p 2>&1 | while read -l line
+        set -a output_lines "$line"
     end
 
-    if test (count $llm_output_lines) -eq 0
-        echo (set_color red)"✗ Failed to generate PR content with LLM"(set_color normal)
+    if test (count $output_lines) -eq 0
+        echo (set_color red)"✗ Failed to generate PR content with claude"(set_color normal)
         return 1
     end
 
@@ -182,7 +182,7 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
     set -l in_body 0
 
     # Parse line by line
-    for line in $llm_output_lines
+    for line in $output_lines
         if string match -q -- "TITLE:*" "$line"
             set pr_title (string replace -r '^TITLE:\s*' '' "$line" | string trim)
         else if string match -q -- "BODY:*" "$line"
@@ -198,9 +198,9 @@ Keep the title concise and the body clear and professional. Focus on WHAT change
     end
 
     if test -z "$pr_title"
-        echo (set_color red)"✗ Failed to parse PR title from LLM output"(set_color normal)
-        echo "LLM output was:"
-        printf "%s\n" $llm_output_lines
+        echo (set_color red)"✗ Failed to parse PR title from claude output"(set_color normal)
+        echo "claude output was:"
+        printf "%s\n" $output_lines
         return 1
     end
 

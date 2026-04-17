@@ -92,6 +92,13 @@ alias kubeshell='kubectl run -i --rm --tty ubuntu --image=ubuntu -- bash'  # Ope
 ##########
 alias dprune='docker system prune -a'
 
+###############
+# Claude Code #
+###############
+if command -v claude &>/dev/null
+    alias cl='claude'  # Claude Code CLI (use `cl -p "..."` for non-interactive)
+end
+
 ############
 # ZeroClaw #
 ############
