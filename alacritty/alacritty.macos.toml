@@ -83,12 +83,12 @@ mods = "Control"
 chars = "\u001f"
 
 [[keyboard.bindings]]
-mods = "Command | Shift"
+mods = "Command"
 key = "C"
 action = "Copy"
 
 [[keyboard.bindings]]
-mods = "Command | Shift"
+mods = "Command"
 key = "V"
 action = "Paste"
 

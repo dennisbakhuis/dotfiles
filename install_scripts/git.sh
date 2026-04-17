@@ -52,6 +52,10 @@ ln -sf $DOTFILES_ROOT/git/gitconfig $HOME/.gitconfig
 # fd only use .gitignore when in a git repo; .fdignore is used always for fd
 cp -f $DOTFILES_ROOT/git/gitignore $HOME/.fdignore
 
-# set global gitignore
-printf " *** Setting global gitignore...\n"
-git config --global core.excludesfile $DOTFILES_ROOT/git/gitignore
+# Write machine-specific gitconfig overrides to ~/.gitconfig.local
+# (included by tracked gitconfig). Keeps absolute paths out of the tracked file.
+printf " *** Writing machine-specific ~/.gitconfig.local...\n"
+cat > "$HOME/.gitconfig.local" <<EOF
+[core]
+	excludesfile = $DOTFILES_ROOT/git/gitignore
+EOF

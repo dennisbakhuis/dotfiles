@@ -23,8 +23,8 @@ email = git@bakhuis.nu
 # Rewrites git@ssh.dev.azure.com:v3/MCP-TenneT -> git@tennet-mcp:v3/MCP-TenneT
 [url "git@tennet-mcp:v3/MCP-TenneT/"]
 	insteadOf = git@ssh.dev.azure.com:v3/MCP-TenneT/
-[core]
-	excludesfile = ~/dotfiles/git/gitignore
+[include]
+	path = ~/.gitconfig.local
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
