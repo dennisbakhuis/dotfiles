@@ -48,11 +48,11 @@ if [ ! -x "$(command -v starship)" ]; then
         IS_WSL=true
     fi
 
-    if [ "$IS_WSL" = true ] || [ "$(uname -m)" = "armv7l" ]; then
-        print_info "Detected WSL/ARM, using official installer..."
+    if [ "$OS_TYPE" = "ubuntu" ] || [ "$IS_WSL" = true ] || [ "$(uname -m)" = "armv7l" ]; then
+        print_info "Using official starship installer (no apt package available)..."
         sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y -f
     else
-        # Native Linux (Ubuntu/Arch) or macOS - use package manager
+        # Arch (pacman) or macOS (brew) - use package manager
         eval $PKG_INSTALL_NONINTERACTIVE starship
     fi
     print_success "Starship prompt installed"
