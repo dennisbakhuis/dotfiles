@@ -33,7 +33,8 @@
       "Bash(avifenc:*)",
       "Bash(git:*)",
       "WebFetch(domain:docs.claude.com)",
-      "Bash(fish:*)"
+      "Bash(fish:*)",
+      "Bash(bash -c ' *)"
     ],
     "additionalDirectories": [
       "/Users/dennis/.ssh"

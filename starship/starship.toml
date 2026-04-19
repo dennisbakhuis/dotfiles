@@ -1,0 +1,3 @@
+# Raise from default 500ms to tolerate macOS cold-start overhead
+# (Gatekeeper/dyld/XProtect on first invocation of Homebrew binaries)
+command_timeout = 1000

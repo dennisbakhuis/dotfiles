@@ -60,6 +60,16 @@ else
     print_info "Starship is already installed"
 fi
 
+print_step "Linking starship config..."
+mkdir -p $HOME/.config
+if [ -f "$HOME/.config/starship.toml" ] && [ ! -L "$HOME/.config/starship.toml" ]; then
+    STARSHIP_BACKUP="$HOME/.config/starship.toml.backup.$(date +%Y%m%d_%H%M%S)"
+    print_warning "Backing up existing starship.toml to $STARSHIP_BACKUP"
+    mv "$HOME/.config/starship.toml" "$STARSHIP_BACKUP"
+fi
+ln -sf $DOTFILES_ROOT/starship/starship.toml $HOME/.config/starship.toml
+print_success "Starship config linked"
+
 if [ ! -x "$(command -v zoxide)" ]; then
     print_step "Installing zoxide (smart cd)..."
     eval $PKG_INSTALL_NONINTERACTIVE zoxide
@@ -75,14 +85,18 @@ fi
 
 print_step "Configuring Fish shell..."
 
-if [ -d "$HOME/.config/fish" ] && [ ! -L "$HOME/.config/fish" ]; then
-    BACKUP_DIR="$HOME/.config/fish.backup.$(date +%Y%m%d_%H%M%S)"
-    print_warning "Backing up existing fish config to $BACKUP_DIR"
-    mv "$HOME/.config/fish" "$BACKUP_DIR"
+EXPECTED_CONFIG_LINK="$DOTFILES_ROOT/fish/config.fish"
+ACTUAL_CONFIG_LINK=""
+if [ -L "$HOME/.config/fish/config.fish" ]; then
+    ACTUAL_CONFIG_LINK=$(readlink "$HOME/.config/fish/config.fish")
 fi
 
 if [ -L "$HOME/.config/fish" ]; then
     rm "$HOME/.config/fish"
+elif [ -d "$HOME/.config/fish" ] && [ "$ACTUAL_CONFIG_LINK" != "$EXPECTED_CONFIG_LINK" ]; then
+    BACKUP_DIR="$HOME/.config/fish.backup.$(date +%Y%m%d_%H%M%S)"
+    print_warning "Backing up existing fish config to $BACKUP_DIR"
+    mv "$HOME/.config/fish" "$BACKUP_DIR"
 fi
 
 mkdir -p $HOME/.config/fish
