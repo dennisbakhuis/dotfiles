@@ -44,5 +44,17 @@
     "type": "command",
     "command": "bash ~/dotfiles/claude/statusline.sh",
     "padding": 0
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f ~/.claude-chime ] && afplay /System/Library/Sounds/Glass.aiff"
+          }
+        ]
+      }
+    ]
   }
 }

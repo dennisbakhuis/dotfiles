@@ -153,6 +153,17 @@ VSCode configurations include project-wide diagnostics, custom keybindings, and 
 
 Claude Code settings and global instructions are automatically symlinked during installation.
 
+### Notification Chime
+
+A `Notification` hook in `claude/settings.json` plays `Glass.aiff` (macOS `afplay`) when Claude Code is waiting for input. It's guarded by a toggle file so you can flip it on/off without editing settings:
+
+```fish
+touch ~/.claude-chime   # enable
+rm ~/.claude-chime      # disable
+```
+
+No restart needed. On Linux, swap `afplay /System/Library/Sounds/Glass.aiff` for `paplay /usr/share/sounds/freedesktop/stereo/message.oga`.
+
 ### Optional: MCP Server Setup
 
 After installing dotfiles, you can optionally set up MCP (Model Context Protocol) servers for enhanced Claude Code functionality:
