@@ -144,5 +144,6 @@
     "editor.wordBasedSuggestions": "off"
   },
   "remote.autoForwardPortsSource": "hybrid",
-  "terminal.integrated.stickyScroll.enabled": false
+  "terminal.integrated.stickyScroll.enabled": false,
+  "jupyter.askForKernelRestart": false
 }
