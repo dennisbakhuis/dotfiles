@@ -35,15 +35,16 @@
       "WebFetch(domain:docs.claude.com)",
       "Bash(fish:*)",
       "Bash(bash -c ' *)"
-    ],
-    "additionalDirectories": [
-      "/Users/dennis/.ssh"
     ]
   },
   "statusLine": {
     "type": "command",
     "command": "bash ~/dotfiles/claude/statusline.sh",
     "padding": 0
+  },
+  "enabledPlugins": {
+    "github@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
   },
   "hooks": {
     "Notification": [
