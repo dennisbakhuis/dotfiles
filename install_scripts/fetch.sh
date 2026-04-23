@@ -17,12 +17,11 @@ fi
 
 # Install different fetch tools based on OS
 if [ "$OS_TYPE" = "macos" ]; then
-    if [ ! -x "$(command -v zeitfetch)" ]; then
-        printf " *** Installing Zeitfetch on macOS...\n"
-        NONINTERACTIVE=1 brew tap nidnogg/zeitfetch
-        NONINTERACTIVE=1 brew install zeitfetch
+    if [ ! -x "$(command -v fastfetch)" ]; then
+        printf " *** Installing Fastfetch on macOS...\n"
+        NONINTERACTIVE=1 brew install fastfetch
     else
-        printf " *** Zeitfetch is already installed...\n"
+        printf " *** Fastfetch is already installed...\n"
     fi
 else
     # Linux (Arch/Ubuntu)

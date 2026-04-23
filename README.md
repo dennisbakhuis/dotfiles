@@ -79,7 +79,7 @@ On macOS, Stage 2 (GUI applications) installs automatically when you run the ins
 - **Git** configuration
 - **tmux** terminal multiplexer
 - **SSH** configuration
-- **Neofetch/Zeitfetch** (system info, displayed on login shells only)
+- **Neofetch/Fastfetch** (system info, displayed on login shells only)
 - **uv** - Fast Python package and project manager
 - **Claude Code** - Anthropic's CLI coding assistant (`claude -p "..."` for non-interactive prompts)
 - **isomorphic_copy** - Seamless clipboard over SSH
