@@ -23,6 +23,15 @@ if [ "$OS_TYPE" = "macos" ]; then
     else
         printf " *** Fastfetch is already installed...\n"
     fi
+
+    # Symlink fastfetch config
+    FASTFETCH_CONFIG_DIR="$HOME/.config/fastfetch"
+    mkdir -p "$FASTFETCH_CONFIG_DIR"
+    if [ -e "$FASTFETCH_CONFIG_DIR/config.jsonc" ] && [ ! -L "$FASTFETCH_CONFIG_DIR/config.jsonc" ]; then
+        mv "$FASTFETCH_CONFIG_DIR/config.jsonc" "$FASTFETCH_CONFIG_DIR/config.jsonc.backup.$(date +%Y%m%d_%H%M%S)"
+    fi
+    ln -sf "$DOTFILES_ROOT/fastfetch/config.jsonc" "$FASTFETCH_CONFIG_DIR/config.jsonc"
+    printf " *** Linked fastfetch config\n"
 else
     # Linux (Arch/Ubuntu)
     if [ ! -x "$(command -v neofetch)" ]; then
