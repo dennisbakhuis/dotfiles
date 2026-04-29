@@ -145,5 +145,6 @@
   },
   "remote.autoForwardPortsSource": "hybrid",
   "terminal.integrated.stickyScroll.enabled": false,
-  "jupyter.askForKernelRestart": false
+  "jupyter.askForKernelRestart": false,
+  "terminal.integrated.enableMultiLinePasteWarning": "never"
 }

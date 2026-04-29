@@ -6,6 +6,7 @@
 input=$(cat)
 
 MODEL=$(echo "$input"  | jq -r '.model.display_name // "unknown"')
+MODEL="${MODEL% (*}"
 TOTAL=$(echo "$input"  | jq -r '.context_window.context_window_size // 200000')
 USED_TOKENS=$(echo "$input" | jq -r '
   .context_window |
@@ -23,16 +24,31 @@ RL5_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // 0')
 RL7_PCT=$(echo "$input"   | jq -r '.rate_limits.seven_day.used_percentage // 0'  | awk '{printf "%.0f", $1}')
 RL7_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // 0')
 
-fmt_reset() {
+# Normalize resets_at (Unix epoch int OR ISO 8601 string) to epoch seconds.
+# Returns empty string for zero/unparseable input.
+to_epoch() {
   local ts=$1
-  [ "$ts" -eq 0 ] 2>/dev/null && echo "--:--" && return
-  date -r "$ts" +%H:%M 2>/dev/null || date -d "@$ts" +%H:%M 2>/dev/null
+  case "$ts" in
+    ''|0|null) return ;;
+    *[!0-9]*)
+      # Non-numeric: assume ISO 8601 UTC like "2026-04-23T18:00:00Z"
+      date -j -u -f "%Y-%m-%dT%H:%M:%SZ" "$ts" "+%s" 2>/dev/null \
+        || date -u -d "$ts" "+%s" 2>/dev/null
+      ;;
+    *) echo "$ts" ;;
+  esac
+}
+fmt_reset() {
+  local epoch; epoch=$(to_epoch "$1")
+  [ -z "$epoch" ] && echo "--:--" && return
+  date -r "$epoch" +%H:%M 2>/dev/null || date -d "@$epoch" +%H:%M 2>/dev/null
 }
 fmt_reset_day() {
-  local ts=$1
-  [ "$ts" -eq 0 ] 2>/dev/null && echo "---:--" && return
-  local day; day=$(date -r "$ts" +%a 2>/dev/null || date -d "@$ts" +%a 2>/dev/null)
-  local time; time=$(date -r "$ts" +%H:%M 2>/dev/null || date -d "@$ts" +%H:%M 2>/dev/null)
+  local epoch; epoch=$(to_epoch "$1")
+  [ -z "$epoch" ] && echo "---:--" && return
+  local day time
+  day=$(date -r "$epoch" +%a 2>/dev/null || date -d "@$epoch" +%a 2>/dev/null)
+  time=$(date -r "$epoch" +%H:%M 2>/dev/null || date -d "@$epoch" +%H:%M 2>/dev/null)
   echo "${day}:${time}"
 }
 RL5_TIME=$(fmt_reset "$RL5_RESET")

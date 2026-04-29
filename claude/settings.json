@@ -37,15 +37,6 @@
       "Bash(bash -c ' *)"
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/dotfiles/claude/statusline.sh",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "github@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
-  },
   "hooks": {
     "Notification": [
       {
@@ -58,5 +49,16 @@
       }
     ]
   },
-  "effortLevel": "max"
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/dotfiles/claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "github@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "teammateMode": "tmux",
+  "model": "sonnet"
 }
