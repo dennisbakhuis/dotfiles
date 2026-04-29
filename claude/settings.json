@@ -58,7 +58,6 @@
     "github@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true
   },
-  "effortLevel": "high",
-  "teammateMode": "tmux",
-  "model": "sonnet"
+  "effortLevel": "max",
+  "teammateMode": "tmux"
 }

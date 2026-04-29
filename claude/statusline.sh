@@ -9,11 +9,10 @@ MODEL=$(echo "$input"  | jq -r '.model.display_name // "unknown"')
 MODEL="${MODEL% (*}"
 TOTAL=$(echo "$input"  | jq -r '.context_window.context_window_size // 200000')
 USED_TOKENS=$(echo "$input" | jq -r '
-  .context_window |
-  (.total_input_tokens // 0) +
-  (.total_output_tokens // 0) +
-  (.current_usage.cache_creation_input_tokens // 0) +
-  (.current_usage.cache_read_input_tokens // 0)
+  .context_window.current_usage |
+  (.input_tokens // 0) +
+  (.cache_creation_input_tokens // 0) +
+  (.cache_read_input_tokens // 0)
 ')
 [ -z "$USED_TOKENS" ] || [ "$USED_TOKENS" = "null" ] && USED_TOKENS=0
 PCT=$(( USED_TOKENS * 100 / TOTAL ))

@@ -163,14 +163,15 @@ source $MAIN_INSTALL_SCRIPTS/homebrew.sh        # 1-MAC: Homebrew (package manag
 source $MAIN_INSTALL_SCRIPTS/git.sh             # 2-BOTH: Git (version control)
 source $MAIN_INSTALL_SCRIPTS/fish.sh            # 3-BOTH: Fish (shell)
 source $MAIN_INSTALL_SCRIPTS/fzf.sh             # 4-BOTH: Fzf (fuzzy finder and friends)
-source $MAIN_INSTALL_SCRIPTS/neovim.sh          # 5-BOTH: Neovim (text editor)
-source $MAIN_INSTALL_SCRIPTS/ssh.sh             # 6-BOTH: Ssh (secure shell)
-source $MAIN_INSTALL_SCRIPTS/fetch.sh           # 7-BOTH: Neofetch/Fastfetch (system info)
-source $MAIN_INSTALL_SCRIPTS/tmux.sh            # 8-BOTH: Tmux (terminal multiplexer)
-source $MAIN_INSTALL_SCRIPTS/python_uv.sh       # 9-BOTH: uv (Python package manager)
-source $MAIN_INSTALL_SCRIPTS/isomorphic_copy.sh # 10-BOTH: isomorphic_copy (clipboard over SSH)
-source $MAIN_INSTALL_SCRIPTS/htop.sh            # 11-BOTH: htop (interactive process viewer)
-source $MAIN_INSTALL_SCRIPTS/claude.sh          # 12-BOTH: Claude Code (AI coding assistant)
+source $MAIN_INSTALL_SCRIPTS/ripgrep.sh         # 5-BOTH: Ripgrep (fast grep with config)
+source $MAIN_INSTALL_SCRIPTS/neovim.sh          # 6-BOTH: Neovim (text editor)
+source $MAIN_INSTALL_SCRIPTS/ssh.sh             # 7-BOTH: Ssh (secure shell)
+source $MAIN_INSTALL_SCRIPTS/fetch.sh           # 8-BOTH: Neofetch/Fastfetch (system info)
+source $MAIN_INSTALL_SCRIPTS/tmux.sh            # 9-BOTH: Tmux (terminal multiplexer)
+source $MAIN_INSTALL_SCRIPTS/python_uv.sh       # 10-BOTH: uv (Python package manager)
+source $MAIN_INSTALL_SCRIPTS/isomorphic_copy.sh # 11-BOTH: isomorphic_copy (clipboard over SSH)
+source $MAIN_INSTALL_SCRIPTS/htop.sh            # 12-BOTH: htop (interactive process viewer)
+source $MAIN_INSTALL_SCRIPTS/claude.sh          # 13-BOTH: Claude Code (AI coding assistant)
 
 # Apply macOS defaults if on macOS
 if [ "$OS_TYPE" = "macos" ]; then
