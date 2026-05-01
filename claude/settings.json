@@ -34,7 +34,30 @@
       "Bash(git:*)",
       "WebFetch(domain:docs.claude.com)",
       "Bash(fish:*)",
-      "Bash(bash -c ' *)"
+      "Bash(bash -c ' *)",
+      "Bash(tmux -V)",
+      "Bash(ssh -G pve1)",
+      "Read(//private/etc/ssh/**)",
+      "mcp__context7__resolve-library-id",
+      "Bash(tofu version *)",
+      "Bash(tofu fmt *)",
+      "Bash(tofu init *)",
+      "Read(//Users/dennis/repos/home-server/**)",
+      "WebFetch(domain:docs.hetzner.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:registry.terraform.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(tofu validate *)",
+      "Read(//Users/dennis/.ssh/**)",
+      "WebFetch(domain:protonpass.github.io)",
+      "Bash(~/.local/bin/pass-cli run *)",
+      "Bash(~/.local/bin/pass-cli inject *)",
+      "Bash(awk 'NR>=35 && NR<=37 {printf \"[%s]\\\\n\", $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)",
+      "Bash(tofu -chdir=infra validate)",
+      "Read(//Users/dennis/repos/website-voorvoet/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/dennis/repos/website-voorvoet"
     ]
   },
   "hooks": {
@@ -59,5 +82,6 @@
     "frontend-design@claude-plugins-official": true
   },
   "effortLevel": "max",
-  "teammateMode": "tmux"
+  "teammateMode": "tmux",
+  "skipDangerousModePermissionPrompt": true
 }

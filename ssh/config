@@ -6,7 +6,9 @@ Include ~/.orbstack/ssh/config
 # Universal SSH defaults. Machine-specific host entries live in
 # ~/.ssh/config.local (untracked), seeded by install_scripts/ssh.sh.
 
-Include ~/.ssh/config.local
-
 Host *
+  IdentitiesOnly yes
   AddKeysToAgent yes
+  SetEnv LC_CTYPE=C.UTF-8
+
+Include ~/.ssh/config.local
