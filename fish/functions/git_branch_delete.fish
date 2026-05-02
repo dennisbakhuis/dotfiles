@@ -1,9 +1,9 @@
 # Git Branch Delete - Delete local and/or remote branches
 #
 # Usage:
-#   gbd <branch_name>           # Delete both local and remote branches (if merged)
-#   gbd -l <branch_name>        # Delete local branch only
-#   gbd -r <branch_name>        # Delete remote branch only
+#   gbd <branch_name> [<branch_name>...]    # Delete both local and remote branches (if merged)
+#   gbd -l <branch_name> [<branch_name>...] # Delete local branch only
+#   gbd -r <branch_name> [<branch_name>...] # Delete remote branch only
 #
 # Flags:
 #   -l, --local     Delete local branch only
@@ -14,7 +14,7 @@
 function git_branch_delete
     set -l delete_local 1
     set -l delete_remote 1
-    set -l branch_name ""
+    set -l branch_names
     set -l force_flag ""
 
     while test (count $argv) -gt 0
@@ -32,118 +32,137 @@ function git_branch_delete
                 set -e argv[1]
             case '-*'
                 echo "Unknown option: $argv[1]"
-                echo "Usage: gbd [-l|--local] [-r|--remote] [-f|--force] <branch_name>"
+                echo "Usage: gbd [-l|--local] [-r|--remote] [-f|--force] <branch_name> [<branch_name>...]"
                 return 1
             case '*'
-                set branch_name $argv[1]
+                set -a branch_names $argv[1]
                 set -e argv[1]
         end
     end
 
-    if test -z "$branch_name"
-        echo "Error: Branch name is required"
-        echo "Usage: gbd [-l|--local] [-r|--remote] [-f|--force] <branch_name>"
+    if test (count $branch_names) -eq 0
+        echo "Error: At least one branch name is required"
+        echo "Usage: gbd [-l|--local] [-r|--remote] [-f|--force] <branch_name> [<branch_name>...]"
         return 1
     end
 
     set -l current_branch (git branch --show-current 2>/dev/null)
-    if test "$branch_name" = "$current_branch"
-        echo (set_color red)"Error: Cannot delete the currently checked out branch: $branch_name"(set_color normal)
-        echo "Please switch to another branch first."
-        return 1
-    end
-
-    if test \( "$branch_name" = "main" -o "$branch_name" = "dev" \) -a -z "$force_flag"
-        echo (set_color red)"Error: Cannot delete protected branch '$branch_name' without force flag"(set_color normal)
-        echo "Use -f or --force flag to force delete: "(set_color yellow)"gbd -f $branch_name"(set_color normal)
-        return 1
-    end
-
     set -l has_remote (git remote get-url origin &>/dev/null; echo $status)
-    if test $has_remote -ne 0
-        set delete_remote 0
-    end
 
-    if test $delete_local -eq 1
-        if git show-ref --verify --quiet refs/heads/$branch_name
-            echo (set_color cyan)"Deleting local branch: $branch_name"(set_color normal)
+    set -l overall_status 0
+    set -l total (count $branch_names)
+    set -l index 0
 
-            set -l has_commits 0
-            set -l upstream (git branch --list $branch_name --format='%(upstream:short)')
-            set -l upstream_commit ""
-            if test -n "$upstream"
-                set upstream_commit (git rev-parse $upstream 2>/dev/null)
-            end
+    for branch_name in $branch_names
+        set index (math $index + 1)
+        if test $total -gt 1
+            echo (set_color --bold blue)"[$index/$total] Processing branch: $branch_name"(set_color normal)
+        end
 
-            if test -n "$upstream_commit"
-                set -l branch_commit (git rev-parse $branch_name 2>/dev/null)
-                if test "$branch_commit" != "$upstream_commit"
-                    set has_commits 1
+        if test "$branch_name" = "$current_branch"
+            echo (set_color red)"Error: Cannot delete the currently checked out branch: $branch_name"(set_color normal)
+            echo "Please switch to another branch first."
+            set overall_status 1
+            continue
+        end
+
+        if test \( "$branch_name" = "main" -o "$branch_name" = "dev" \) -a -z "$force_flag"
+            echo (set_color red)"Error: Cannot delete protected branch '$branch_name' without force flag"(set_color normal)
+            echo "Use -f or --force flag to force delete: "(set_color yellow)"gbd -f $branch_name"(set_color normal)
+            set overall_status 1
+            continue
+        end
+
+        set -l branch_delete_remote $delete_remote
+        if test $has_remote -ne 0
+            set branch_delete_remote 0
+        end
+
+        if test $delete_local -eq 1
+            if git show-ref --verify --quiet refs/heads/$branch_name
+                echo (set_color cyan)"Deleting local branch: $branch_name"(set_color normal)
+
+                set -l has_commits 0
+                set -l upstream (git branch --list $branch_name --format='%(upstream:short)')
+                set -l upstream_commit ""
+                if test -n "$upstream"
+                    set upstream_commit (git rev-parse $upstream 2>/dev/null)
+                end
+
+                if test -n "$upstream_commit"
+                    set -l branch_commit (git rev-parse $branch_name 2>/dev/null)
+                    if test "$branch_commit" != "$upstream_commit"
+                        set has_commits 1
+                    end
+                else
+                    set -l main_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
+                    if test -z "$main_branch"
+                        set main_branch "master"
+                    end
+                    set -l merge_base (git merge-base $main_branch $branch_name 2>/dev/null)
+                    set -l branch_commit (git rev-parse $branch_name 2>/dev/null)
+                    if test "$merge_base" != "$branch_commit"
+                        set has_commits 1
+                    end
+                end
+
+                if test -n "$force_flag"
+                    git branch $force_flag $branch_name
+                else if test $has_commits -eq 0
+                    git branch -D $branch_name
+                else
+                    git branch -d $branch_name
+                end
+
+                if test $status -eq 0
+                    echo (set_color green)"✓ Local branch deleted successfully"(set_color normal)
+                else
+                    echo (set_color red)"✗ Failed to delete local branch"(set_color normal)
+                    echo (set_color yellow)"Tip: Use -f flag to force delete if the branch is not fully merged"(set_color normal)
+                    set overall_status 1
+                    continue
                 end
             else
-                set -l main_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
-                if test -z "$main_branch"
-                    set main_branch "master"
-                end
-                set -l merge_base (git merge-base $main_branch $branch_name 2>/dev/null)
-                set -l branch_commit (git rev-parse $branch_name 2>/dev/null)
-                if test "$merge_base" != "$branch_commit"
-                    set has_commits 1
-                end
+                echo (set_color yellow)"Warning: Local branch '$branch_name' does not exist"(set_color normal)
+            end
+        end
+
+        if test $branch_delete_remote -eq 1
+            set -l remote_exists 0
+            set -l tracking_exists 0
+
+            if git ls-remote --exit-code --heads origin $branch_name &>/dev/null
+                set remote_exists 1
             end
 
-            if test -n "$force_flag"
-                git branch $force_flag $branch_name
-            else if test $has_commits -eq 0
-                git branch -D $branch_name
-            else
-                git branch -d $branch_name
+            if git show-ref --verify --quiet refs/remotes/origin/$branch_name
+                set tracking_exists 1
             end
 
-            if test $status -eq 0
-                echo (set_color green)"✓ Local branch deleted successfully"(set_color normal)
-            else
-                echo (set_color red)"✗ Failed to delete local branch"(set_color normal)
-                echo (set_color yellow)"Tip: Use -f flag to force delete if the branch is not fully merged"(set_color normal)
-                return 1
+            if test $remote_exists -eq 1
+                echo (set_color cyan)"Deleting remote branch: origin/$branch_name"(set_color normal)
+                git push origin --delete $branch_name
+
+                if test $status -ne 0
+                    echo (set_color red)"✗ Failed to delete remote branch"(set_color normal)
+                    set overall_status 1
+                    continue
+                end
+                echo (set_color green)"✓ Remote branch deleted successfully"(set_color normal)
+            else if test $tracking_exists -eq 1
+                echo (set_color yellow)"Note: Remote branch 'origin/$branch_name' not found on server"(set_color normal)
             end
-        else
-            echo (set_color yellow)"Warning: Local branch '$branch_name' does not exist"(set_color normal)
+
+            # Prune to clean up any stale tracking references
+            if test $remote_exists -eq 1 -o $tracking_exists -eq 1
+                echo (set_color cyan)"Cleaning up stale tracking references"(set_color normal)
+                git fetch --prune --quiet 2>/dev/null
+                if test $status -eq 0
+                    echo (set_color green)"✓ Tracking references cleaned up"(set_color normal)
+                end
+            end
         end
     end
 
-    if test $delete_remote -eq 1
-        set -l remote_exists 0
-        set -l tracking_exists 0
-
-        if git ls-remote --exit-code --heads origin $branch_name &>/dev/null
-            set remote_exists 1
-        end
-
-        if git show-ref --verify --quiet refs/remotes/origin/$branch_name
-            set tracking_exists 1
-        end
-
-        if test $remote_exists -eq 1
-            echo (set_color cyan)"Deleting remote branch: origin/$branch_name"(set_color normal)
-            git push origin --delete $branch_name
-
-            if test $status -ne 0
-                echo (set_color red)"✗ Failed to delete remote branch"(set_color normal)
-                return 1
-            end
-            echo (set_color green)"✓ Remote branch deleted successfully"(set_color normal)
-        else if test $tracking_exists -eq 1
-            echo (set_color yellow)"Note: Remote branch 'origin/$branch_name' not found on server"(set_color normal)
-        end
-
-        # Prune to clean up any stale tracking references
-        if test $remote_exists -eq 1 -o $tracking_exists -eq 1
-            echo (set_color cyan)"Cleaning up stale tracking references"(set_color normal)
-            git fetch --prune --quiet 2>/dev/null
-            if test $status -eq 0
-                echo (set_color green)"✓ Tracking references cleaned up"(set_color normal)
-            end
-        end
-    end
+    return $overall_status
 end

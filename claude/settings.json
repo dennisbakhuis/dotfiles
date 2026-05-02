@@ -54,8 +54,11 @@
       "Bash(~/.local/bin/pass-cli inject *)",
       "Bash(awk 'NR>=35 && NR<=37 {printf \"[%s]\\\\n\", $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)",
       "Bash(tofu -chdir=infra validate)",
-      "Read(//Users/dennis/repos/website-voorvoet/**)"
+      "Read(//Users/dennis/repos/website-voorvoet/**)",
+      "Bash(awk 'NR>=35 && NR<=39 {printf \"[%s]\\\\n\", $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)",
+      "Bash(awk 'NR>=32 && NR<=40 {printf \"%d:%s$\\\\n\", NR, $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)"
     ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "/Users/dennis/repos/website-voorvoet"
     ]
@@ -81,7 +84,7 @@
     "github@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true
   },
-  "effortLevel": "max",
+  "skipDangerousModePermissionPrompt": true,
   "teammateMode": "tmux",
-  "skipDangerousModePermissionPrompt": true
+  "skipAutoPermissionPrompt": true
 }
