@@ -3,3 +3,5 @@
 fish/fish_variables
 fish/conf.d/uv.env.fish
 nvim/lazy-lock.json
+*.log
+tmux-*.log
