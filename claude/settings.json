@@ -56,7 +56,12 @@
       "Bash(tofu -chdir=infra validate)",
       "Read(//Users/dennis/repos/website-voorvoet/**)",
       "Bash(awk 'NR>=35 && NR<=39 {printf \"[%s]\\\\n\", $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)",
-      "Bash(awk 'NR>=32 && NR<=40 {printf \"%d:%s$\\\\n\", NR, $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)"
+      "Bash(awk 'NR>=32 && NR<=40 {printf \"%d:%s$\\\\n\", NR, $0}' /Users/dennis/repos/bakhuis_home_cluster/network_overview.md)",
+      "Bash(fastfetch --version)",
+      "Bash(awk 'NR==1 || NR==26' /Users/dennis/repos/voorvoet-website/.web/app/routes/_index.jsx)",
+      "Bash(awk 'NR==1 {print \"L1:\", $0; next} NR==54 || NR==55 {print \"L\"NR\":\", $0}' /Users/dennis/repos/voorvoet-website/.web/app/routes/_index.jsx)",
+      "Bash(awk 'BEGIN{maxlen=0; maxline=0} {if\\(length\\($0\\) > maxlen\\){maxlen=length\\($0\\); maxline=NR}} END{print \"Longest line:\", maxline, \"length:\", maxlen}' /Users/dennis/repos/voorvoet-website/.web/app/routes/_index.jsx)",
+      "Bash(gh auth *)"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
@@ -86,5 +91,6 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "teammateMode": "tmux",
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
