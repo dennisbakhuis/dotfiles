@@ -23,8 +23,8 @@ opacity = 0.95
 title = "Alacritty"
 dynamic_title = true
 
-[env]
-TERM = "screen-256color"
+# [env]
+# TERM = "screen-256color"
 
 ################
 # Key bindings #

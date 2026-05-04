@@ -27,16 +27,6 @@ end
 set --export BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
-# Fix for Cmd-V paste functionality
-if status is-interactive
-    # Define the paste function if it doesn't exist
-    function __fish_paste
-        set -l data (pbpaste)
-        if test -n "$data"
-            commandline -i -- $data
-        end
-    end
-end
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
@@ -45,4 +35,8 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH /Users/301651/.lmstudio/bin
 # End of LM Studio CLI section
+
+
+set --global fish_key_bindings fish_default_key_bindings
+fish_default_key_bindings
 
