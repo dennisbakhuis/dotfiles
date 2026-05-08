@@ -25,6 +25,10 @@ email = git@bakhuis.nu
 	insteadOf = git@ssh.dev.azure.com:v3/MCP-TenneT/
 [include]
 	path = ~/.gitconfig.local
+
+# Use Dinkellabs identity for any repo whose remote points at the github-dinkellabs SSH alias
+[includeIf "hasconfig:remote.*.url:git@github-dinkellabs:**"]
+	path = ~/dotfiles/git/gitconfig-dinkellabs
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

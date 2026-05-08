@@ -66,11 +66,15 @@
       "Bash(ping -c 2 forgejo.bakhuis.nu)",
       "Bash(fj --help)",
       "Bash(fj pr create --title 'fix: route forgejo SSH on :2222 through Traefik TCP proxy' --body ' *)",
-      "Bash(fj pr *)"
+      "Bash(fj pr *)",
+      "Bash(ls -la /Users/dennis/repos/dinkellabs-infra/ /Users/dennis/repos/dinkellabs-infra/scripts/ /Users/dennis/repos/dinkellabs-infra/infra/ 2>&1)",
+      "Read(//Users/dennis/repos/dinkellabs-infra/**)",
+      "Bash(chmod +x /Users/dennis/repos/dinkellabs-infra/scripts/scan_sensitive.py)"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
-      "/Users/dennis/repos/website-voorvoet"
+      "/Users/dennis/repos/website-voorvoet",
+      "/Users/dennis/repos/dinkellabs-infra"
     ]
   },
   "hooks": {
