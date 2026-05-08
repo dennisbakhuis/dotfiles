@@ -147,6 +147,10 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 0
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 
+# Disable two-finger swipe navigation (back/forward) in Safari and other apps
+# Lets you scroll horizontally without accidentally navigating away from the page
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
+
 
 #####################
 # Screenshots       #
