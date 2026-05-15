@@ -69,7 +69,18 @@
       "Bash(fj pr *)",
       "Bash(ls -la /Users/dennis/repos/dinkellabs-infra/ /Users/dennis/repos/dinkellabs-infra/scripts/ /Users/dennis/repos/dinkellabs-infra/infra/ 2>&1)",
       "Read(//Users/dennis/repos/dinkellabs-infra/**)",
-      "Bash(chmod +x /Users/dennis/repos/dinkellabs-infra/scripts/scan_sensitive.py)"
+      "Bash(chmod +x /Users/dennis/repos/dinkellabs-infra/scripts/scan_sensitive.py)",
+      "WebFetch(domain:letsencrypt.org)",
+      "WebFetch(domain:www.hetzner.com)",
+      "WebFetch(domain:go-acme.github.io)",
+      "Bash(ls -la /Users/dennis/.claude/projects/-Users-dennis-repos-dinkellabs-infra/ 2>&1; echo \"---\"; ls /Users/dennis/.claude/projects/ 2>&1 | head -20)",
+      "Read(//Users/dennis/.claude/projects/**)",
+      "Read(//Users/dennis/repos/voetlink-app/**)",
+      "Read(//Users/dennis/repos/voetlink-app/docs/**)",
+      "Read(//Users/dennis/repos/voetlink-app/backend/**)",
+      "Read(//Users/dennis/repos/voetlink-app/frontend/**)",
+      "WebFetch(domain:coolify.io)",
+      "WebFetch(domain:dokploy.com)"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [

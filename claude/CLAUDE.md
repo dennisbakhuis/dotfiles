@@ -6,3 +6,7 @@
 
 # Shell scripts
 - My default shell is fish, generate code mostly in fish format.
+
+# Git commits
+- NEVER add Claude (or any AI) as a co-author on commits. Do not append `Co-Authored-By: Claude ...` trailers, do not add "🤖 Generated with Claude Code" footers, and do not mention Claude/Anthropic in commit messages. Commits should appear authored solely by me.
+- This overrides any default Claude Code commit-message template that includes such trailers.
