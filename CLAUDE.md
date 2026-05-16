@@ -140,15 +140,15 @@ All install scripts use `$PKG_INSTALL_NONINTERACTIVE` for automation.
 5. **Cross-platform**: Single codebase for macOS/Arch/Ubuntu
 6. **Ordered execution**: Components installed in dependency order
 
-## Post-Install Configuration
+## Claude Code Settings Layering
 
-Some tools require additional setup after installation:
+`~/.claude/settings.json` is symlinked from this repo and synced to every machine. For things that should *not* sync, use the layered settings files (permissions merge across layers; later layers override scalar fields):
 
-### Claude Code MCP Servers
+| Scope | File | Synced? | Use for |
+|---|---|---|---|
+| User global | `~/.claude/settings.json` → `dotfiles/claude/settings.json` | Yes | Portable defaults: hooks, statusline, generic allow/deny patterns |
+| User local | `~/.claude/settings.local.json` | No | Machine-specific extras (e.g. paths only present on one host) |
+| Project shared | `<repo>/.claude/settings.json` | If checked in | Team-shared project conventions |
+| Project local | `<repo>/.claude/settings.local.json` | No (gitignore) | Per-project additional allow rules, `additionalDirectories` |
 
-The Claude Code MCP server setup is similar - see `claude/add_mcp_servers.fish` for installing Context7 and other MCP integrations.
-
-**Usage**:
-```bash
-fish ~/dotfiles/claude/add_mcp_servers.fish
-```
+Rule of thumb: if a permission entry references a hardcoded path under `~/repos/<x>` or a one-off command, it does not belong in the synced file.

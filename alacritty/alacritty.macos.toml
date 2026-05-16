@@ -23,8 +23,9 @@ opacity = 0.95
 title = "Alacritty"
 dynamic_title = true
 
-# [env]
+[env]
 # TERM = "screen-256color"
+SHELL = "/opt/homebrew/bin/fish"
 
 ################
 # Key bindings #
