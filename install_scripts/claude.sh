@@ -60,4 +60,20 @@ print_step "Linking CLAUDE.md to $CLAUDE_DIR/CLAUDE.md"
 ln -sf "$DOTFILES_ROOT/claude/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
 print_success "Linked CLAUDE.md"
 
+# Link skills directory
+if [ -e "$CLAUDE_DIR/skills" ] || [ -L "$CLAUDE_DIR/skills" ]; then
+    if [ ! -L "$CLAUDE_DIR/skills" ]; then
+        print_info "skills already exists (not a symlink)"
+        print_step "Backing up existing skills to skills.backup"
+        mv "$CLAUDE_DIR/skills" "$CLAUDE_DIR/skills.backup"
+    else
+        print_step "Removing existing skills symlink"
+        rm "$CLAUDE_DIR/skills"
+    fi
+fi
+
+print_step "Linking skills to $CLAUDE_DIR/skills"
+ln -sf "$DOTFILES_ROOT/claude/skills" "$CLAUDE_DIR/skills"
+print_success "Linked skills directory"
+
 print_success "Claude Code settings configured"
