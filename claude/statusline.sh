@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Claude Code status line — responsive single line
-# Degradation order: 7d bar → 5h bar → 7d → 5h → core only
-# Requires: jq
+# Degradation order: folder full → abbr → last → drop → 7d bar → 5h bar → 7d → 5h → core only
+# Requires: jq, git (optional)
 
 input=$(cat)
 
@@ -22,6 +22,9 @@ RL5_PCT=$(echo "$input"   | jq -r '.rate_limits.five_hour.used_percentage // 0' 
 RL5_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // 0')
 RL7_PCT=$(echo "$input"   | jq -r '.rate_limits.seven_day.used_percentage // 0'  | awk '{printf "%.0f", $1}')
 RL7_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // 0')
+
+CWD=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // empty')
+{ [ -z "$CWD" ] || [ "$CWD" = "null" ]; } && CWD="$PWD"
 
 # Normalize resets_at (Unix epoch int OR ISO 8601 string) to epoch seconds.
 # Returns empty string for zero/unparseable input.
@@ -54,6 +57,7 @@ RL5_TIME=$(fmt_reset "$RL5_RESET")
 RL7_TIME=$(fmt_reset_day "$RL7_RESET")
 
 c_grey='\e[2m'; c_yellow='\e[33m'; c_red='\e[31m'
+c_cyan='\e[1;36m'
 c_reset='\e[0m'
 
 color() {
@@ -81,6 +85,86 @@ make_bar() {
   [ $empty  -gt 0 ] && printf '░%.0s' $(seq 1 $empty)
 }
 
+GLYPH_GIT=$(printf '\xef\x90\x98')      # U+F418 nf-oct-git_branch
+GLYPH_FOLDER=$(printf '\xef\x81\xbb')   # U+F07B nf-fa-folder
+
+FOLDER_GLYPH=""
+FOLDER_FULL=""
+
+set_folder_segment() {
+  local cwd=$1 repo_root repo_name rel
+  repo_root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null)
+  if [ -n "$repo_root" ]; then
+    FOLDER_GLYPH="$GLYPH_GIT"
+    repo_name=$(basename "$repo_root")
+    if [ "$cwd" = "$repo_root" ]; then
+      FOLDER_FULL="$repo_name"
+    else
+      rel="${cwd#$repo_root/}"
+      FOLDER_FULL="${repo_name}/${rel}"
+    fi
+    return
+  fi
+  FOLDER_GLYPH="$GLYPH_FOLDER"
+  if [ "$cwd" = "$HOME" ]; then
+    FOLDER_FULL="~"
+  elif [ "${cwd#$HOME/}" != "$cwd" ]; then
+    FOLDER_FULL="~/${cwd#$HOME/}"
+  else
+    FOLDER_FULL="$cwd"
+  fi
+}
+
+abbreviate_path() {
+  local path=$1 mode=$2
+  case "$mode" in
+    full) echo "$path"; return ;;
+    none) echo ""; return ;;
+  esac
+
+  local prefix=""
+  if [ "${path:0:1}" = "/" ]; then
+    prefix="/"
+    path="${path#/}"
+  fi
+
+  local IFS='/'
+  local -a parts
+  read -ra parts <<< "$path"
+  local n=${#parts[@]}
+
+  if [ "$mode" = "last" ]; then
+    if [ "$n" -le 1 ]; then
+      echo "${prefix}${path}"
+    else
+      echo "${parts[$((n-1))]}"
+    fi
+    return
+  fi
+
+  # abbr: keep first + last components in full, collapse middle to first char
+  if [ "$n" -le 2 ]; then
+    echo "${prefix}${path}"
+    return
+  fi
+
+  local result="${prefix}${parts[0]}"
+  local i p first_char
+  for (( i=1; i<n-1; i++ )); do
+    p="${parts[$i]}"
+    first_char="${p:0:1}"
+    if [ "$first_char" = "." ] && [ "${#p}" -gt 1 ]; then
+      result="${result}/.${p:1:1}"
+    else
+      result="${result}/${first_char}"
+    fi
+  done
+  result="${result}/${parts[$((n-1))]}"
+  echo "$result"
+}
+
+set_folder_segment "$CWD"
+
 COLS=$(stty size </dev/tty 2>/dev/null | awk '{print $2}')
 [ -z "$COLS" ] && COLS=$(tput cols 2>/dev/null || echo 80)
 COLS=$(( COLS - 30 ))  # reserve space for right-aligned tips
@@ -97,24 +181,35 @@ TXT_7D="  7d: ${RL7_PCT}% (↺${RL7_TIME})"
 # Extra chars per bar slot: " " before bar + " " after = 2
 BAR_PADDING=2
 
-# Degradation states — (5h_mode 7d_mode), first to last resort
+# Degradation states — (folder_mode 5h_mode 7d_mode), first to last resort
+# Folder degrades first to preserve rate-limit bars at narrow widths.
 STATES=(
-  "bar bar"
-  "bar text"
-  "text text"
-  "text none"
-  "none none"
+  "full bar bar"
+  "abbr bar bar"
+  "last bar bar"
+  "none bar bar"
+  "none bar text"
+  "none text text"
+  "none text none"
+  "none none none"
 )
 
-MODE5H="none"; MODE7D="none"; BAR_W=$MIN_BAR
+MODEFD="none"; MODE5H="none"; MODE7D="none"; BAR_W=$MIN_BAR
+FOLDER_TXT=""
 
 for state in "${STATES[@]}"; do
-  m5=${state%% *}; m7=${state##* }
+  read -r mf m5 m7 <<< "$state"
 
   # Count bars and text-only width for this state
   num_bars=1  # context bar is always present
   text_w=${#TXT_CORE}
   text_w=$(( text_w + BAR_PADDING ))  # context bar padding
+
+  folder_txt=$(abbreviate_path "$FOLDER_FULL" "$mf")
+  if [ -n "$folder_txt" ]; then
+    # glyph + space + path + 2-space separator before model
+    text_w=$(( text_w + ${#FOLDER_GLYPH} + 1 + ${#folder_txt} + 2 ))
+  fi
 
   if [ "$m5" = "bar" ]; then
     num_bars=$(( num_bars + 1 ))
@@ -136,12 +231,14 @@ for state in "${STATES[@]}"; do
 
   if [ "$bar_w" -ge "$MIN_BAR" ]; then
     BAR_W=$(( bar_w > MAX_BAR ? MAX_BAR : bar_w ))
-    MODE5H="$m5"; MODE7D="$m7"
+    MODEFD="$mf"; MODE5H="$m5"; MODE7D="$m7"
+    FOLDER_TXT="$folder_txt"
     break
   fi
 done
 
 # --- Output ---
+[ -n "$FOLDER_TXT" ] && printf "${c_cyan}%s %s${c_reset}  " "$FOLDER_GLYPH" "$FOLDER_TXT"
 printf "$(color $PCT)%s %s${c_reset} %s/%s (%s%%) " \
   "$MODEL" "$(make_bar $PCT $BAR_W)" "$USED_H" "$TOTAL_H" "$PCT"
 printf "${c_grey}€%s${c_reset}" "$COST"
