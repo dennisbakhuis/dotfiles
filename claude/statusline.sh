@@ -91,27 +91,14 @@ GLYPH_FOLDER=$(printf '\xef\x81\xbb')   # U+F07B nf-fa-folder
 FOLDER_GLYPH=""
 FOLDER_FULL=""
 
+FOLDER_HELPER="$HOME/dotfiles/scripts/folder-name.sh"
+
 set_folder_segment() {
-  local cwd=$1 repo_root repo_name rel
-  repo_root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null)
-  if [ -n "$repo_root" ]; then
+  local cwd=$1
+  if FOLDER_FULL=$("$FOLDER_HELPER" --full "$cwd"); then
     FOLDER_GLYPH="$GLYPH_GIT"
-    repo_name=$(basename "$repo_root")
-    if [ "$cwd" = "$repo_root" ]; then
-      FOLDER_FULL="$repo_name"
-    else
-      rel="${cwd#$repo_root/}"
-      FOLDER_FULL="${repo_name}/${rel}"
-    fi
-    return
-  fi
-  FOLDER_GLYPH="$GLYPH_FOLDER"
-  if [ "$cwd" = "$HOME" ]; then
-    FOLDER_FULL="~"
-  elif [ "${cwd#$HOME/}" != "$cwd" ]; then
-    FOLDER_FULL="~/${cwd#$HOME/}"
   else
-    FOLDER_FULL="$cwd"
+    FOLDER_GLYPH="$GLYPH_FOLDER"
   fi
 }
 
@@ -165,8 +152,24 @@ abbreviate_path() {
 
 set_folder_segment "$CWD"
 
-COLS=$(stty size </dev/tty 2>/dev/null | awk '{print $2}')
-[ -z "$COLS" ] && COLS=$(tput cols 2>/dev/null || echo 80)
+# Width detection: stdin/stdout aren't a TTY when Claude Code spawns this
+# script, so /dev/tty fails. Walk up the process tree to find an ancestor
+# attached to a real TTY (the terminal Claude Code itself runs in).
+COLS=""
+[ -n "$COLUMNS" ] && COLS="$COLUMNS"
+[ -z "$COLS" ] && COLS=$({ stty size </dev/tty | awk '{print $2}'; } 2>/dev/null)
+if [ -z "$COLS" ]; then
+  pid=$$
+  for _ in 1 2 3 4 5; do
+    pid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
+    [ -z "$pid" ] || [ "$pid" = "0" ] && break
+    tty=$(ps -o tty= -p "$pid" 2>/dev/null | tr -d ' ')
+    [ -z "$tty" ] || [ "$tty" = "??" ] && continue
+    COLS=$(stty size <"/dev/$tty" 2>/dev/null | awk '{print $2}')
+    [ -n "$COLS" ] && break
+  done
+fi
+[ -z "$COLS" ] && COLS=$(tput cols 2>/dev/null || echo 200)
 COLS=$(( COLS - 30 ))  # reserve space for right-aligned tips
 MIN_BAR=8       # minimum bar width
 MAX_BAR=30      # maximum bar width
