@@ -6,14 +6,9 @@ print_header "Claude Code"
 
 # Install the `claude` CLI if missing
 if [ ! -x "$(command -v claude)" ]; then
-    if [ "$OS_TYPE" = "macos" ]; then
-        print_step "Installing Claude Code via Homebrew cask"
-        brew install --cask claude-code
-    else
-        print_step "Installing Claude Code via native installer"
-        curl -fsSL https://claude.ai/install.sh | bash
-        export PATH="$HOME/.local/bin:$PATH"
-    fi
+    print_step "Installing Claude Code via native installer"
+    curl -fsSL https://claude.ai/install.sh | bash
+    export PATH="$HOME/.local/bin:$PATH"
     print_success "Claude Code installed"
 else
     print_info "Claude Code is already installed"

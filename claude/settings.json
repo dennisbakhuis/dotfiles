@@ -4,10 +4,8 @@
     "CLAUDE_CODE_NO_FLICKER": "1"
   },
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "WebSearch",
-
       "Bash(ls:*)",
       "Bash(grep:*)",
       "Bash(find:*)",
@@ -19,13 +17,11 @@
       "Bash(lsof:*)",
       "Bash(ps:*)",
       "Bash(kill:*)",
-
       "Bash(git:*)",
       "Bash(gh auth *)",
       "Bash(gh pr *)",
       "Bash(fj --help)",
       "Bash(fj pr *)",
-
       "Bash(uv:*)",
       "Bash(npm:*)",
       "Bash(npx:*)",
@@ -38,7 +34,6 @@
       "Bash(tofu fmt *)",
       "Bash(tofu init *)",
       "Bash(tofu validate *)",
-
       "Bash(brew list:*)",
       "Bash(cwebp:*)",
       "Bash(avifenc:*)",
@@ -46,13 +41,10 @@
       "Bash(tmux -V)",
       "Bash(tmux show-options *)",
       "Bash(fish:*)",
-
       "Bash(~/.local/bin/pass-cli run *)",
       "Bash(~/.local/bin/pass-cli inject *)",
-
       "Read(//tmp/**)",
       "Read(//private/tmp/**)",
-
       "WebFetch(domain:docs.claude.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
@@ -76,7 +68,8 @@
       "Bash(git clean -fx*)",
       "Read(//Users/*/.ssh/**)",
       "Read(//home/*/.ssh/**)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "hooks": {
     "Notification": [
