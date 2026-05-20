@@ -21,8 +21,8 @@ alias aliases='aliases_info'  # Show aliases and key bindings
 #######
 if command -v git &>/dev/null
     alias g='git'
-    alias ga='git add'
-    alias gc='git commit'
+    abbr -a ga 'git add'
+    abbr -a gc --set-cursor=% -- 'git commit -m "%"'
     alias gs='git status'
     alias gb='git_branches'  # Show branches with merge status and activity
     alias gbd='git_branch_delete'  # Delete local and/or remote branches
