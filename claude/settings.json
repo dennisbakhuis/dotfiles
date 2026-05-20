@@ -89,7 +89,6 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "github@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true
   },
   "effortLevel": "xhigh",

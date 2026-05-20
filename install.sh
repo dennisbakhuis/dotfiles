@@ -160,6 +160,7 @@ fi
 # Components #
 ##############
 source $MAIN_INSTALL_SCRIPTS/homebrew.sh        # 1-MAC: Homebrew (package manager)
+source $MAIN_INSTALL_SCRIPTS/locale.sh          # 1b-UBUNTU: generate en_US/nl_NL UTF-8 locales
 source $MAIN_INSTALL_SCRIPTS/git.sh             # 2-BOTH: Git (version control)
 source $MAIN_INSTALL_SCRIPTS/fish.sh            # 3-BOTH: Fish (shell)
 source $MAIN_INSTALL_SCRIPTS/fzf.sh             # 4-BOTH: Fzf (fuzzy finder and friends)
