@@ -3,6 +3,12 @@
 # Degradation order: folder full → abbr → last → drop → 7d bar → 5h bar → 7d → 5h → core only
 # Requires: jq, git (optional)
 
+# Force C numeric locale so awk parses the API's dot-decimal values (e.g.
+# total_cost_usd "0.87") correctly. Under nl_NL.UTF-8, awk treats "," as the
+# decimal separator and silently truncates "0.87" to 0 → cost stuck at €0,00.
+# LC_TIME is left untouched so day names follow the user's locale.
+export LC_NUMERIC=C
+
 input=$(cat)
 
 MODEL=$(echo "$input"  | jq -r '.model.display_name // "unknown"')
