@@ -71,4 +71,16 @@ print_step "Linking skills to $CLAUDE_DIR/skills"
 ln -sf "$DOTFILES_ROOT/claude/skills" "$CLAUDE_DIR/skills"
 print_success "Linked skills directory"
 
+# Claude plugins are declared in settings.json (extraKnownMarketplaces +
+# enabledPlugins); install them eagerly so hooks work on the first session
+if command -v claude >/dev/null 2>&1; then
+    print_step "Installing tmux-agent-sidebar Claude plugin"
+    claude plugin marketplace add hiroppy/tmux-agent-sidebar >/dev/null 2>&1 || true
+    if claude plugin install tmux-agent-sidebar@hiroppy >/dev/null 2>&1; then
+        print_success "tmux-agent-sidebar plugin installed"
+    else
+        print_info "tmux-agent-sidebar plugin will be installed on next Claude start"
+    fi
+fi
+
 print_success "Claude Code settings configured"

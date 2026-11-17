@@ -77,7 +77,7 @@ On macOS, Stage 2 (GUI applications) installs automatically when you run the ins
 - **Neovim** with Node.js, npm, and cmake
 - **fzf** with ripgrep, bat, and fd
 - **Git** configuration
-- **tmux** terminal multiplexer
+- **tmux** terminal multiplexer (TPM plugins installed automatically, incl. tmux-agent-sidebar)
 - **SSH** configuration
 - **Neofetch/Fastfetch** (system info, displayed on login shells only)
 - **uv** - Fast Python package and project manager
@@ -121,6 +121,49 @@ Fish is configured with Starship prompt, zoxide for smart navigation, and extens
   - `aliases` - Show all aliases and keybindings
   - `ve` / `ved` - Enter/exit Python virtual environment (uses uv)
   - `ls` → `lsd` with icons and colors
+
+## tmux
+
+Config lives in `tmux/tmux.conf`; plugins are managed by [TPM](https://github.com/tmux-plugins/tpm).
+`install_scripts/tmux.sh` installs TPM and all declared plugins headlessly, so `prefix + I` is not needed on a fresh machine.
+
+### Layout and theme
+- One session (`scratch`, started by Alacritty); one window per project.
+- Status bar on top, always visible: `❯_` (turns into an amber `^B` badge while the prefix is active), the window list, agents waiting for input, host when over SSH, date and clock.
+- Each window tab shows the state of the agents inside it: `●` running, `◐` waiting for you, `○` idle, `✕` error.
+- Deep-sea navy theme shared with Alacritty (`#001728` background, cyan `#0db9d7` accent, green running, amber waiting, red error). The palette is listed at the top of the theme block in `tmux/tmux.conf`.
+
+### Keys (prefix `Ctrl-b`)
+- `Tab` - throwaway shell popup in the current folder
+- `g` - gitui popup
+- `t` - directory tree popup (`q` closes)
+- `e` / `E` - agent sidebar in this window / all windows
+- `Backspace` - last window
+- `|` / `-` - split, `h/j/k/l` - move between panes, `H/J/K/L` - resize
+- `r` - reload config
+
+### Plugins
+- **tmux-sensible** - sane defaults
+- **tmux-agent-sidebar** - live overview of all Claude Code (and Codex/OpenCode) sessions across every tmux session and window
+
+### Agent sidebar (tmux-agent-sidebar)
+Two parts that work together:
+1. **tmux plugin** (`~/.tmux/plugins/tmux-agent-sidebar`) - a Rust TUI shown as a left pane (18% wide), opened on demand (`@sidebar_auto_create off`). It also stores each pane's agent state in `@pane_status`, which the window tabs and the status bar read. It lists each agent pane with its status (running / waiting for permission / done / error), last prompt and response, background shells and subagent tree, and fires desktop notifications when an agent finishes or needs input.
+2. **Claude Code plugin** (`tmux-agent-sidebar@hiroppy`) - hooks (SessionStart, UserPromptSubmit, Notification, Stop, ...) that call `hook.sh`, which forwards each event to the binary so the sidebar knows each session's state.
+
+Keys:
+- `prefix e` - toggle the sidebar in the current window
+- `prefix E` - toggle it in all windows
+
+Tune with `@sidebar_width`, `@sidebar_position`, `@sidebar_auto_create` (set to `on` to open it in every new window) etc., set before TPM loads.
+
+How it is installed on every machine:
+- `tmux/tmux.conf` declares `set -g @plugin 'hiroppy/tmux-agent-sidebar'`.
+- `install_scripts/tmux.sh` runs TPM's `install_plugins` and downloads the prebuilt binary (`install-wizard.sh download-binary`), skipping the interactive in-tmux wizard.
+- `claude/settings.json` declares the `hiroppy` marketplace (`extraKnownMarketplaces`) and enables the plugin (`enabledPlugins`); `install_scripts/claude.sh` also installs it eagerly via `claude plugin install`.
+- After a plugin update TPM pulls a new version; on the next tmux reload the plugin notices the binary version mismatch and offers to re-download.
+
+On an existing machine just pull and re-run `./install.sh` (or `bash install_scripts/tmux.sh` + `bash install_scripts/claude.sh`), then restart Claude sessions so the hooks load.
 
 ## Configuration Structure
 

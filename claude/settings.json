@@ -12,7 +12,6 @@
       "Bash(wc:*)",
       "Bash(cp:*)",
       "Bash(curl:*)",
-      "Bash(command -v:*)",
       "Bash(lsof:*)",
       "Bash(ps:*)",
       "Bash(kill:*)",
@@ -52,7 +51,6 @@
       "Bash(pnpm:*)",
       "Bash(uvx:*)",
       "Bash(gh repo *)",
-      "Agent",
       "Read(//Users/dennis/repos/**)",
       "Edit(//Users/dennis/repos/**)",
       "Write(//Users/dennis/repos/**)"
@@ -74,7 +72,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "fable",
   "hooks": {
     "Notification": [
       {
@@ -94,7 +92,16 @@
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
-    "cc-plugin-you-should-know@builtin": true
+    "cc-plugin-you-should-know@builtin": true,
+    "tmux-agent-sidebar@hiroppy": true
+  },
+  "extraKnownMarketplaces": {
+    "hiroppy": {
+      "source": {
+        "source": "github",
+        "repo": "hiroppy/tmux-agent-sidebar"
+      }
+    }
   },
   "modelSettings": {
     "claude-opus-5-5": {
@@ -112,8 +119,8 @@
   "skipDangerousModePermissionPrompt": true,
   "skipWorkflowUsageWarning": true,
   "theme": "dark",
+  "switchModelsOnFlag": true,
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "switchModelsOnFlag": true
+  "skipAutoPermissionPrompt": true
 }
