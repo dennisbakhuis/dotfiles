@@ -173,6 +173,7 @@ source $MAIN_INSTALL_SCRIPTS/python_uv.sh       # 10-BOTH: uv (Python package ma
 source $MAIN_INSTALL_SCRIPTS/isomorphic_copy.sh # 11-BOTH: isomorphic_copy (clipboard over SSH)
 source $MAIN_INSTALL_SCRIPTS/htop.sh            # 12-BOTH: htop (interactive process viewer)
 source $MAIN_INSTALL_SCRIPTS/claude.sh          # 13-BOTH: Claude Code (AI coding assistant)
+source $MAIN_INSTALL_SCRIPTS/gitui.sh           # 14-BOTH: gitui (terminal UI for git, tmux prefix g)
 
 # Apply macOS defaults if on macOS
 if [ "$OS_TYPE" = "macos" ]; then

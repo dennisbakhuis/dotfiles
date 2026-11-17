@@ -82,6 +82,84 @@
             "command": "[ -f ~/.claude-chime ] && afplay /System/Library/Sounds/Glass.aiff"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh notify"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh start"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh prompt"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh tool"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh tool"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh stop"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh error"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/dotfiles/scripts/claude-tmux-status.sh end"
+          }
+        ]
       }
     ]
   },
@@ -92,16 +170,7 @@
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
-    "cc-plugin-you-should-know@builtin": true,
-    "tmux-agent-sidebar@hiroppy": true
-  },
-  "extraKnownMarketplaces": {
-    "hiroppy": {
-      "source": {
-        "source": "github",
-        "repo": "hiroppy/tmux-agent-sidebar"
-      }
-    }
+    "cc-plugin-you-should-know@builtin": true
   },
   "modelSettings": {
     "claude-opus-5-5": {

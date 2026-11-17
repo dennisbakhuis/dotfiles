@@ -55,13 +55,3 @@ fi
 # Install all plugins declared in tmux.conf without needing `prefix + I`
 printf " *** Installing tmux plugins via TPM...\n"
 "$HOME/.tmux/plugins/tpm/bin/install_plugins" || printf " *** WARNING: TPM plugin install failed, run 'prefix + I' in tmux.\n"
-
-# tmux-agent-sidebar needs a prebuilt binary; fetch it non-interactively so the
-# in-tmux setup wizard never pops up on a fresh machine
-AGENT_SIDEBAR_DIR="$HOME/.tmux/plugins/tmux-agent-sidebar"
-if [ -d "$AGENT_SIDEBAR_DIR" ] && [ ! -x "$AGENT_SIDEBAR_DIR/bin/tmux-agent-sidebar" ]; then
-    printf " *** Downloading tmux-agent-sidebar binary...\n"
-    bash "$AGENT_SIDEBAR_DIR/install-wizard.sh" download-binary </dev/null || printf " *** WARNING: tmux-agent-sidebar binary download failed.\n"
-else
-    printf " *** tmux-agent-sidebar binary already present (or plugin missing).\n"
-fi
