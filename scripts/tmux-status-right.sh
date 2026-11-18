@@ -11,6 +11,7 @@ tmux list-panes -a -F '#{pane_id} #{pane_current_command} #{@pane_status}' 2>/de
             fish|bash|zsh|sh|dash)
                 tmux set -pu -t "$pane" @pane_status
                 tmux set -pu -t "$pane" @pane_wait_reason
+                tmux set -pu -t "$pane" @pane_agent
                 ;;
         esac
     done

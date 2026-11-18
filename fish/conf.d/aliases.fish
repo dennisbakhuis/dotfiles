@@ -100,6 +100,13 @@ if command -v claude &>/dev/null
 end
 
 ############
+# OpenCode #
+############
+if command -v opencode &>/dev/null
+    alias oc='opencode --auto'  # OpenCode, auto-approving everything not explicitly denied
+end
+
+############
 # ZeroClaw #
 ############
 if command -v zeroclaw &>/dev/null

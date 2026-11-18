@@ -11,7 +11,11 @@
 #   error                  -> error
 #   end                    -> clear
 #
-# Pane options written: @pane_status, @pane_wait_reason.
+# Other agents reuse this script by setting TMUX_AGENT (the opencode plugin in
+# opencode/plugins/tmux-status sets TMUX_AGENT=opencode); tmux puts a dim "o" in
+# front of the mark of any pane whose @pane_agent is opencode.
+#
+# Pane options written: @pane_status, @pane_wait_reason, @pane_agent.
 # Always exits 0 so a tmux hiccup can never block Claude.
 
 command -v tmux >/dev/null 2>&1 || exit 0
@@ -48,6 +52,7 @@ being_watched() {
 
 set_state() {
     tmux set -p -t "$TMUX_PANE" @pane_status "$1" 2>/dev/null
+    tmux set -p -t "$TMUX_PANE" @pane_agent "${TMUX_AGENT:-claude}" 2>/dev/null
     if [ -n "$2" ]; then
         tmux set -p -t "$TMUX_PANE" @pane_wait_reason "$2" 2>/dev/null
     else
@@ -69,6 +74,7 @@ case "$1" in
     end)
         tmux set -pu -t "$TMUX_PANE" @pane_status 2>/dev/null
         tmux set -pu -t "$TMUX_PANE" @pane_wait_reason 2>/dev/null
+        tmux set -pu -t "$TMUX_PANE" @pane_agent 2>/dev/null
         ;;
 esac
 
